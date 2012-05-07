@@ -11,7 +11,6 @@ Stable tag: 0.1
 A Chrome-less Youtube® video player that let you play any YouTube® video as background of your WordPress® page or post.
 You can activate it for your home page from the settings panel or on any post or page using the short code as described in the Reference section of the settings.
 
-
 == Installation ==
 
 Extract the zip file and upload the contents to the wp-content/plugins/ directory of your WordPress installation, and then activate the plugin from the plugins page.
