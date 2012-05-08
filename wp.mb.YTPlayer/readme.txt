@@ -18,11 +18,14 @@ You can activate it for your home page from the settings panel or on any post or
 * pupunzi blog: http://pupunzi.open-lab.com
 * pupunzi site: http://pupunzi.com
 
+
+[youtube http://www.youtube.com/watch?v=j47NH-tGl2A]
+
+
 == Installation ==
 
 Extract the zip file and upload the contents to the wp-content/plugins/ directory of your WordPress installation, and then activate the plugin from the plugins page.
 
-[youtube http://www.youtube.com/watch?v=j47NH-tGl2A]
 
 
 == To set your homepage background video: ==
