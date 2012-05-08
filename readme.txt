@@ -22,6 +22,8 @@ pupunzi site: http://pupunzi.com
 
 Extract the zip file and upload the contents to the wp-content/plugins/ directory of your WordPress installation, and then activate the plugin from the plugins page.
 
+[youtube=http://www.youtube.com/watch?v=j47NH-tGl2A]
+
 
 == To set your homepage background video: ==
 
@@ -44,8 +46,6 @@ You should write the below shortcode into the content of your post or page:
 * @ loop = a boolean to loop the video on its end
 * @ showcontrols = a boolean to show or hide controls and progression of the video
 * @ opacity = a value from 0 to 1 that set the opacity of the background video
-
-[youtube=http://www.youtube.com/watch?v=j47NH-tGl2A]
 
 == Changelog ==
 
