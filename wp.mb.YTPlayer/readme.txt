@@ -36,12 +36,12 @@ You should write the below shortcode into the content of your post or page:
 
 [mbYTPlayer url="http://www.youtube.com/watch?v=V2rifmjZuKQ" ratio="4/3" mute="false" loop="true" showcontrols="true" opacity=1]
 
-@ url = the YT url of the video you want as background
-@ ratio = the aspect ratio of the video 4/3 or 16/9
-@ mute = a boolean to mute the video
-@ loop = a boolean to loop the video on its end
-@ showcontrols = a boolean to show or hide controls and progression of the video
-@ opacity = a value from 0 to 1 that set the opacity of the background video
+* @ url = the YT url of the video you want as background
+* @ ratio = the aspect ratio of the video 4/3 or 16/9
+* @ mute = a boolean to mute the video
+* @ loop = a boolean to loop the video on its end
+* @ showcontrols = a boolean to show or hide controls and progression of the video
+* @ opacity = a value from 0 to 1 that set the opacity of the background video
 
 
 
