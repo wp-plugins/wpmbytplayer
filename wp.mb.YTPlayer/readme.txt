@@ -15,6 +15,8 @@ A Chrome-less Youtube® video player that let you play any YouTube® video as ba
 You can activate it for your home page from the settings panel or on any post or page using the short code as described in the Reference section of the settings.
 
 demo: http://pupunzi.com/mb.components/mb.YTPlayer/demo/demo_background.html
+pupunzi blog: http://pupunzi.open-lab.com
+pupunzi site: http://pupunzi.com
 
 == Installation ==
 
@@ -42,8 +44,6 @@ You should write the below shortcode into the content of your post or page:
 * @ loop = a boolean to loop the video on its end
 * @ showcontrols = a boolean to show or hide controls and progression of the video
 * @ opacity = a value from 0 to 1 that set the opacity of the background video
-
-
 
 
 
