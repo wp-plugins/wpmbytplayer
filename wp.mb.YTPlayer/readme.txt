@@ -1,10 +1,13 @@
-=== mb.YTPlayer, play any Youtube video as background of your page ===
+=== mb.YTPlayer background videos ===
 
 Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: 0.1
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
+
+Play any Youtube video as background of your page.
 
 == Description ==
 
