@@ -14,15 +14,15 @@ Play any Youtube video as background of your page.
 A Chrome-less Youtube® video player that let you play any YouTube® video as background of your WordPress® page or post.
 You can activate it for your home page from the settings panel or on any post or page using the short code as described in the Reference section of the settings.
 
-demo: http://pupunzi.com/mb.components/mb.YTPlayer/demo/demo_background.html
-pupunzi blog: http://pupunzi.open-lab.com
-pupunzi site: http://pupunzi.com
+* demo: http://pupunzi.com/mb.components/mb.YTPlayer/demo/demo_background.html
+* pupunzi blog: http://pupunzi.open-lab.com
+* pupunzi site: http://pupunzi.com
 
 == Installation ==
 
 Extract the zip file and upload the contents to the wp-content/plugins/ directory of your WordPress installation, and then activate the plugin from the plugins page.
 
-[youtube=http://www.youtube.com/watch?v=j47NH-tGl2A]
+[youtube http://www.youtube.com/watch?v=j47NH-tGl2A]
 
 
 == To set your homepage background video: ==
