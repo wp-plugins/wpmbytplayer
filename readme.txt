@@ -1,10 +1,13 @@
-=== mb.YTPlayer, play any Youtube video as background of your page ===
+=== mb.YTPlayer background videos ===
 
 Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: 0.1
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
+
+Play any Youtube video as background of your page.
 
 == Description ==
 
@@ -33,12 +36,12 @@ You should write the below shortcode into the content of your post or page:
 
 [mbYTPlayer url="http://www.youtube.com/watch?v=V2rifmjZuKQ" ratio="4/3" mute="false" loop="true" showcontrols="true" opacity=1]
 
-@ url = the YT url of the video you want as background
-@ ratio = the aspect ratio of the video 4/3 or 16/9
-@ mute = a boolean to mute the video
-@ loop = a boolean to loop the video on its end
-@ showcontrols = a boolean to show or hide controls and progression of the video
-@ opacity = a value from 0 to 1 that set the opacity of the background video
+* @ url = the YT url of the video you want as background
+* @ ratio = the aspect ratio of the video 4/3 or 16/9
+* @ mute = a boolean to mute the video
+* @ loop = a boolean to loop the video on its end
+* @ showcontrols = a boolean to show or hide controls and progression of the video
+* @ opacity = a value from 0 to 1 that set the opacity of the background video
 
 
 
