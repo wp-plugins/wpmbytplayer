@@ -419,6 +419,11 @@
 function onYouTubePlayerReady(playerId) {
   var player=jQuery("#"+playerId);
   player.mb_setMovie();
+
+  jQuery(document).bind("mousedown",function(e){
+    if(e.target.tagName.toLowerCase() == "a")
+      player.pauseYTP();
+  });
 }
 
 function playerState(state, el) {
