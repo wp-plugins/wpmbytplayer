@@ -1,4 +1,4 @@
-=== mb.YTPlayer background videos ===
+=== mb.YTPlayer for background videos ===
 
 Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
