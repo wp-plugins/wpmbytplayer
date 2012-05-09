@@ -37,7 +37,6 @@ if (empty($mbYTPlayer_ratio)) {$mbYTPlayer_ratio = "16/9";}
 if (empty($mbYTPlayer_loop)) {$mbYTPlayer_loop = "false";}
 if (empty($mbYTPlayer_opacity)) {$mbYTPlayer_opacity = "1";}
 
-
 //action link http://www.wpmods.com/adding-plugin-action-links
 
 function mbYTPlayer_action_links($links, $file) {

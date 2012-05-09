@@ -419,6 +419,7 @@
 function onYouTubePlayerReady(playerId) {
   var player=jQuery("#"+playerId);
   player.mb_setMovie();
+
 }
 
 function playerState(state, el) {
