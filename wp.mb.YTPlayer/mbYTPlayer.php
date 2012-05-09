@@ -12,6 +12,39 @@ define("MBYTPLAYER_VERSION", "0.3");
 
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
+
+function isMobile() {
+
+// Check the server headers to see if they're mobile friendly
+    if(isset($_SERVER["HTTP_X_WAP_PROFILE"])) {
+        return true;
+    }
+
+// If the http_accept header supports wap then it's a mobile too
+    if(preg_match("/wap.|.wap/i",$_SERVER["HTTP_ACCEPT"])) {
+        return true;
+    }
+
+// Still no luck? Let's have a look at the user agent on the browser. If it contains
+// any of the following, it's probably a mobile device. Kappow!
+    if(isset($_SERVER["HTTP_USER_AGENT"])){
+        $user_agents = array("midp", "j2me", "avantg", "docomo", "novarra", "palmos", "palmsource", "240x320", "opwv", "chtml", "pda", "windows ce", "mmp/", "blackberry", "mib/", "symbian", "wireless", "nokia", "hand", "mobi", "phone", "cdm", "up.b", "audio", "SIE-", "SEC-", "samsung", "HTC", "mot-", "mitsu", "sagem", "sony", "alcatel", "lg", "erics", "vx", "NEC", "philips", "mmm", "xx", "panasonic", "sharp", "wap", "sch", "rover", "pocket", "benq", "java", "pt", "pg", "vox", "amoi", "bird", "compal", "kg", "voda", "sany", "kdd", "dbt", "sendo", "sgh", "gradi", "jb", "dddi", "moto");
+        foreach($user_agents as $user_string){
+            if(preg_match("/".$user_string."/i",$_SERVER["HTTP_USER_AGENT"])) {
+                return true;
+            }
+        }
+    }
+
+// Let's NOT return "mobile" if it's an iPhone, because the iPhone can render normal pages quite well.
+    if(preg_match("/iphone/i",$_SERVER["HTTP_USER_AGENT"])) {
+        return false;
+    }
+
+// None of the above? Then it's probably not a mobile device.
+    return false;
+}
+
 function mbYTPlayer_install() {
 // add and update our default options upon activation
     update_option('mbYTPlayer_version', MBYTPLAYER_VERSION);
@@ -95,7 +128,7 @@ function mbYTPlayer_player_shortcode($atts) {
 // scripts to go in the header and/or footer
 function mbYTPlayer_init() {
     global $mbYTPlayer_version;
-    if ( !is_admin()) {
+    if ( !is_admin() && !isMobile()) {
         wp_enqueue_script('jquery');
         wp_enqueue_script('metadata', plugins_url( '/js/jquery.metadata.js', __FILE__ ), false, '1.2', false);
         wp_enqueue_script('swfobject', plugins_url( '/js/swfobject.js', __FILE__ ), false, '1.2', false);
@@ -108,6 +141,9 @@ add_action('init', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head() {
     global $mbYTPlayer_home_video_url,$mbYTPlayer_show_controls,$mbYTPlayer_mute,$mbYTPlayer_ratio,$mbYTPlayer_loop,$mbYTPlayer_opacity;
+
+    if(isMobile())
+        return false;
 
     echo '
 	<!-- mbYTPlayer -->
@@ -127,7 +163,7 @@ function mbYTPlayer_player_head() {
 	<!-- end mbYTPlayer -->
 	';
 
-    if (is_home()){
+    if (is_home() && !isMobile()){
         if (empty($mbYTPlayer_home_video_url))
             return false;
 
