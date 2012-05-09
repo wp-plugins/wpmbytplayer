@@ -8,7 +8,7 @@ Version: 0.3
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "0.1");
+define("MBYTPLAYER_VERSION", "0.3");
 
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
@@ -95,7 +95,7 @@ function mbYTPlayer_player_shortcode($atts) {
 // scripts to go in the header and/or footer
 function mbYTPlayer_init() {
     global $mbYTPlayer_version;
-    if ( !is_admin() ) {
+    if ( !is_admin()) {
         wp_enqueue_script('jquery');
         wp_enqueue_script('metadata', plugins_url( '/js/jquery.metadata.js', __FILE__ ), false, '1.2', false);
         wp_enqueue_script('swfobject', plugins_url( '/js/swfobject.js', __FILE__ ), false, '1.2', false);
