@@ -52,6 +52,10 @@ You should write the below shortcode into the content of your post or page:
 
 == Changelog ==
 
+= 0.2 =
+
+* bugfix: settings url was broken.
+
 = 0.1 =
 
 * First release

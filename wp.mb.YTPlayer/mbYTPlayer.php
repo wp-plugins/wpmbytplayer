@@ -4,7 +4,7 @@ Plugin Name: mb.YTPlayer play any Youtube videos as background
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the shortcode following the reference in the settings panel. <strong>And don't forget to make a donation if you like it :-)</strong>
 Author: Pupunzi (Matteo Bicocchi)
-Version: 0.1
+Version: 0.2
 Author URI: http://pupunzi.com
 */
 
@@ -50,7 +50,7 @@ function mbYTPlayer_action_links($links, $file) {
     // check to make sure we are on the correct plugin
     if ($file == $this_plugin) {
         // the anchor tag and href to the URL we want. For a "Settings" link, this needs to be the url of your settings page
-        $settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=wp.mb.YTPlayer/mbYTPlayer-admin.php">Settings</a>';
+        $settings_link = '<a href="' . get_bloginfo('wpurl') . '/wp-admin/options-general.php?page=wpmbytplayer/mbYTPlayer-admin.php">Settings</a>';
         // add the link to the list
         array_unshift($links, $settings_link);
     }
