@@ -4,7 +4,7 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the shortcode following the reference in the settings panel. <strong>And don't forget to make a donation if you like it :-)</strong>
 Author: Pupunzi (Matteo Bicocchi)
-Version: 0.4
+Version: 0.5
 Author URI: http://pupunzi.com
 */
 
@@ -27,15 +27,15 @@ function isMobile() {
 
 // Still no luck? Let's have a look at the user agent on the browser. If it contains
 // any of the following, it's probably a mobile device. Kappow!
-/*    if(isset($_SERVER["HTTP_USER_AGENT"])){
-        $user_agents = array("midp", "j2me", "avantg", "docomo", "novarra", "palmos", "palmsource", "240x320", "opwv", "chtml", "pda", "windows ce", "mmp/", "blackberry", "mib/", "symbian", "wireless", "nokia", "hand", "mobi", "phone", "cdm", "up.b", "audio", "SIE-", "SEC-", "samsung", "HTC", "mot-", "mitsu", "sagem", "sony", "alcatel", "lg", "erics", "vx", "NEC", "philips", "mmm", "xx", "panasonic", "sharp", "wap", "sch", "rover", "pocket", "benq", "java", "pt", "pg", "vox", "amoi", "bird", "compal", "kg", "voda", "sany", "kdd", "dbt", "sendo", "sgh", "gradi", "jb", "dddi", "moto");
-        foreach($user_agents as $user_string){
-            if(preg_match("/".$user_string."/i",$_SERVER["HTTP_USER_AGENT"])) {
-                return true;
+    /*    if(isset($_SERVER["HTTP_USER_AGENT"])){
+            $user_agents = array("midp", "j2me", "avantg", "docomo", "novarra", "palmos", "palmsource", "240x320", "opwv", "chtml", "pda", "windows ce", "mmp/", "blackberry", "mib/", "symbian", "wireless", "nokia", "hand", "mobi", "phone", "cdm", "up.b", "audio", "SIE-", "SEC-", "samsung", "HTC", "mot-", "mitsu", "sagem", "sony", "alcatel", "lg", "erics", "vx", "NEC", "philips", "mmm", "xx", "panasonic", "sharp", "wap", "sch", "rover", "pocket", "benq", "java", "pt", "pg", "vox", "amoi", "bird", "compal", "kg", "voda", "sany", "kdd", "dbt", "sendo", "sgh", "gradi", "jb", "dddi", "moto");
+            foreach($user_agents as $user_string){
+                if(preg_match("/".$user_string."/i",$_SERVER["HTTP_USER_AGENT"])) {
+                    return true;
+                }
             }
         }
-    }
-*/
+    */
 
 // Let's NOT return "mobile" if it's an iPhone, because the iPhone can render normal pages quite well.
     if(preg_match("/iphone/i",$_SERVER["HTTP_USER_AGENT"])) {
@@ -96,6 +96,7 @@ add_filter('plugin_action_links', 'mbYTPlayer_action_links', 10, 2);
 
 
 add_shortcode('mbYTPlayer', 'mbYTPlayer_player_shortcode');
+add_filter('widget_text', 'do_shortcode');
 // define the shortcode function
 
 function mbYTPlayer_player_shortcode($atts) {

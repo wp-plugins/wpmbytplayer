@@ -53,6 +53,10 @@ You should write the below shortcode into the content of your post or page:
 
 == Changelog ==
 
+= 0.5 =
+
+* Added: You can now add a short code to a text widget and it will be rendered as background video wherever the widget is printed out.
+
 = 0.4 =
 
 * bugfix: Warning: preg_match() [function.preg-match]: Unknown modifier '/' in /home/content/28/9255928/html/wp-content/plugins/wpmbytplayer/mbYTPlayer.php on line 32.
