@@ -9,7 +9,7 @@ function add_mbYTPlayer_option_page() {
     add_options_page('mbYTPlayer', 'mbYTPlayer', 'manage_options', __FILE__, 'mbYTPlayer_options_page');
 }
 function mbYTPlayer_options_page() { 	// Output the options page
-    global  $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity  ?>
+    global  $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality  ?>
 <div class="wrap" style="width:800px">
     <style>
         .form-table th{
@@ -83,6 +83,22 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
+                <th scope="row">home video: quality</th>
+                <td>
+                    <select name="mbYTPlayer_quality">
+                        <option value="default" <?php if ($mbYTPlayer_quality=="default") {echo' selected'; }?> >default</option>
+                        <option value="small" <?php if ($mbYTPlayer_quality=="small") {echo' selected'; }?> >small</option>
+                        <option value="medium" <?php if ($mbYTPlayer_quality=="medium") {echo' selected'; }?> >medium</option>
+                        <option value="large" <?php if ($mbYTPlayer_quality=="large") {echo' selected'; }?> >large</option>
+                        <option value="hd720" <?php if ($mbYTPlayer_quality=="hd720") {echo' selected'; }?> >hd720</option>
+                        <option value="hd1080" <?php if ($mbYTPlayer_quality=="hd1080") {echo' selected'; }?> >hd1080</option>
+                        <option value="highres" <?php if ($mbYTPlayer_quality=="highres") {echo' selected'; }?> >highres</option>
+                    </select>
+                    <p>Set the quality of the background video ('default' YouTube selects the appropriate playback quality).</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
                 <th scope="row">home video: show controls</th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_show_controls" value="true" <?php if ($mbYTPlayer_show_controls=="true") {echo' checked="checked"'; }?>/>
@@ -108,7 +124,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
         </table>
 
-        <input type="hidden" name="page_options" value="mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity" />
+        <input type="hidden" name="page_options" value="mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity,mbYTPlayer_quality" />
         <input type="hidden" name="action" value="update" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />

@@ -15,7 +15,7 @@
 				ed.windowManager.open({
 					url : popUpURL,
 					width : 600,
-					height : 330,
+					height : 380,
 					inline : 1
 				});
 			});

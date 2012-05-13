@@ -185,7 +185,7 @@
         jQuery(player).buildYTPControls();
       }
 
-      player.setPlaybackQuality("default");
+      player.setPlaybackQuality(data.quality);
 
       player.addEventListener("onStateChange", '(function(state) { return playerState(state, "' + player.id + '"); })');
     },
