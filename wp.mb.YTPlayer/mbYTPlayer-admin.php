@@ -32,7 +32,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
 
         <h2>mb.YTPlayer Settings</h2>
         <div class="updated fade">
-            <p style="line-height: 1.4em;">Thanks for downloading wp.mb.YTPlayer! If you like it and you use it then you should consider a donation.<br />
+            <p style="line-height: 1.4em;">Thanks for downloading mb.YTPlayer! If you like it...<br />
             </p>
         </div>
 

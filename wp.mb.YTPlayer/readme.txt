@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.3.1
-Stable tag: 0.4
+Stable tag: 0.5
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page.
@@ -26,7 +26,6 @@ You can activate it for your home page from the settings panel or on any post or
 == Installation ==
 
 Extract the zip file and upload the contents to the wp-content/plugins/ directory of your WordPress installation, and then activate the plugin from the plugins page.
-
 
 
 == To set your homepage background video: ==
@@ -55,7 +54,8 @@ You should write the below shortcode into the content of your post or page:
 
 = 0.5 =
 
-* Added: You can now add a short code to a text widget and it will be rendered as background video wherever the widget is printed out.
+* Added: You can now add a short code to a text widget and it will be rendered as background video if the widget is printed out in the page.
+* Added: TinyMCE editor button to easily add the short code.
 
 = 0.4 =
 

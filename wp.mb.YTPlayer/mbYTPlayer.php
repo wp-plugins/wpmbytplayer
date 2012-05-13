@@ -8,7 +8,7 @@ Version: 0.5
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "0.4");
+define("MBYTPLAYER_VERSION", "0.5");
 
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
@@ -97,6 +97,7 @@ add_filter('plugin_action_links', 'mbYTPlayer_action_links', 10, 2);
 
 add_shortcode('mbYTPlayer', 'mbYTPlayer_player_shortcode');
 add_filter('widget_text', 'do_shortcode');
+
 // define the shortcode function
 
 function mbYTPlayer_player_shortcode($atts) {
@@ -166,6 +167,7 @@ function mbYTPlayer_player_head() {
 	';
 
     if (is_home() && !isMobile()){
+
         if (empty($mbYTPlayer_home_video_url))
             return false;
 
@@ -188,6 +190,45 @@ function mbYTPlayer_player_head() {
 
 }; // ends mbYTPlayer_player_head function
 add_action('wp_head', 'mbYTPlayer_player_head');
+
+add_action('admin_init', 'setup_ytplayer_button');
+
+
+// TinyMCE Button ***************************************************
+
+// Set up our TinyMCE button
+function setup_ytplayer_button()
+{
+    if (get_user_option('rich_editing') == 'true' && current_user_can('edit_posts')) {
+        add_filter('mce_external_plugins', 'add_ytplayer_button_script');
+        add_filter('mce_buttons','register_ytplayer_button');
+    }
+}
+
+// Register our TinyMCE button
+function register_ytplayer_button($buttons) {
+    array_push($buttons, '|', 'YTPlayerbutton');
+    return $buttons;
+}
+
+
+// Register our TinyMCE Script
+function add_ytplayer_button_script($plugin_array) {
+    $plugin_array['YTPlayer'] = plugins_url('ytpTinyMCE/tinymceYTPlayer.js.php?params='.get_ytplayer_pop_up_params(), __FILE__);
+    return $plugin_array;
+}
+
+
+function get_ytplayer_pop_up_params(){
+    global $mbYTPlayer_version;
+
+    return urlencode(base64_encode(
+        'plugin_version='.$mbYTPlayer_version.'&'.
+            'includes_url='.urlencode(includes_url()).'&'.
+            'plugins_url='.urlencode(plugins_url()).'&'.
+            'charset='.urlencode(get_option('blog_charset'))
+    ));
+}
 
 
 if ( is_admin() ) {
