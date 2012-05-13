@@ -49,6 +49,14 @@ You should write the below shortcode into the content of your post or page:
 * @ loop = a boolean to loop the video on its end
 * @ showcontrols = a boolean to show or hide controls and progression of the video
 * @ opacity = a value from 0 to 1 that set the opacity of the background video
+* @ quality:
+* * small: Player height is 240px, and player dimensions are at least 320px by 240px for 4:3 aspect ratio.
+* * medium: Player height is 360px, and player dimensions are 640px by 360px (for 16:9 aspect ratio) or 480px by 360px (for 4:3 aspect ratio).
+* * large: Player height is 480px, and player dimensions are 853px by 480px (for 16:9 aspect ratio) or 640px by 480px (for 4:3 aspect ratio).
+* * hd720: Player height is 720px, and player dimensions are 1280px by 720px (for 16:9 aspect ratio) or 960px by 720px (for 4:3 aspect ratio).
+* * hd1080: Player height is 1080px, and player dimensions are 1920px by 1080px (for 16:9 aspect ratio) or 1440px by 1080px (for 4:3 aspect ratio).
+* * highres: Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
+* * default: YouTube selects the appropriate playback quality.
 
 == Changelog ==
 
