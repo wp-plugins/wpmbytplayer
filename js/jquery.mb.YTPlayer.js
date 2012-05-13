@@ -451,7 +451,9 @@ function playerState(state, el) {
     jQuery(player).css({opacity:data.opacity});
     jQuery(".mbYTP_raster").css({opacity:1,backgroundColor:"transparent"});
 
-    jQuery("#wrapper_"+player.id).animate({opacity:1},1000);
+    setTimeout(function(){
+      jQuery("#wrapper_"+player.id).animate({opacity:1},1000);
+    },1000);
     jQuery(document).trigger("YTPStart");
   }
 
