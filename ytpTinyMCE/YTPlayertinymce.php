@@ -38,49 +38,63 @@ if (!headers_sent()) {
 
     <fieldset>
         <legend>mb.YTPlayer background video parameters:</legend>
-            <label>
-                <span class="label">Video url<span style="color:red">*</span>: </span>
-                <input type="text" name="url" class="span5"/>
-                <span class="help-inline">YouTube video URL</span>
-            </label>
+        <label>
+            <span class="label">Video url <span style="color:red">*</span> : </span>
+            <input type="text" name="url" class="span5"/>
+            <span class="help-inline">YouTube video URL</span>
+        </label>
 
-            <label>
-                <span class="label">Opacity:</span>
-                <select name="opacity">
-                    <option value=".3">0.3</option>
-                    <option value=".5">0.5</option>
-                    <option value=".8">0.8</option>
-                    <option value="1">1</option>
-                </select>
-                <span class="help-inline">YouTube video opacity</span>
-            </label>
+        <label>
+            <span class="label">Opacity:</span>
+            <select name="opacity">
+                <option value="1">1</option>
+                <option value=".8">0.8</option>
+                <option value=".5">0.5</option>
+                <option value=".3">0.3</option>
+            </select>
+            <span class="help-inline">YouTube video opacity</span>
+        </label>
 
-            <label>
-                <span class="label">Aspect-ratio:</span>
-                <select name="ratio">
-                    <option value="4/3">4/3</option>
-                    <option value="16/9">16/9</option>
-                </select>
-                <span class="help-inline">YouTube video aspect ratio</span>
-            </label>
+        <label>
+            <span class="label">Aspect-ratio:</span>
+            <select name="ratio">
+                <option value="4/3">4/3</option>
+                <option value="16/9">16/9</option>
+            </select>
+            <span class="help-inline">YouTube video aspect ratio</span>
+        </label>
 
-            <label>
-                <span class="label">Show controls:</span>
-                <input type="checkbox" name="showcontrols" value="true"/>
-                <span class="help-inline">show controls at the bottom of the page</span>
-            </label>
+        <label>
+            <span class="label">Quality:</span>
+            <select name="quality">
+                <option value="default">auto detect</option>
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="large">large</option>
+                <option value="hd720">hd720</option>
+                <option value="hd1080">hd1080</option>
+                <option value="highres">highres</option>
+            </select>
+            <span class="help-inline">YouTube video quality</span>
+        </label>
 
-            <label>
-                <span class="label">Mute video:</span>
-                <input type="checkbox" name="mute" value="true"/>
-                <span class="help-inline">mute the audio of the video</span>
-            </label>
+        <label>
+            <span class="label">Show controls:</span>
+            <input type="checkbox" name="showcontrols" value="true"/>
+            <span class="help-inline">show controls at the bottom of the page</span>
+        </label>
 
-            <label>
-                <span class="label">Loop video:</span>
-                <input type="checkbox" name="loop" value="true"/>
-                <span class="help-inline">loop the video once ended</span>
-            </label>
+        <label>
+            <span class="label">Mute video:</span>
+            <input type="checkbox" name="mute" value="true"/>
+            <span class="help-inline">mute the audio of the video</span>
+        </label>
+
+        <label>
+            <span class="label">Loop video:</span>
+            <input type="checkbox" name="loop" value="true"/>
+            <span class="help-inline">loop the video once ended</span>
+        </label>
 
     </fieldset>
 
@@ -127,11 +141,11 @@ if (!headers_sent()) {
                     }
                     // inputs of type "checkbox", "radio" and "text"
                     if (input.checked || (input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue)) {
-/*
-                        if (inputName == "title") {
-                            inputValue = encodeStr(inputValue);
-                        }
-*/
+                        /*
+                                                if (inputName == "title") {
+                                                    inputValue = encodeStr(inputValue);
+                                                }
+                        */
                         sc += ' ' + inputName + '="' + inputValue + '"';
                     }
                 }
