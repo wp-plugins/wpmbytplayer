@@ -140,7 +140,7 @@ if (!headers_sent()) {
                         return false;
                     }
                     // inputs of type "checkbox", "radio" and "text"
-                    if (input.checked || (input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue)) {
+                    if (input.checked || (input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type =="select-one") {
                         /*
                                                 if (inputName == "title") {
                                                     inputValue = encodeStr(inputValue);
