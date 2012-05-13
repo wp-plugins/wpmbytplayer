@@ -126,7 +126,7 @@ function mbYTPlayer_player_shortcode($atts) {
     if (empty($loop)) {$loop = "false";}
     if (empty($quality)) {$quality = "default";}
 
-    $mbYTPlayer_player_shortcode = '<a id="bgndVideo'.$i.'" href="'.$url.'" class="movie {opacity:'.$opacity.', isBgndMovie:{width:\'window\',mute:'.$mute.'}, optimizeDisplay:true, showControls:'.$showcontrols.', ratio:\''.$ratio.'\', loop: '.$loop.',quality: '.$quality.'}"></a>';
+    $mbYTPlayer_player_shortcode = '<a id="bgndVideo'.$i.'" href="'.$url.'" class="movie {opacity:'.$opacity.', isBgndMovie:{width:\'window\',mute:'.$mute.'}, optimizeDisplay:true, showControls:'.$showcontrols.', ratio:\''.$ratio.'\', loop: '.$loop.',quality: \''.$quality.'\'}"></a>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
@@ -176,7 +176,7 @@ function mbYTPlayer_player_head() {
         if (empty($mbYTPlayer_home_video_url))
             return false;
 
-        $mbYTPlayer_player_homevideo = '<a id=\'bgndVideo_home\' href=\''.$mbYTPlayer_home_video_url.'\' class=\"movieHome {opacity:'.$mbYTPlayer_opacity.', isBgndMovie:{width:\'window\',mute:'.$mbYTPlayer_mute.'}, optimizeDisplay:true, showControls:'.$mbYTPlayer_show_controls.', ratio:\''.$mbYTPlayer_ratio.'\', loop: '.$mbYTPlayer_loop.', quality:"'.$mbYTPlayer_quality.'"}\"></a>';
+        $mbYTPlayer_player_homevideo = '<a id=\'bgndVideo_home\' href=\''.$mbYTPlayer_home_video_url.'\' class=\"movieHome {opacity:'.$mbYTPlayer_opacity.', isBgndMovie:{width:\'window\',mute:'.$mbYTPlayer_mute.'}, optimizeDisplay:true, showControls:'.$mbYTPlayer_show_controls.', ratio:\''.$mbYTPlayer_ratio.'\', loop: '.$mbYTPlayer_loop.', quality:\''.$mbYTPlayer_quality.'\'}\"></a>';
 
 
         echo '
