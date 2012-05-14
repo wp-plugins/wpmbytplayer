@@ -124,6 +124,16 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
         </table>
 
+        <p>Rate this plug in: <select onchange="window.open('http://wordpress.org/extend/plugins/wpmbytplayer/?rate='+this.value+'&topic_id=31313&_wpnonce=8627e276f3', 'rate')">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="5" selected>rate it</option>
+        </select></p>
+
+
         <input type="hidden" name="page_options" value="mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity,mbYTPlayer_quality" />
         <input type="hidden" name="action" value="update" />
         <p class="submit">
