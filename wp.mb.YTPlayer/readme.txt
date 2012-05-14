@@ -20,7 +20,7 @@ You can activate it for your home page from the settings panel or on any post or
 * pupunzi site: http://pupunzi.com
 
 
-[youtube http://www.youtube.com/watch?v=jCK_iBU82k8]
+[youtube http://www.youtube.com/watch?v=lTW937ld02Y]
 
 
 == Installation ==
