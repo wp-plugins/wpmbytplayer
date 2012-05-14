@@ -12,6 +12,13 @@ function mbYTPlayer_options_page() { 	// Output the options page
     global  $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality  ?>
 <div class="wrap" style="width:800px">
     <style>
+
+        #wpwrap{
+            background: #ebf2f4 url("<?php echo plugins_url( 'images/bgnd.jpg', __FILE__ );?>");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
         .form-table th{
             font-weight: bold!important;
             border-bottom: 1px solid gray;
