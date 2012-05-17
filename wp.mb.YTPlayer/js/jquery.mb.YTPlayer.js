@@ -17,7 +17,6 @@
  * YT API:
  *
  */
-
 (function(jQuery){
 
   jQuery.mbYTPlayer={
@@ -81,6 +80,7 @@
             if (player.metadata().ID) {data.ID=player.metadata().ID;}
             if (player.metadata().autoplay!=undefined) {data.autoplay=player.metadata().autoplay;}
             if (player.metadata().showControls!=undefined) {data.showControls=player.metadata().showControls;}
+            if (player.metadata().addRaster!=undefined) {data.addRaster=player.metadata().addRaster;}else{data.addRaster=false}
           }
 
           var el= data.ID?jQuery("#"+data.ID):jQuery("body");
@@ -166,7 +166,7 @@
 
       //if it is as background
       if(data.isBgndMovie && !BGisInit){
-        if (jQuery.mbYTPlayer.rasterImg && jQuery(".mbYTP_raster").length==0){
+        if (data.addRaster && jQuery.mbYTPlayer.rasterImg && jQuery(".mbYTP_raster").length==0){
           jQuery(playerContainer).append(raster);
         }
 
@@ -448,14 +448,13 @@ function playerState(state, el) {
   }
 
   if ((state==-1 || state==3) && data.isBgndMovie) {
+    jQuery(player).css({opacity:data.opacity});
+    jQuery(".mbYTP_raster").css({opacity:1,backgroundColor:"transparent"});
+    jQuery("#wrapper_"+player.id).fadeTo(3000,1);
     jQuery(document).trigger("YTPBuffering");
   }
 
   if (state==1 && data.isBgndMovie) {
-    jQuery(player).css({opacity:data.opacity});
-    jQuery(".mbYTP_raster").css({opacity:1,backgroundColor:"transparent"});
-
-    jQuery("#wrapper_"+player.id).animate({opacity:1},1000);
     jQuery(document).trigger("YTPStart");
   }
 

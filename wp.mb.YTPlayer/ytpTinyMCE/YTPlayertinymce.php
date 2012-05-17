@@ -46,7 +46,7 @@ if (!headers_sent()) {
         </label>
 
         <label>
-            <span class="label">Video ID: </span>
+            <span class="label">Element ID: </span>
             <input type="text" name="id" class="span5"/>
             <span class="help-inline">Page element id</span>
         </label>
@@ -101,6 +101,12 @@ if (!headers_sent()) {
             <span class="label">Loop video:</span>
             <input type="checkbox" name="loop" value="true"/>
             <span class="help-inline">loop the video once ended</span>
+        </label>
+
+        <label>
+            <span class="label">Add raster:</span>
+            <input type="checkbox" name="addraster" value="true"/>
+            <span class="help-inline">add a raster effect</span>
         </label>
 
     </fieldset>
