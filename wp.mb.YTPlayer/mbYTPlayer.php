@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the shortcode following the reference in the settings panel. <strong>And don't forget to make a donation if you like it :-)</strong>
 Author: Pupunzi (Matteo Bicocchi)
-Version: 0.5.2
+Version: 0.5.1
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "0.5.2");
+define("MBYTPLAYER_VERSION", "0.5.1");
 
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
@@ -105,6 +105,7 @@ add_filter('widget_text', 'do_shortcode');
 
 function mbYTPlayer_player_shortcode($atts) {
     STATIC $i = 1;
+    $elId = "";
     extract(shortcode_atts(array(
         'url'	=> '',
         'showcontrols' => '',
@@ -112,7 +113,8 @@ function mbYTPlayer_player_shortcode($atts) {
         'ratio' => '',
         'loop' => '',
         'opacity' => '',
-        'quality' => ''
+        'quality' => '',
+        'id' => ''
     ), $atts));
     // stuff that loads when the shortcode is called goes here
 
@@ -125,8 +127,9 @@ function mbYTPlayer_player_shortcode($atts) {
     if (empty($mute)) {$mute = "false";}
     if (empty($loop)) {$loop = "false";}
     if (empty($quality)) {$quality = "default";}
+    if (!empty($id)){$elId = ",ID:'".$id."'";};
 
-    $mbYTPlayer_player_shortcode = '<a id="bgndVideo'.$i.'" href="'.$url.'" class="movie {opacity:'.$opacity.', isBgndMovie:{width:\'window\',mute:'.$mute.'}, optimizeDisplay:true, showControls:'.$showcontrols.', ratio:\''.$ratio.'\', loop: '.$loop.',quality: \''.$quality.'\'}"></a>';
+    $mbYTPlayer_player_shortcode = '<a id="bgndVideo'.$i.'" href="'.$url.'" class="movie {opacity:'.$opacity.', isBgndMovie:{width:\'window\',mute:'.$mute.'}, optimizeDisplay:true, showControls:'.$showcontrols.', ratio:\''.$ratio.'\', loop: '.$loop.',quality: \''.$quality.'\''.$elId.'}"></a>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
@@ -171,7 +174,7 @@ function mbYTPlayer_player_head() {
 	<!-- end mbYTPlayer -->
 	';
 
-    if (is_home() && !isMobile()){
+    if ((is_home() || is_front_page()) && !isMobile()){
 
         if (empty($mbYTPlayer_home_video_url))
             return false;

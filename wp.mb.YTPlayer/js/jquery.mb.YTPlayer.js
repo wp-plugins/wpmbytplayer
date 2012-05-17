@@ -100,6 +100,9 @@
           if(data.isBgndMovie){
             if (data.ID){
               var bodyWrapper=jQuery("<div/>").css({position:"relative",zIndex:0});
+              var elPos = el.css("position") == "static" ? "relative" : el.css("position");
+              el.css("position", elPos);
+
               jQuery(el).wrapInner(bodyWrapper);
               jQuery(el).prepend(player);
             }else{
@@ -126,6 +129,7 @@
             });
             jQuery(document).bind("YTPStart", function(){
               jQuery(player).optimizeDisplay();
+              setTimeout(function(){videoWrapper.css({opacity:1});},2500);
             });
           }
 

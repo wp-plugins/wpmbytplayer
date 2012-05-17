@@ -38,10 +38,17 @@ if (!headers_sent()) {
 
     <fieldset>
         <legend>mb.YTPlayer background video parameters:</legend>
+
         <label>
             <span class="label">Video url <span style="color:red">*</span> : </span>
             <input type="text" name="url" class="span5"/>
             <span class="help-inline">YouTube video URL</span>
+        </label>
+
+        <label>
+            <span class="label">Video ID: </span>
+            <input type="text" name="id" class="span5"/>
+            <span class="help-inline">Page element id</span>
         </label>
 
         <label>
@@ -140,7 +147,7 @@ if (!headers_sent()) {
                         return false;
                     }
                     // inputs of type "checkbox", "radio" and "text"
-                    if ((input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type =="select-one" || input.type =="checkbox") {
+                    if ((input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type == "select-one" || input.type =="checkbox") {
 
                         if (input.type =="checkbox") {
                             if(!input.checked)
