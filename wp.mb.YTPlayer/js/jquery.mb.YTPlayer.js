@@ -450,11 +450,14 @@ function playerState(state, el) {
   if ((state==-1 || state==3) && data.isBgndMovie) {
     jQuery(player).css({opacity:data.opacity});
     jQuery(".mbYTP_raster").css({opacity:1,backgroundColor:"transparent"});
-    jQuery("#wrapper_"+player.id).fadeTo(3000,1);
+    jQuery("#wrapper_"+player.id).css({opacity:1});
     jQuery(document).trigger("YTPBuffering");
   }
 
   if (state==1 && data.isBgndMovie) {
+    jQuery("#wrapper_"+player.id).css({opacity:1});
+    jQuery(document).trigger("YTPBuffering");
+
     jQuery(document).trigger("YTPStart");
   }
 
