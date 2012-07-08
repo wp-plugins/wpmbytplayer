@@ -8,7 +8,7 @@ Version: 0.5.6
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "0.5.6");
+define("MBYTPLAYER_VERSION", "0.5.7");
 
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
