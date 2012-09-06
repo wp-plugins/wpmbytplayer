@@ -193,7 +193,6 @@
 
       // player.addEventListener("onStateChange", '(function(state) { return playerState(state, "' + player.id + '"); })');
       setInterval(function(){
-        console.debug(player.getPlayerState());
         playerState(player.getPlayerState(),player.id);
       },1000);
 
