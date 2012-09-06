@@ -1,6 +1,6 @@
 /*******************************************************************************
  jquery.mb.components
- Copyright (c) 2001-2010. Matteo Bicocchi (Pupunzi); Open lab srl, Firenze - Italy
+ Copyright (c) 2001-2012. Matteo Bicocchi (Pupunzi); Open lab srl, Firenze - Italy
  email: mbicocchi@open-lab.com
  site: http://pupunzi.com
 
@@ -11,10 +11,9 @@
 
 /*
  * jQuery.mb.components: jquery.mb.YTPlayer
- * version: 1.3.9
+ * version: 1.4.0
  * © 2001 - 2012 Matteo Bicocchi (pupunzi), Open Lab
  *
- * YT API:
  *
  */
 (function(jQuery){
@@ -128,6 +127,7 @@
               jQuery(player).optimizeDisplay();
             });
             jQuery(document).bind("YTPStart", function(){
+
               jQuery(player).optimizeDisplay();
               setTimeout(function(){videoWrapper.css({opacity:1});},2500);
             });
@@ -191,7 +191,12 @@
 
       player.setPlaybackQuality(data.quality);
 
-      player.addEventListener("onStateChange", '(function(state) { return playerState(state, "' + player.id + '"); })');
+      // player.addEventListener("onStateChange", '(function(state) { return playerState(state, "' + player.id + '"); })');
+      setInterval(function(){
+        console.debug(player.getPlayerState());
+        playerState(player.getPlayerState(),player.id);
+      },1000);
+
     },
 
     changeMovie:function(url, opt){
@@ -431,6 +436,9 @@ function onYouTubePlayerReady(playerId) {
 }
 
 function playerState(state, el) {
+
+  console.debug(state)
+
   var player=jQuery("#"+el).get(0);
   var data = jQuery("#"+player.id+"_data").data();
 
@@ -456,8 +464,6 @@ function playerState(state, el) {
 
   if (state==1 && data.isBgndMovie) {
     jQuery("#wrapper_"+player.id).css({opacity:1});
-    jQuery(document).trigger("YTPBuffering");
-
     jQuery(document).trigger("YTPStart");
   }
 
