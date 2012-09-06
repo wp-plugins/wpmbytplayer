@@ -4,7 +4,7 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the shortcode following the reference in the settings panel. <strong>And don't forget to make a donation if you like it :-)</strong>
 Author: Pupunzi (Matteo Bicocchi)
-Version: 0.5.6
+Version: 0.5.8
 Author URI: http://pupunzi.com
 */
 

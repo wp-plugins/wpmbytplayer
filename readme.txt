@@ -61,6 +61,10 @@ You should write the below shortcode into the content of your post or page:
 
 == Changelog ==
 
+= 0.5.8 =
+
+* fixed a bug for YT player API (OnStateChange is not triggered anymore)
+
 = 0.5.7 =
 
 * Tested on wordpress v. 3.4.1
