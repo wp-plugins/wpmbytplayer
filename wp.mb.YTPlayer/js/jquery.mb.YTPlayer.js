@@ -191,10 +191,13 @@
 
       player.setPlaybackQuality(data.quality);
 
-      // player.addEventListener("onStateChange", '(function(state) { return playerState(state, "' + player.id + '"); })');
+      player.addEventListener("onStateChange", '(function(state) { return playerState(state, "' + player.id + '"); })');
+
+/*
       setInterval(function(){
         playerState(player.getPlayerState(),player.id);
       },1000);
+*/
 
     },
 
@@ -435,8 +438,6 @@ function onYouTubePlayerReady(playerId) {
 }
 
 function playerState(state, el) {
-
-  console.debug(state)
 
   var player=jQuery("#"+el).get(0);
   var data = jQuery("#"+player.id+"_data").data();
