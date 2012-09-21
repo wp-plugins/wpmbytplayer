@@ -64,7 +64,7 @@ You should write the below shortcode into the content of your post or page:
 = 0.6.0 =
 
 * fixed a bug for YT player API (OnStateChange is not triggered anymore) AGAIN!!!
-* Now it supports youtube short-urls too (ex: http://youtu.be/V2rifmjZuKQ).
+* Now it supports youtube short-urls too ( ex: http://youtu.be/V2rifmjZuKQ ).
 
 = 0.5.9 =
 
