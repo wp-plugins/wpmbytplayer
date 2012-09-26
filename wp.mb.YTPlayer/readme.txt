@@ -24,6 +24,8 @@ You can activate it for your home page from the settings panel or on any post or
 [youtube http://www.youtube.com/watch?v=lTW937ld02Y]
 
 
+note: If you doesn't want ADs on your background video and you are the owner of it you can disable this on your Youtube channel as explained here: http://12starsmedia.com/blog/how-to-remove-ads-from-youtube-videos
+
 == Installation ==
 
 Extract the zip file and upload the contents to the wp-content/plugins/ directory of your WordPress installation, and then activate the plugin from the plugins page.
