@@ -16,6 +16,13 @@
  *
  *
  */
+
+/*Browser detection patch*/
+jQuery.browser.mozilla = /firefox/.test(navigator.userAgent.toLowerCase());
+jQuery.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
+jQuery.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
+jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+
 (function(jQuery){
 
 	jQuery.mbYTPlayer={
@@ -447,10 +454,11 @@ function onYouTubePlayerReady(playerId) {
 	var player=jQuery("#"+playerId);
 	player.mb_setMovie();
 
-	jQuery(document).bind("mousedown",function(e){
-		if(e.target.tagName.toLowerCase() == "a")
-			player.pauseYTP();
-	});
+	if(jQuery.browser.mozilla && ytp && ytp.stopMovieOnClick)
+		jQuery(document).bind("mousedown",function(e){
+			if(e.target.tagName.toLowerCase() == "a")
+				player.pauseYTP();
+		});
 }
 
 function playerState(state, el) {

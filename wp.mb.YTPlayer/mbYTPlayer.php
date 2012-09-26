@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the shortcode following the reference in the settings panel. <strong>And don't forget to make a donation if you like it :-)</strong>
 Author: Pupunzi (Matteo Bicocchi)
-Version: 0.6.0
+Version: 0.6.1
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "0.6.0");
+define("MBYTPLAYER_VERSION", "0.6.1");
 
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
@@ -56,6 +56,7 @@ function mbYTPlayer_install() {
     add_option('mbYTPlayer_loop','false');
     add_option('mbYTPlayer_opacity','1');
     add_option('mbYTPlayer_quality','default');
+    add_option('mbYTPlayer_stop_onclick','false');
 }
 $mbYTPlayer_home_video_url = get_option('mbYTPlayer_home_video_url');
 $mbYTPlayer_version = get_option('mbYTPlayer_version');
@@ -67,6 +68,8 @@ $mbYTPlayer_opacity = get_option('mbYTPlayer_opacity');
 $mbYTPlayer_quality = get_option('mbYTPlayer_quality');
 $mbYTPlayer_add_raster = get_option('mbYTPlayer_add_raster');
 
+$mbYTPlayer_stop_onclick = get_option('mbYTPlayer_stop_onclick');
+
 //set up defaults if these fields are empty
 if (empty($mbYTPlayer_show_controls)) {$mbYTPlayer_show_controls = "false";}
 if (empty($mbYTPlayer_mute)) {$mbYTPlayer_mute = "false";}
@@ -75,6 +78,8 @@ if (empty($mbYTPlayer_loop)) {$mbYTPlayer_loop = "false";}
 if (empty($mbYTPlayer_opacity)) {$mbYTPlayer_opacity = "1";}
 if (empty($mbYTPlayer_quality)) {$mbYTPlayer_quality = "default";}
 if (empty($mbYTPlayer_add_raster)) {$mbYTPlayer_add_raster = "false";}
+
+if (empty($mbYTPlayer_stop_onclick)) {$mbYTPlayer_stop_onclick = "false";}
 
 
 //action link http://www.wpmods.com/adding-plugin-action-links
@@ -160,6 +165,11 @@ function mbYTPlayer_player_head() {
     if(isMobile())
         return false;
 
+    $mbYTPlayer_player_stopOnClick = "";
+    if ($mbYTPlayer_stop_onclick == "true")
+        $mbYTPlayer_player_stopOnClick = 'var ytp = {}; ytp.stopMovieOnClick = true;';
+
+
     echo '
 	<!-- mbYTPlayer -->
 	<script type="text/javascript">
@@ -174,6 +184,7 @@ function mbYTPlayer_player_head() {
 	    jQuery(".movie").mb_YTPlayer();
 	});
 
+	'.$mbYTPlayer_player_stopOnClick.'
 	</script>
 	<!-- end mbYTPlayer -->
 	';

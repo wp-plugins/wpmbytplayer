@@ -9,7 +9,7 @@ function add_mbYTPlayer_option_page() {
     add_options_page('mbYTPlayer', 'mbYTPlayer', 'manage_options', __FILE__, 'mbYTPlayer_options_page');
 }
 function mbYTPlayer_options_page() { 	// Output the options page
-    global  $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster  ?>
+    global  $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick  ?>
 <div class="wrap" style="width:800px">
     <style>
 
@@ -137,6 +137,13 @@ function mbYTPlayer_options_page() { 	// Output the options page
                     <p>Check to add a raster effect to the video.</p>
                 </td>
             </tr>
+            <tr valign="top">
+                <th scope="row">Stop the player if a link is clicked</th>
+                <td>
+                    <input type="checkbox" name="mbYTPlayer_stop_onclick" value="true" <?php if ($mbYTPlayer_stop_onclick=="true") {echo' checked="checked"'; }?>/>
+                    <p>Check to stop the player once clicked on a link<br>(firefox has problems catching the event and this speedup the action).</p>
+                </td>
+            </tr>
         </table>
 
         <p>Rate this plug in: <select onchange="window.open('http://wordpress.org/extend/plugins/wpmbytplayer/?rate='+this.value+'&topic_id=31313&_wpnonce=8627e276f3', 'rate')">
@@ -149,7 +156,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
         </select></p>
 
 
-        <input type="hidden" name="page_options" value="mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity, mbYTPlayer_quality, mbYTPlayer_add_raster" />
+        <input type="hidden" name="page_options" value="mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity, mbYTPlayer_quality, mbYTPlayer_add_raster, mbYTPlayer_stop_onclick" />
         <input type="hidden" name="action" value="update" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
