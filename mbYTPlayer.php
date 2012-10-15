@@ -126,7 +126,7 @@ function mbYTPlayer_player_shortcode($atts) {
     ), $atts));
     // stuff that loads when the shortcode is called goes here
 
-    if ( empty($url) || (empty($id) && (is_home() || is_front_page())) )
+    if ( empty($url) || ((is_home() || is_front_page()) && !empty($mbYTPlayer_home_video_url) && empty($id))) // || (empty($id) && (is_home() || is_front_page()))
         return false;
 
     if (empty($ratio)) {$ratio = "16/9";}
@@ -160,7 +160,7 @@ function mbYTPlayer_init() {
 add_action('init', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head() {
-    global $mbYTPlayer_home_video_url,$mbYTPlayer_show_controls,$mbYTPlayer_mute,$mbYTPlayer_ratio,$mbYTPlayer_loop,$mbYTPlayer_opacity,$mbYTPlayer_quality, $mbYTPlayer_add_raster;
+    global $mbYTPlayer_home_video_url,$mbYTPlayer_show_controls,$mbYTPlayer_mute,$mbYTPlayer_ratio,$mbYTPlayer_loop,$mbYTPlayer_opacity,$mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick;
 
     if(isMobile())
         return false;
