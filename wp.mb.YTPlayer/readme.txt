@@ -44,6 +44,8 @@ Extract the zip file and upload the contents to the wp-content/plugins/ director
 
 To remove the video just leave the url blank.
 
+You can also set it by placing a shortcode in the home page via the YTPlayer shortcode window. 
+You can open it by clicking on the YTPlayer button in the top toolbar of the page editor.
 
 == To set a video as background of a post or a page: ==
 Use the editor button or write the below shortcode into the content of your post or page:
