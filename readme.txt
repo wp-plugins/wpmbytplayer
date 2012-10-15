@@ -30,6 +30,10 @@ note: If you doesn't want ADs on your background video and you are the owner of 
 
 Extract the zip file and upload the contents to the wp-content/plugins/ directory of your WordPress installation, and then activate the plugin from the plugins page.
 
+== Screenshots ==
+
+1. The settings panel
+2. The editor button
 
 == To set your homepage background video: ==
 
