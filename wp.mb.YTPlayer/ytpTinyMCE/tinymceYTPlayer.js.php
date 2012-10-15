@@ -6,16 +6,16 @@
 (function() {
 
     tinymce.create('tinymce.plugins.YTPlayer', {
-        
+
         init : function(ed, url) {
-        
+
         	var popUpURL = url + '/YTPlayertinymce.php?' + '<?php echo base64_decode(urldecode($_GET['params'])); ?>';
 
 			ed.addCommand('YTPlayerpopup', function() {
 				ed.windowManager.open({
 					url : popUpURL,
 					width : 600,
-					height : 400,
+					height : 450,
 					inline : 1
 				});
 			});
@@ -26,7 +26,7 @@
 				cmd : 'YTPlayerpopup'
 			});
 		},
-		
+
 		createControl : function() {
             return null;
         },

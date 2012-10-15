@@ -47,8 +47,9 @@ if (!headers_sent()) {
 
         <label>
             <span class="label">Element ID: </span>
-            <input type="text" name="id" class="span5"/>
-            <span class="help-inline">Page element id</span>
+            <input type="text" name="id" class="span5"/><br>
+            <span class="label"></span><span class="help-inline">The page element id where you want to target the player</span><br>
+            <span class="label"></span><span class="help-inline">if empty it will play as background</span>
         </label>
 
         <label>

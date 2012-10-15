@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 0.6.1
+Stable tag: 0.6.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page.
@@ -52,6 +52,7 @@ You should write the below shortcode into the content of your post or page:
 * @ loop = a boolean to loop the video on its end
 * @ showcontrols = a boolean to show or hide controls and progression of the video
 * @ opacity = a value from 0 to 1 that set the opacity of the background video
+* @ ID = The ID of the element in the DOM where you want to target the player (default is the BODY)
 * @ quality:
   * small: Player height is 240px, and player dimensions are at least 320px by 240px for 4:3 aspect ratio.
   * medium: Player height is 360px, and player dimensions are 640px by 360px (for 16:9 aspect ratio) or 480px by 360px (for 4:3 aspect ratio).
@@ -62,6 +63,10 @@ You should write the below shortcode into the content of your post or page:
   * default: YouTube selects the appropriate playback quality.
 
 == Changelog ==
+
+= 0.6.2 =
+
+* Solved a bug that prevent the use of the plugin into a target DOM element on the front or home page.
 
 = 0.6.1 =
 
