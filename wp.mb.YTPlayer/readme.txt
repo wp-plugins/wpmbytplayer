@@ -41,8 +41,7 @@ To remove the video just leave the url blank.
 
 
 == To set a video as background of a post or a page: ==
-
-You should write the below shortcode into the content of your post or page:
+Use the editor button or write the below shortcode into the content of your post or page:
 
 [mbYTPlayer url="http://www.youtube.com/watch?v=V2rifmjZuKQ" ratio="4/3" mute="false" loop="true" showcontrols="true" opacity=1]
 
@@ -52,7 +51,7 @@ You should write the below shortcode into the content of your post or page:
 * @ loop = a boolean to loop the video on its end
 * @ showcontrols = a boolean to show or hide controls and progression of the video
 * @ opacity = a value from 0 to 1 that set the opacity of the background video
-* @ ID = The ID of the element in the DOM where you want to target the player (default is the BODY)
+* @ id = The ID of the element in the DOM where you want to target the player (default is the BODY)
 * @ quality:
   * small: Player height is 240px, and player dimensions are at least 320px by 240px for 4:3 aspect ratio.
   * medium: Player height is 360px, and player dimensions are 640px by 360px (for 16:9 aspect ratio) or 480px by 360px (for 4:3 aspect ratio).
