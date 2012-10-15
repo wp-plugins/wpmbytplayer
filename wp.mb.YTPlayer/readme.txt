@@ -34,6 +34,7 @@ Extract the zip file and upload the contents to the wp-content/plugins/ director
 
 1. The settings panel
 2. You can add a video as background or targeted to a DOM element in any page or post by inserting a shortcode generated via the editor button.
+3. The shortcode editor..
 
 == To set your homepage background video: ==
 
