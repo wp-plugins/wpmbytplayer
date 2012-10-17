@@ -7,7 +7,7 @@ Tested up to: 3.4.1
 Stable tag: 0.6.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
-Play any Youtube video as background of your page.
+Play any Youtube video as background of your page or as custom player inside an element of the page.
 
 
 == Description ==
@@ -44,7 +44,7 @@ Extract the zip file and upload the contents to the wp-content/plugins/ director
 
 To remove the video just leave the url blank.
 
-You can also set it by placing a shortcode in the home page via the YTPlayer shortcode window.
+You can also set it by placing a shortcode in the home page via the YTPlayer shortcode window. 
 You can open it by clicking on the YTPlayer button in the top toolbar of the page editor.
 
 == To set a video as background of a post or a page: ==
