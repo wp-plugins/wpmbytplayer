@@ -7,7 +7,7 @@ Tested up to: 3.4.1
 Stable tag: 0.6.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
-Play any Youtube video as background of your page.
+Play any Youtube video as background of your page or as custom player inside an element of the page.
 
 
 == Description ==
