@@ -9,7 +9,6 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
 
-
 == Description ==
 
 A Chrome-less Youtube® video player that let you play any YouTube® video as background of your WordPress® page or post.
