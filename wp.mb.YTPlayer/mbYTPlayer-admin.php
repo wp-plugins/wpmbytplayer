@@ -47,10 +47,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
 
         <p>Leave the <b>home video url</b> blank if you don't want to display a background video on your homepage.
         </p>
-        <p>You can add a mb.YTPlayer to any of your posts or pages by writing the shortcode
-            <br>
-            <b>[mbYTPlayer url="http://www.youtube.com/watch?v=V2rifmjZuKQ" ratio="4/3" mute="false" loop="true" showControls="true" opacity=1]</b>
-            into the content editor. Change the parameters into the shortcode to fill your needs.</p>
+        <p>You can add a mb.YTPlayer to any of your posts via the shortcode editor available by clicking the button placed on the button-bar of the post content editor</p>
         <br>
         <h2>Home page background video properties:</h2>
         <p>These settings are used only for the Home istance of the mb.YTPlayer component.</p>
