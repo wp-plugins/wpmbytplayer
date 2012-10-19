@@ -31,7 +31,7 @@ Extract the zip file and upload the contents to the wp-content/plugins/ director
 
 == Screenshots ==
 
-1. The settings panel
+1. The settings panel.
 2. You can add a video as background or targeted to a DOM element in any page or post by inserting a shortcode generated via the editor button.
 3. The shortcode editor.
 
@@ -70,7 +70,7 @@ Use the editor button or write the below shortcode into the content of your post
 == Changelog ==
 
 = 0.6.3 =
-* Added the link to Toutube video option both on settings and shortcode editor; if checked shows the link to the original video at the bottom right over the seek bar.
+* Added the "link to Youtube® video" option both on settings and shortcode editor; if checked shows the link to the original video at the bottom right over the seek bar.
 
 = 0.6.2 =
 * Solved a bug that prevent the use of the plugin into a target DOM element on the front or home page.
