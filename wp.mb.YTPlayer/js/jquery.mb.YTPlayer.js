@@ -361,7 +361,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			});
 			var idx=jQuery("<span/>").addClass("mb_YTVPTime");
 
-			var movieUrl = jQuery("<span/>").addClass("mb_YTVPUrl").html("<a href='"+data.originalUrl+"' target='_blank'>"+data.originalUrl+"</a>");
+			var movieUrl = jQuery("<span/>").addClass("mb_YTVPUrl").html("<a href='"+data.originalUrl+"' target='_blank'>view on Youtube®</a>");
 
 			var progressBar =jQuery("<div/>").addClass("mb_YTVPProgress").css("position","absolute").click(function(e){
 				timeBar.css({width:(e.clientX-timeBar.offset().left)});
