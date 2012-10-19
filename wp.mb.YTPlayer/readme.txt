@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 0.6.2
+Stable tag: 0.6.3
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
@@ -69,63 +69,52 @@ Use the editor button or write the below shortcode into the content of your post
 
 == Changelog ==
 
-= 0.6.2 =
+= 0.6.3 =
+* Added the link to Toutube video option both on settings and shortcode editor; if checked shows the link to the original video at the bottom right over the seek bar.
 
+= 0.6.2 =
 * Solved a bug that prevent the use of the plugin into a target DOM element on the front or home page.
 
 = 0.6.1 =
-
 * added a new property to choose if the player should stop or not if a link is clicked.
 
 = 0.6.0 =
-
 * fixed a bug for YT player API (OnStateChange is not triggered anymore) AGAIN!!!
 * Now it supports youtube short-urls too ( ex: http://youtu.be/V2rifmjZuKQ ).
 
 = 0.5.9 =
-
 * removed a "console.debug" that break the component in IE
 
 = 0.5.8 =
-
 * fixed a bug for YT player API (OnStateChange is not triggered anymore)
 
 = 0.5.7 =
-
 * Tested on wordpress v. 3.4.1
 
 = 0.5.6 =
-
 * bug fix: video took too much to show
 
 = 0.5.5 =
-
 * Added: addRaster parameter -> choose to add or remove the raster over the video
 * bug fix: added is_frontPage() for home background video
 
 = 0.5.2 =
-
 * Added: Quality parameter
 * Added: better fade in once video loaded
 
 = 0.5 =
-
 * Added: You can now add a short code to a text widget and it will be rendered as background video if the widget is printed out in the page.
 * Added: TinyMCE editor button to easily add the short code.
 
 = 0.4 =
-
 * bugfix: Warning: preg_match() [function.preg-match]: Unknown modifier '/' in /home/content/28/9255928/html/wp-content/plugins/wpmbytplayer/mbYTPlayer.php on line 32.
           removed the check.
 
 = 0.3 =
-
 * bugfix: FF had some problems getting click events.
 
 = 0.2 =
-
 * bugfix: settings url was broken.
 
 = 0.1 =
-
 * First release

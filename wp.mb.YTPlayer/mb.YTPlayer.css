@@ -58,11 +58,23 @@
 
 .mb_YTVPBar span{
   display:inline-block;
-  font:16px/20px Calibri;
+  font:16px/20px Calibri, sans-serif;
   position:relative;
   width: 30px;
   height: 25px;
   vertical-align: middle;
+}
+.mb_YTVPBar span.mb_YTVPTime{
+  width: 130px;
+}
+
+.mb_YTVPBar span.mb_YTVPUrl{
+  width: auto;
+  float: right;
+}
+
+.mb_YTVPBar span.mb_YTVPUrl a{
+  color:white;
 }
 
 .mb_YTVPPlaypause,.mb_YTVPlayer .mb_YTVPPlaypause img{

@@ -86,8 +86,8 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 						if (player.metadata().ID) {data.ID=player.metadata().ID;}
 						if (player.metadata().autoplay!=undefined) {data.autoplay=player.metadata().autoplay;}
 						if (player.metadata().showControls!=undefined) {data.showControls=player.metadata().showControls;}
+						if (player.metadata().printUrl!=undefined) {data.printUrl=player.metadata().printUrl;}else{data.printUrl=false}
 						if (player.metadata().addRaster!=undefined) {data.addRaster=player.metadata().addRaster;}else{data.addRaster=false}
-
 						if (player.metadata().lightCrop!=undefined) {data.lightCrop=player.metadata().lightCrop;}else{data.lightCrop=false}
 					}
 
@@ -149,6 +149,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 
 					// data.movieURL=player.attr("href")?(player.attr("href").match( /[\\?&]v=([^&#]*)/))[1]:false;
 
+					data.originalUrl = player.attr("href");
 					if(player.attr("href") && player.attr("href").substr(0,16)=="http://youtu.be/"){
 						data.movieURL= player.attr("href").replace("http://youtu.be/","");
 					}else{
@@ -359,6 +360,9 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 				}
 			});
 			var idx=jQuery("<span/>").addClass("mb_YTVPTime");
+
+			var movieUrl = jQuery("<span/>").addClass("mb_YTVPUrl").html("<a href='"+data.originalUrl+"' target='_blank'>"+data.originalUrl+"</a>");
+
 			var progressBar =jQuery("<div/>").addClass("mb_YTVPProgress").css("position","absolute").click(function(e){
 				timeBar.css({width:(e.clientX-timeBar.offset().left)});
 				player.timeW=e.clientX-timeBar.offset().left;
@@ -373,6 +377,9 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 
 			progressBar.append(loadedBar).append(timeBar);
 			buttonBar.append(playpause).append(MuteUnmute).append(idx);
+			if(data.printUrl)
+				buttonBar.append(movieUrl);
+
 			controlBar.append(buttonBar).append(progressBar);
 			if (data.ID){
 				YTPlayer.before(controlBar);

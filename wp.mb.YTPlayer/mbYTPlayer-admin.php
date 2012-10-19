@@ -6,10 +6,10 @@ add_action('admin_menu', 'add_mbYTPlayer_option_page');
 
 function add_mbYTPlayer_option_page() {
     // hook in the options page function
-    add_options_page('mbYTPlayer', 'mb.YTPlayer', 'manage_options', __FILE__, 'mbYTPlayer_options_page');
+    add_options_page('mbYTPlayer', 'mbYTPlayer', 'manage_options', __FILE__, 'mbYTPlayer_options_page');
 }
 function mbYTPlayer_options_page() { 	// Output the options page
-    global  $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick  ?>
+    global  $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls,$mbYTPlayer_show_videourl, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick  ?>
 <div class="wrap" style="width:800px">
     <style>
 
@@ -108,8 +108,23 @@ function mbYTPlayer_options_page() { 	// Output the options page
             <tr valign="top">
                 <th scope="row">home video: show controls</th>
                 <td>
-                    <input type="checkbox" name="mbYTPlayer_show_controls" value="true" <?php if ($mbYTPlayer_show_controls=="true") {echo' checked="checked"'; }?>/>
+                    <input id="mbYTPlayer_show_controls" onclick="videoUrlControl()" type="checkbox" name="mbYTPlayer_show_controls" value="true" <?php if ($mbYTPlayer_show_controls=="true") {echo' checked="checked"'; }?>/>
                     <p>Check to show controls at the bottom of the page.</p>
+                    <div id="videourl" style="display: none;">
+                        <input id="mbYTPlayer_show_videourl"  type="checkbox" name="mbYTPlayer_show_videourl" value="true" <?php if ($mbYTPlayer_show_videourl=="true") {echo' checked="checked"'; } ?>/>
+                        <p>Check to show the link to the original YouTube® video.</p>
+                    </div>
+                    <script>
+                        function videoUrlControl(){
+                            if (jQuery("#mbYTPlayer_show_controls").is(":checked")){
+                                jQuery("#videourl").show();
+                            }else{
+                                jQuery("#mbYTPlayer_show_videourl").attr("checked",false).val(false);
+                                jQuery("#videourl").hide();
+                            }
+                        }
+                        videoUrlControl();
+                    </script>
                 </td>
             </tr>
 
@@ -137,6 +152,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
                     <p>Check to add a raster effect to the video.</p>
                 </td>
             </tr>
+
             <tr valign="top">
                 <th scope="row">Stop the player if a link is clicked</th>
                 <td>
@@ -156,7 +172,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
         </select></p>
 
 
-        <input type="hidden" name="page_options" value="mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity, mbYTPlayer_quality, mbYTPlayer_add_raster, mbYTPlayer_stop_onclick" />
+        <input type="hidden" name="page_options" value="mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_show_videourl, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity, mbYTPlayer_quality, mbYTPlayer_add_raster, mbYTPlayer_stop_onclick" />
         <input type="hidden" name="action" value="update" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
