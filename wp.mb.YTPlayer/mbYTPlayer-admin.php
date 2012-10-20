@@ -32,16 +32,17 @@ function mbYTPlayer_options_page() { 	// Output the options page
 
     </style>
 
+    <a href="http://pupunzi.com"><img style="margin-top:30px;" src="<?php echo plugins_url( 'images/logo.png', __FILE__ );?>" alt="Made by Pupunzi" /></a>
     <form method="post" action="options.php">
-
         <?php wp_nonce_field('update-options'); ?>
-
 
         <h2>mb.YTPlayer Settings</h2>
         <div class="updated fade">
-            <p style="line-height: 1.4em;">Thanks for downloading mb.YTPlayer! If you like it...<br />
+            <p style="line-height: 1.4em;">Thanks for downloading mb.YTPlayer! If you like it... Consider a donation.<br />
             </p>
         </div>
+        <a style="position: relative; display:block;top:0px;margin-right: -10px" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y"><img border="0" alt="PayPal" src="<?php echo plugins_url( 'images/btn_donateCC_LG_global.gif', __FILE__ );?>" class="alignright"></a>
+        <p>You're using mb.YTPlayer v. <?php echo $mbYTPlayer_version;?> by <a href="http://pupunzi.com">Pupunzi</a>.<br>If you like it and you use it then you should consider a donation (€15,00 or more) :-)</p>
 
         <h2>Reference</h2>
 
@@ -174,12 +175,6 @@ function mbYTPlayer_options_page() { 	// Output the options page
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>
-        <a style="position: relative; display:block;top:0px;margin-right: -10px" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y"><img border="0" alt="PayPal" src="<?php echo plugins_url( 'images/btn_donateCC_LG_global.gif', __FILE__ );?>" class="alignright"></a>
     </form>
-
-    <p>You're using mb.YTPlayer v. <?php echo $mbYTPlayer_version;?> by <a href="http://pupunzi.com">Pupunzi</a>.<br>If you like it and you use it then you should consider a donation (€15,00 or more) :-)</p>
-    <a href="http://pupunzi.com"><img style="margin-top:30px;" src="<?php echo plugins_url( 'images/logo.png', __FILE__ );?>" alt="Made by Pupunzi" /></a>
-
-
 </div>
 <?php } ?>
