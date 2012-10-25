@@ -11,7 +11,7 @@
 
 /*
 * jQuery.mb.components: mb.YTVPlayer
-* © 2001 - 2010 Matteo Bicocchi (pupunzi), Open Lab
+* © 2001 - 2012 Matteo Bicocchi (pupunzi), Open Lab
 *
 */
 
@@ -69,8 +69,11 @@
 }
 
 .mb_YTVPBar span.mb_YTVPUrl{
+  position: absolute;
   width: auto;
-  float: right;
+  display:block;
+  top:0;
+  right:10px;
 }
 
 .mb_YTVPBar span.mb_YTVPUrl a{

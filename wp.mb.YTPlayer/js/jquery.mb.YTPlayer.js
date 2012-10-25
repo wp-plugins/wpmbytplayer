@@ -111,11 +111,10 @@ $.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 							var bodyWrapper=jQuery("<div/>").css({position:"relative",zIndex:0});
 							var elPos = el.css("position") == "static" ? "relative" : el.css("position");
 							el.css("position", elPos);
-
 							jQuery(el).wrapInner(bodyWrapper);
 							jQuery(el).prepend(player);
 						}else{
-							jQuery(el).css({position:"relative",zIndex:1});
+							//jQuery(el).css({position:"static",zIndex:1, width:"100%", minHeight:"100%"});
 							jQuery(el).before(player);
 						}
 
@@ -136,11 +135,13 @@ $.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 						jQuery(window).resize(function(){
 							jQuery(player).optimizeDisplay();
 						});
-						jQuery(document).bind("YTPStart", function(){
-
-							jQuery(player).optimizeDisplay();
-							setTimeout(function(){videoWrapper.css({opacity:1});},2500);
-						});
+						jQuery(player).optimizeDisplay();
+						/*
+						 jQuery(document).bind("YTPStart", function(){
+						 jQuery(player).optimizeDisplay();
+						 setTimeout(function(){videoWrapper.fadeTo(2000,1);},10);
+						 });
+						 */
 					}
 
 					var params = { allowScriptAccess: "always", wmode:"transparent", allowFullScreen:"true" };
@@ -474,36 +475,42 @@ function playerState(state, el) {
 	var player=jQuery("#"+el).get(0);
 	var data = jQuery("#"+player.id+"_data").data();
 
-	if (state==0 && data.isBgndMovie) {
+	if (state==0 ) { //&& data.isBgndMovie
 		jQuery(document).trigger("YTPEnd");
 		if(data.loop)
 			player.playVideo();
 		else
 			jQuery(player).stopYTP();
 	}
+	/*
 
-	if (state==0 && !data.isBgndMovie) {
-		jQuery(document).trigger("YTPEnd");
-		jQuery(player).stopYTP();
-	}
+	 if (state==0 && !data.isBgndMovie) {
+	 jQuery(document).trigger("YTPEnd");
+	 jQuery(player).stopYTP();
+	 }
+	 */
 
 	if ((state==-1 || state==3) && data.isBgndMovie) {
 		jQuery(player).css({opacity:data.opacity});
 		jQuery(".mbYTP_raster").css({opacity:1,backgroundColor:"transparent"});
-		jQuery("#wrapper_"+player.id).css({opacity:1});
+		jQuery("#wrapper_"+player.id).animate({opacity:1},2000);
 		jQuery(document).trigger("YTPBuffering");
 	}
 
-	if (state==1 && data.isBgndMovie) {
-		jQuery("#wrapper_"+player.id).css({opacity:1});
-		jQuery(document).trigger("YTPStart");
-	}
-
-	if(state==1 && !data.isBgndMovie){
+	if (state==1) { // && data.isBgndMovie
+//		jQuery("#wrapper_"+player.id).animate({opacity:1},2000);
 		jQuery(player).css({opacity:data.opacity});
 		player.totalBytes=player.getVideoBytesTotal();
 		jQuery(document).trigger("YTPStart");
 	}
+
+	/*
+	 if(state==1 && !data.isBgndMovie){
+	 jQuery(player).css({opacity:data.opacity});
+	 player.totalBytes=player.getVideoBytesTotal();
+	 jQuery(document).trigger("YTPStart");
+	 }
+	 */
 
 	if(state==2)
 		jQuery(document).trigger("YTPPause");
