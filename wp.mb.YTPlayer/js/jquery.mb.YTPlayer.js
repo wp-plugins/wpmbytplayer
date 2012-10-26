@@ -35,7 +35,8 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			pause:"<img src='images/pause.png'>",
 			mute:"<img src='images/mute.png'>",
 			unmute:"<img src='images/unmute.png'>",
-			ytLogo:"<img src='images/YTLogo.png'>"
+			ytLogo:"<img src='images/YTLogo.png'>",
+			onlyYT:"<img src='images/onlyVideo.png'>"
 		},
 		rasterImg:"images/raster.png",
 
@@ -114,7 +115,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 							jQuery(el).wrapInner(bodyWrapper);
 							jQuery(el).prepend(player);
 						}else{
-							//jQuery(el).css({position:"static",zIndex:1, width:"100%", minHeight:"100%"});
+							jQuery(el).css({position:"relative",zIndex:1});
 							jQuery(el).before(player);
 						}
 
@@ -363,10 +364,10 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			});
 			var idx=jQuery("<span/>").addClass("mb_YTVPTime");
 
-			var viewOnYT = jQuery("<img>").attr({src:jQuery.mbYTPlayer.ytLogo}).on("click",function(){window.open(data.originalUrl,"viewOnYT")});
-			var viewOnlyYT = jQuery("<img>").attr({src:jQuery.mbYTPlayer.onlyYT}).toggle(function(){jQuery("body").css({opacity:0})},function(){jQuery("body").css({opacity:1})});
-			var onlyVideo = jQuery("<span/>").addClass("mb_YTVPUrl").append(viewOnYT);//"<a href='"+data.originalUrl+"' target='_blank'>view on Youtube®</a>"
-			var movieUrl = jQuery("<span/>").addClass("mb_OnlyYT").append(viewOnlyYT);//"<a href='"+data.originalUrl+"' target='_blank'>view on Youtube®</a>"
+			var viewOnYT = jQuery(jQuery.mbYTPlayer.controls.ytLogo).on("click",function(){window.open(data.originalUrl,"viewOnYT")});
+			var viewOnlyYT = jQuery(jQuery.mbYTPlayer.controls.onlyYT).toggle(function(){jQuery("body").css({opacity:0})},function(){jQuery("body").css({opacity:1})});
+			var movieUrl = jQuery("<span/>").addClass("mb_YTVPUrl").append(viewOnYT);
+			var onlyVideo = jQuery("<span/>").addClass("mb_OnlyYT").append(viewOnlyYT);
 
 			var progressBar =jQuery("<div/>").addClass("mb_YTVPProgress").css("position","absolute").click(function(e){
 				timeBar.css({width:(e.clientX-timeBar.offset().left)});
