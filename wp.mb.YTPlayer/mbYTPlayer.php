@@ -180,11 +180,13 @@ function mbYTPlayer_player_head() {
 	<script type="text/javascript">
 	jQuery(function(){
 
-	    jQuery.mbYTPlayer.controls.play ="<img src=\''. plugins_url( '/images/', __FILE__ ) . '/play.png\'>";
-	    jQuery.mbYTPlayer.controls.pause ="<img src=\''. plugins_url( '/images/', __FILE__ ) . '/pause.png\'>";
-	    jQuery.mbYTPlayer.controls.mute ="<img src=\''. plugins_url( '/images/', __FILE__ ) . '/mute.png\'>";
-	    jQuery.mbYTPlayer.controls.unmute ="<img src=\''. plugins_url( '/images/', __FILE__ ) . '/unmute.png\'>";
-	    jQuery.mbYTPlayer.rasterImg ="'. plugins_url( '/images/', __FILE__ ) . '/raster.png";
+	    jQuery.mbYTPlayer.controls.play ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'play.png\'>";
+	    jQuery.mbYTPlayer.controls.pause ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'pause.png\'>";
+	    jQuery.mbYTPlayer.controls.mute ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'mute.png\'>";
+	    jQuery.mbYTPlayer.controls.unmute ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'unmute.png\'>";
+	    jQuery.mbYTPlayer.rasterImg ="'. plugins_url( '/images/', __FILE__ ) . 'raster.png";
+	    jQuery.mbYTPlayer.ytLogo ="'. plugins_url( '/images/', __FILE__ ) . 'YTLogo.png";
+	    jQuery.mbYTPlayer.onlyYT ="'. plugins_url( '/images/', __FILE__ ) . 'onlyVideo.png";
 
 	    jQuery(".movie").mb_YTPlayer();
 	});

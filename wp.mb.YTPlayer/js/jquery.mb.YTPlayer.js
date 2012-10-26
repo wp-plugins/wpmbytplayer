@@ -18,7 +18,6 @@
  */
 
 /*Browser detection patch*/
-/*Browser detection patch*/
 jQuery.browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase()) ;
 jQuery.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
 jQuery.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
@@ -35,7 +34,8 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			play:"<img src='images/play.png'>",
 			pause:"<img src='images/pause.png'>",
 			mute:"<img src='images/mute.png'>",
-			unmute:"<img src='images/unmute.png'>"
+			unmute:"<img src='images/unmute.png'>",
+			ytLogo:"<img src='images/YTLogo.png'>"
 		},
 		rasterImg:"images/raster.png",
 
@@ -363,7 +363,10 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			});
 			var idx=jQuery("<span/>").addClass("mb_YTVPTime");
 
-			var movieUrl = jQuery("<span/>").addClass("mb_YTVPUrl").html("<a href='"+data.originalUrl+"' target='_blank'>view on Youtube®</a>");
+			var viewOnYT = jQuery("<img>").attr({src:jQuery.mbYTPlayer.ytLogo}).on("click",function(){window.open(data.originalUrl,"viewOnYT")});
+			var viewOnlyYT = jQuery("<img>").attr({src:jQuery.mbYTPlayer.onlyYT}).toggle(function(){jQuery("body").css({opacity:0})},function(){jQuery("body").css({opacity:1})});
+			var onlyVideo = jQuery("<span/>").addClass("mb_YTVPUrl").append(viewOnYT);//"<a href='"+data.originalUrl+"' target='_blank'>view on Youtube®</a>"
+			var movieUrl = jQuery("<span/>").addClass("mb_OnlyYT").append(viewOnlyYT);//"<a href='"+data.originalUrl+"' target='_blank'>view on Youtube®</a>"
 
 			var progressBar =jQuery("<div/>").addClass("mb_YTVPProgress").css("position","absolute").click(function(e){
 				timeBar.css({width:(e.clientX-timeBar.offset().left)});
@@ -379,8 +382,11 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 
 			progressBar.append(loadedBar).append(timeBar);
 			buttonBar.append(playpause).append(MuteUnmute).append(idx);
+
 			if(data.printUrl)
 				buttonBar.append(movieUrl);
+
+			buttonBar.append(onlyVideo);
 
 			controlBar.append(buttonBar).append(progressBar);
 			if (data.ID){
@@ -397,13 +403,9 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 					clearInterval(player.getState);
 
 					player.getState=setInterval(function(){
-
-						//todo: check if audio is muted.
-
 						if(player.isMuted()){
 							YTPlayer.parent().find(".mb_YTVPMuteUnmute").html(jQuery.mbYTPlayer.controls.unmute);
 						}
-
 						var prog= jQuery(player).manageYTPProgress();
 						jQuery(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime)+" / "+ jQuery.mbYTPlayer.formatTime(prog.totalTime));
 						if(player.getPlayerState()== 1 && jQuery(".mb_YTVPPlaypause").html()!=jQuery.mbYTPlayer.controls.pause)
@@ -415,7 +417,6 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 					controlBar.fadeOut();
 					clearInterval(player.getState);
 				});
-
 			}else{
 				controlBar.fadeIn();
 				clearInterval(player.getState);
@@ -475,42 +476,26 @@ function playerState(state, el) {
 	var player=jQuery("#"+el).get(0);
 	var data = jQuery("#"+player.id+"_data").data();
 
-	if (state==0 ) { //&& data.isBgndMovie
+	if (state==0 ) {
 		jQuery(document).trigger("YTPEnd");
 		if(data.loop)
 			player.playVideo();
 		else
 			jQuery(player).stopYTP();
 	}
-	/*
 
-	 if (state==0 && !data.isBgndMovie) {
-	 jQuery(document).trigger("YTPEnd");
-	 jQuery(player).stopYTP();
-	 }
-	 */
-
-	if ((state==-1 || state==3) && data.isBgndMovie) {
+	if ((state==-1 || state==3)) {
 		jQuery(player).css({opacity:data.opacity});
 		jQuery(".mbYTP_raster").css({opacity:1,backgroundColor:"transparent"});
 		jQuery("#wrapper_"+player.id).animate({opacity:1},2000);
 		jQuery(document).trigger("YTPBuffering");
 	}
 
-	if (state==1) { // && data.isBgndMovie
-//		jQuery("#wrapper_"+player.id).animate({opacity:1},2000);
+	if (state==1) {
 		jQuery(player).css({opacity:data.opacity});
 		player.totalBytes=player.getVideoBytesTotal();
 		jQuery(document).trigger("YTPStart");
 	}
-
-	/*
-	 if(state==1 && !data.isBgndMovie){
-	 jQuery(player).css({opacity:data.opacity});
-	 player.totalBytes=player.getVideoBytesTotal();
-	 jQuery(document).trigger("YTPStart");
-	 }
-	 */
 
 	if(state==2)
 		jQuery(document).trigger("YTPPause");
@@ -552,7 +537,5 @@ jQuery.fn.optimizeDisplay=function(){
 		marginTop=-( lightCrop ? (win.height*10/100) : 0 );
 		marginLeft= -((vid.width-win.width)/2);
 	}
-
 	wrapper.css({width:vid.width, height:vid.height, marginTop:marginTop, marginLeft:marginLeft});
-
 };
