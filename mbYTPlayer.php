@@ -184,9 +184,10 @@ function mbYTPlayer_player_head() {
 	    jQuery.mbYTPlayer.controls.pause ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'pause.png\'>";
 	    jQuery.mbYTPlayer.controls.mute ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'mute.png\'>";
 	    jQuery.mbYTPlayer.controls.unmute ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'unmute.png\'>";
+	    jQuery.mbYTPlayer.controls.ytLogo ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'YTLogo.png\'>";
+	    jQuery.mbYTPlayer.controls.onlyYT ="<img src=\''. plugins_url( '/images/', __FILE__ ) . 'onlyVideo.png\'>";
+
 	    jQuery.mbYTPlayer.rasterImg ="'. plugins_url( '/images/', __FILE__ ) . 'raster.png";
-	    jQuery.mbYTPlayer.ytLogo ="'. plugins_url( '/images/', __FILE__ ) . 'YTLogo.png";
-	    jQuery.mbYTPlayer.onlyYT ="'. plugins_url( '/images/', __FILE__ ) . 'onlyVideo.png";
 
 	    jQuery(".movie").mb_YTPlayer();
 	});

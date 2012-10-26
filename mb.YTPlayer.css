@@ -52,8 +52,14 @@
 .mb_YTVPBar .buttonBar{
   background:transparent;
   font:12px/14px Calibri;
-  position:relative;
+  position:absolute;
   top:-30px;
+  left:0;
+  padding: 5px;
+  width:100%;
+}
+.mb_YTVPBar:hover .buttonBar{
+  background: rgba(0,0,0,0.4);
 }
 
 .mb_YTVPBar span{
@@ -68,12 +74,24 @@
   width: 130px;
 }
 
-.mb_YTVPBar span.mb_YTVPUrl{
+.mb_YTVPBar span.mb_YTVPUrl,.mb_YTVPBar span.mb_OnlyYT {
   position: absolute;
   width: auto;
   display:block;
-  top:0;
-  right:10px;
+  top:6px;
+  right:20px;
+  cursor: pointer;
+}
+.mb_YTVPBar span.mb_YTVPUrl img{
+  width: 60px;
+}
+
+.mb_YTVPBar span.mb_OnlyYT {
+  left:185px;
+  right: auto;
+}
+.mb_YTVPBar span.mb_OnlyYT img{
+  width: 25px;
 }
 
 .mb_YTVPBar span.mb_YTVPUrl a{
