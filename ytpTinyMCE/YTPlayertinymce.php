@@ -90,6 +90,9 @@ if (!headers_sent()) {
             <span class="label">Show controls:</span>
             <input type="checkbox" name="showcontrols" value="true"/>
             <span class="help-inline">show controls at the bottom of the page</span><br>
+        </label>
+
+        <label>
             <span class="label">YouTube® link:</span>
             <input type="checkbox" name="printurl" value="true"/>
             <span class="help-inline">show the link to the original YouTube® video.</span>
