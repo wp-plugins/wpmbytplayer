@@ -254,7 +254,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 		playYTP: function(){
 			var player= jQuery(this).get(0);
 			var data = jQuery("#"+player.id+"_data").data();
-			var controls = data.ID ?  jQuery(player).parent().parent() : jQuery(player).parent();
+			var controls = jQuery("#controlBar_"+player.id);
 
 			var playBtn=controls.find(".mb_YTVPPlaypause");
 			playBtn.html(jQuery.mbYTPlayer.controls.pause);
@@ -264,7 +264,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 		stopYTP:function(){
 			var player= jQuery(this).get(0);
 			var data = jQuery("#"+player.id+"_data").data();
-			var controls = data.ID ?  jQuery(player).parent().parent() : jQuery(player).parent();
+			var controls = jQuery("#controlBar_"+player.id);
 
 			var playBtn=controls.find(".mb_YTVPPlaypause");
 			playBtn.html(jQuery.mbYTPlayer.controls.play);
@@ -274,7 +274,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 		pauseYTP:function(){
 			var player= jQuery(this).get(0);
 			var data = jQuery("#"+player.id+"_data").data();
-			var controls = data.ID ?  jQuery(player).parent().parent() : jQuery(player).parent();
+			var controls = jQuery("#controlBar_"+player.id);
 
 			var playBtn=controls.find(".mb_YTVPPlaypause");
 			playBtn.html(jQuery.mbYTPlayer.controls.play);
@@ -296,7 +296,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 		muteYTPVolume:function(){
 			var player= jQuery(this).get(0);
 			var data = jQuery("#"+player.id+"_data").data();
-			var controls = data.ID ?  jQuery(player).parent().parent() : jQuery(player).parent();
+			var controls = jQuery("#controlBar_"+player.id);
 			var muteBtn= controls.find(".mb_YTVPMuteUnmute");
 			muteBtn.html(jQuery.mbYTPlayer.controls.unmute);
 			player.mute();
@@ -305,7 +305,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 		unmuteYTPVolume:function(){
 			var player= jQuery(this).get(0);
 			var data = jQuery("#"+player.id+"_data").data();
-			var controls = data.ID ?  jQuery(player).parent().parent() : jQuery(player).parent();
+			var controls = jQuery("#controlBar_"+player.id);
 			var muteBtn=controls.find(".mb_YTVPMuteUnmute");
 			muteBtn.html(jQuery.mbYTPlayer.controls.mute);
 			player.unMute();
