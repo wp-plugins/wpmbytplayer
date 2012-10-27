@@ -313,12 +313,10 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 
 		manageYTPProgress:function(){
 			var player= jQuery(this).get(0);
-			var data = jQuery("#"+player.id+"_data").data();
-			var YTPlayer = data.ID ?  jQuery(player).parent().parent() : jQuery(player).parent();
-
-			var progressBar= YTPlayer.find(".mb_YTVPProgress");
-			var loadedBar=YTPlayer.find(".mb_YTVPLoaded");
-			var timeBar=YTPlayer.find(".mb_YTVTime");
+			var YTPlayerBar = jQuery("#controlBar_"+player.id);
+			var progressBar= YTPlayerBar.find(".mb_YTVPProgress");
+			var loadedBar=YTPlayerBar.find(".mb_YTVPLoaded");
+			var timeBar=YTPlayerBar.find(".mb_YTVTime");
 			var totW= progressBar.outerWidth();
 
 			var startBytes= player.getVideoStartBytes();
@@ -330,8 +328,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			var startLeft=0;
 
 			if(startBytes) {
-				startLeft=player.timeW;
-			}
+				startLeft=player.timeW;			}
 
 			var loadedW= (loadedByte*(totW-startLeft))/totalBytes;
 			loadedBar.css({left:startLeft, width:loadedW});
@@ -345,7 +342,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			if (typeof player.isInit != "undefined") return;
 			player.isInit=true;
 			var YTPlayer= jQuery(this).parent();
-			var controlBar=jQuery("<span/>").addClass("mb_YTVPBar").css({whiteSpace:"noWrap",position: data.isBgndMovie && !data.ID ? "fixed" : "absolute"}).hide();
+			var controlBar=jQuery("<span/>").attr("id","controlBar_"+player.id).addClass("mb_YTVPBar").css({whiteSpace:"noWrap",position: data.isBgndMovie && !data.ID ? "fixed" : "absolute"}).hide();
 
 			var buttonBar=jQuery("<div/>").addClass("buttonBar");
 			var playpause =jQuery("<span>"+jQuery.mbYTPlayer.controls.play+"</span>").addClass("mb_YTVPPlaypause").click(function(){
@@ -393,8 +390,9 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			if (data.ID){
 				YTPlayer.before(controlBar);
 			}else{
-				YTPlayer.append(controlBar);
+				jQuery("body").after(controlBar);
 			}
+			var YTPlayerBar = jQuery("#controlBar_"+player.id);
 
 			if (!data.isBgndMovie){
 				YTPlayer.css({opacity:data.opacity});
@@ -405,14 +403,14 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 
 					player.getState=setInterval(function(){
 						if(player.isMuted()){
-							YTPlayer.parent().find(".mb_YTVPMuteUnmute").html(jQuery.mbYTPlayer.controls.unmute);
+							YTPlayerBar.find(".mb_YTVPMuteUnmute").html(jQuery.mbYTPlayer.controls.unmute);
 						}
 						var prog= jQuery(player).manageYTPProgress();
 						jQuery(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime)+" / "+ jQuery.mbYTPlayer.formatTime(prog.totalTime));
 						if(player.getPlayerState()== 1 && jQuery(".mb_YTVPPlaypause").html()!=jQuery.mbYTPlayer.controls.pause)
-							YTPlayer.parent().find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.pause);
+							YTPlayerBar.find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.pause);
 						if(player.getPlayerState()== 2)
-							YTPlayer.parent().find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.play);
+							YTPlayerBar.find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.play);
 					},1000);
 				},function(){
 					controlBar.fadeOut();
@@ -425,15 +423,15 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 					var prog= jQuery(player).manageYTPProgress();
 
 					if(player.isMuted()){
-						YTPlayer.parent().find(".mb_YTVPMuteUnmute").html(jQuery.mbYTPlayer.controls.unmute);
+						YTPlayerBar.find(".mb_YTVPMuteUnmute").html(jQuery.mbYTPlayer.controls.unmute);
 					}
 
-					YTPlayer.parent().find(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime)+" / "+ jQuery.mbYTPlayer.formatTime(prog.totalTime));
+					YTPlayerBar.find(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime)+" / "+ jQuery.mbYTPlayer.formatTime(prog.totalTime));
 
 					if(player.getPlayerState()== 1 && jQuery(".mb_YTVPPlaypause").html()!=jQuery.mbYTPlayer.controls.pause)
-						YTPlayer.parent().find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.pause);
+						YTPlayerBar.find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.pause);
 					if(player.getPlayerState()== 2)
-						YTPlayer.parent().find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.play);
+						YTPlayerBar.find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.play);
 				},1000);
 			}
 		},
