@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 0.6.5
+Stable tag: 0.6.6
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
@@ -68,6 +68,10 @@ Use the editor button or write the below shortcode into the content of your post
   * default: YouTube selects the appropriate playback quality.
 
 == Changelog ==
+
+= 0.6.6 =
+* Cleaned up the js.
+* Video fade in once start playing.
 
 = 0.6.5 =
 * bugfix for Chrome: The control bar was unreachable.
