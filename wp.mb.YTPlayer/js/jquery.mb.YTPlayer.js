@@ -427,6 +427,7 @@ function onYouTubePlayerReady(playerId) {
 function playerState(state, el) {
 	var player=jQuery("#"+el).get(0);
 	var data = jQuery("#"+player.id+"_data").data();
+
 	if (state==0 ) {
 		if(player.state == state)
 			return;
@@ -452,7 +453,10 @@ function playerState(state, el) {
 		if(player.state == state)
 			return;
 		player.state = state;
-		jQuery("#wrapper_"+player.id).animate({opacity:1},2000);
+
+		jQuery("#wrapper_"+player.id).animate({opacity:1},2000,function(){
+			jQuery(".mbYTP_raster").css({opacity:1,backgroundColor:"transparent"});
+		});
 		player.totalBytes=player.getVideoBytesTotal();
 		jQuery(document).trigger("YTPStart");
 	}
