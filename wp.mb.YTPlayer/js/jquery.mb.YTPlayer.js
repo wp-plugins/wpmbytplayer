@@ -165,6 +165,7 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			var player = jQuery(this).get(0);
 			player.onVideoLoaded=undefined;
 			var data = jQuery("#"+player.id+"_data").data();
+			var BGisInit = typeof document.YTPBG != "undefined";
 			var movieID= data.movieURL;
 			jQuery(player).css({opacity:data.opacity});
 			var pos= data.ID?"absolute":"fixed";
@@ -426,7 +427,6 @@ function onYouTubePlayerReady(playerId) {
 function playerState(state, el) {
 	var player=jQuery("#"+el).get(0);
 	var data = jQuery("#"+player.id+"_data").data();
-
 	if (state==0 ) {
 		if(player.state == state)
 			return;
@@ -437,7 +437,6 @@ function playerState(state, el) {
 		else{
 			jQuery("#wrapper_"+player.id).animate({opacity:0},2000, function(){
 				jQuery(player).stopYTP();
-				console.debug(player);
 			});
 		}
 	}
