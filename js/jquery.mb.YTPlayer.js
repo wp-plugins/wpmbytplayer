@@ -355,6 +355,8 @@ jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 			}
 			var YTPlayerBar = jQuery("#controlBar_"+player.id);
 			if (!data.isBgndMovie){
+				YTPlayer.css({opacity:data.opacity});
+
 				YTPlayer.hover(function(){
 					controlBar.fadeIn();
 					clearInterval(player.getState);
