@@ -1,7 +1,7 @@
 === mb.YTPlayer for background videos ===
 
 Contributors: Pupunzi (Matteo Bicocchi)
-Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
+Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.4.1
 Stable tag: 1.0
@@ -13,6 +13,9 @@ Play any Youtube video as background of your page or as custom player inside an 
 
 A Chrome-less Youtube® video player that let you play any YouTube® video as background of your WordPress® page or post.
 You can activate it for your home page from the settings panel or on any post or page using the short code as described in the Reference section of the settings.
+
+**From version 1.0 the player is using the Youtube® iframe API displaying the video using the HTML5 VIDEO tag for all the browsers that support it.**
+
 
 * demo: http://pupunzi.com/mb.components/mb.YTPlayer/demo/demo_background.html
 * video: http://www.youtube.com/watch?v=lTW937ld02Y
