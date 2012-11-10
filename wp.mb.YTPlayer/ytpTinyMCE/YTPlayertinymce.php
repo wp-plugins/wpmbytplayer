@@ -16,40 +16,75 @@ if (!headers_sent()) {
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />
     <title>Add a shortcode for mb.YTPlayer</title>
     <link rel="stylesheet" type="text/css" href="<?php echo $plugins_url.'/wpmbytplayer/ytpTinyMCE/bootstrap-1.4.0.min.css?v='.$plugin_version; ?>"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="<?php echo $includes_url.'js/tinymce/tiny_mce_popup.js?v='.$plugin_version; ?>"></script>
     <style>
-        fieldset label > span.label{
+        fieldset span.label{
             display: inline-block;
             width: 100px;
         }
         fieldset label {
-            margin: 5px;
+            margin: 0;
+            padding: 3px!important;
+            border-top: 1px solid #dcdcdc;
+            border-bottom: 1px solid #f9f9f9;
+            display: block;
         }
 
         .actions{
             text-align: right;
+        }
+
+        #inlinePlayer{
+            display: none;
+            background: #fff;
+            padding: 5px;
         }
     </style>
 
 </head>
 <body>
 
-<form class="form-stacked" action="#">
+<!-- DONATE POPUP-->
+<style>
+    #donate{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; padding: 30px; text-align: center; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; z-index: 10000; }
+    #donateContent{ position: relative; margin: 30px auto; background: rgba(77, 71, 61, 0.88); color:white; padding: 30px; text-align: center; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; width: 450px; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5) }
+    #donate h2{ font-size: 30px; line-height: 33px; color: #ffffff; }
+    #donate p{ margin: 30px; font-size: 16px; line-height: 22px; display: block; float: none; }
+    #donate p#follow{ margin: 30px; font-size: 16px; line-height: 33px; }
+    #donate p#timer{ padding: 5px; font-size: 20px; line-height: 33px; background: #231d0c; border-radius: 30px; color: #ffffff; width: 30px; margin: auto; }
+    #donate button{padding: 5px;border-radius: 3px;background: #ffffff}
+</style>
+<script>var storageSuffix = "ytp";</script>
+<div id="donate">
+    <div id="donateContent">
+        <h2>mb.YTPlayer</h2>
+        <p >If you like it and you are using it then you should consider a donation <br> (€15,00 or more) :-)</p>
+        <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="saveToStorage(storageSuffix+'_donate',{donate:true});">
+            <img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif">
+        </a></p>
+        <p id="timer">&nbsp;</p>
+        <br>
+        <br>
+        <button onclick="saveToStorage(storageSuffix+'_donate',{donate:true});self.location.reload()">I already donate</button>
+    </div>
+</div>
+<script type="text/javascript">
+    function saveToStorage(name,obj){if(!obj)return;localStorage[name]=JSON.stringify(obj);localStorage[name+"_ts"]=(new Date).getTime()}function deleteFromStorage(name){localStorage.removeItem(name);localStorage.removeItem(name+"_ts")}function getFromStorage(name){if(localStorage&&localStorage[name])return JSON.parse(localStorage[name]);return false} jQuery(function(){if(getFromStorage(storageSuffix+"_donate")){jQuery("#donate").remove();jQuery("#inlineDonate").remove()}else{var timer=5;var closeDonate=setInterval(function(){timer--;jQuery("#timer").html(timer);if(timer==0){clearInterval(closeDonate);jQuery("#donate").fadeOut(600,jQuery(this).remove)}},1E3)}});
+</script>
 
+<!--END DONATE POPUP-->
+
+<form class="form-stacked" action="#">
     <fieldset>
-        <legend>mb.YTPlayer background video parameters:</legend>
+        <legend>mb.YTPlayer video parameters:</legend>
+
+
 
         <label>
             <span class="label">Video url <span style="color:red">*</span> : </span>
             <input type="text" name="url" class="span5"/>
             <span class="help-inline">YouTube video URL</span>
-        </label>
-
-        <label>
-            <span class="label">Element ID: </span>
-            <input type="text" name="id" class="span5"/><br>
-            <span class="label"></span><span class="help-inline">The page element id where you want to target the player</span><br>
-            <span class="label"></span><span class="help-inline">if empty it will play as background</span>
         </label>
 
         <label>
@@ -64,26 +99,46 @@ if (!headers_sent()) {
         </label>
 
         <label>
-            <span class="label">Aspect-ratio:</span>
-            <select name="ratio">
-                <option value="4/3">4/3</option>
-                <option value="16/9">16/9</option>
-            </select>
-            <span class="help-inline">YouTube video aspect ratio</span>
-        </label>
-
-        <label>
             <span class="label">Quality:</span>
             <select name="quality">
                 <option value="default">auto detect</option>
                 <option value="small">small</option>
-                <option value="medium">medium</option>
+                <option value="medium" selected="selected">medium</option>
                 <option value="large">large</option>
                 <option value="hd720">hd720</option>
                 <option value="hd1080">hd1080</option>
                 <option value="highres">highres</option>
             </select>
             <span class="help-inline">YouTube video quality</span>
+        </label>
+
+        <label>
+            <span class="label">Is inline: </span>
+            <input type="checkbox" name="isinline" value="true" onclick="jQuery('#inlinePlayer').slideToggle();tinyMCEPopup.resizeToInnerSize()" /><br>
+            <span class="label"></span><span class="help-inline">check this if you want to show the player inline</span><br>
+        </label>
+
+        <div id="inlinePlayer" style="">
+
+            <span class="label">Player width: </span>
+            <input type="text" name="playerwidth" class="span5" style="width: 60px" onblur="suggestedHeight()"/> px
+            <br><span class="help-inline">Set the width of the inline player</span><br>
+            <span class="label">Aspect-ratio:</span>
+            <select name="ratio" style="width: 60px" onchange="suggestedHeight()">
+                <option value="4/3">4/3</option>
+                <option value="16/9">16/9</option>
+            </select>
+            <br><span class="help-inline">YouTube video aspect ratio</span><br>
+
+            <span class="label">Player height: </span>
+            <input type="text" name="playerheight" class="span5" style="width: 60px" /> px
+            <br><span class="help-inline">Set the height of the inline player</span><br>
+        </div>
+
+        <label>
+            <span class="label">Start at: </span>
+            <input type="text" name="startat" class="span5" style="width: 60px" /> sec.
+            <br><span class="label"></span><span class="help-inline">Set the seconds you want the player start at</span><br>
         </label>
 
         <label>
@@ -125,8 +180,23 @@ if (!headers_sent()) {
     </div>
 </form>
 
-<!--[mbYTPlayer url="http://www.youtube.com/watch?v=V2rifmjZuKQ" ratio="4/3" mute="false" loop="true" showcontrols="true" opacity=1]-->
 <script type="text/javascript">
+
+    function suggestedHeight(){
+        var width = parseFloat(jQuery("[name=playerwidth]").val());
+        var margin = (width*10)/100;
+        width = width + margin;
+        var ratio = jQuery("[name=ratio]").val();
+        var suggestedHeight = "";
+        if(width)
+            if(ratio == "16/9"){
+                suggestedHeight = (width*9)/16;
+            }else{
+                suggestedHeight = (width*3)/4;
+            }
+        jQuery("[name=playerheight]").val(Math.floor(suggestedHeight));
+    }
+
     tinyMCEPopup.onInit.add(function(ed) {
 
         var form = document.forms[0],
@@ -166,11 +236,12 @@ if (!headers_sent()) {
                             if(!input.checked)
                                 inputValue = false;
                         }
+                        if (inputName =="ratio")
+                            continue;
 
                         sc += ' ' + inputName + '="' + inputValue + '"';
                     }
                 }
-
                 sc += "]";
 
                 ed.execCommand('mceInsertContent', 0, sc);

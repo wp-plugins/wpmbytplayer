@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, Youtube, full background, video, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 0.6.8
+Stable tag: 1.0
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
@@ -68,6 +68,14 @@ Use the editor button or write the below shortcode into the content of your post
   * default: YouTube selects the appropriate playback quality.
 
 == Changelog ==
+
+= 1.0 =
+* Major update:
+	With this release all the YTPlayer code has been rewritten to use the Youtube® iframe API.
+	That means that for all browsers that support HTML5 VIDEO tags the component will use that instead of the FLASH player;
+	saving processor worming and speeding up performances.
+	As the "seekTo()" method of the API was retrieving an error I opened an issue ticket on the Youtube bug tracking system thinking that anyway they would never take care of it.
+	But after 3 days they write me back saying the bug was fixed :-). So now I can publish this great new release!
 
 = 0.6.7 =
 * bug fix: 			raster image display.
