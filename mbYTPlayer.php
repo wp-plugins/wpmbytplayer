@@ -13,34 +13,17 @@ define("MBYTPLAYER_VERSION", "1.0");
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
 function isMobile() {
-
 // Check the server headers to see if they're mobile friendly
     if(isset($_SERVER["HTTP_X_WAP_PROFILE"])) {
         return true;
     }
-
 // If the http_accept header supports wap then it's a mobile too
     if(preg_match("/wap.|.wap/i",$_SERVER["HTTP_ACCEPT"])) {
         return true;
     }
-
-// Still no luck? Let's have a look at the user agent on the browser. If it contains
-// any of the following, it's probably a mobile device. Kappow!
-    /*    if(isset($_SERVER["HTTP_USER_AGENT"])){
-            $user_agents = array("midp", "j2me", "avantg", "docomo", "novarra", "palmos", "palmsource", "240x320", "opwv", "chtml", "pda", "windows ce", "mmp/", "blackberry", "mib/", "symbian", "wireless", "nokia", "hand", "mobi", "phone", "cdm", "up.b", "audio", "SIE-", "SEC-", "samsung", "HTC", "mot-", "mitsu", "sagem", "sony", "alcatel", "lg", "erics", "vx", "NEC", "philips", "mmm", "xx", "panasonic", "sharp", "wap", "sch", "rover", "pocket", "benq", "java", "pt", "pg", "vox", "amoi", "bird", "compal", "kg", "voda", "sany", "kdd", "dbt", "sendo", "sgh", "gradi", "jb", "dddi", "moto");
-            foreach($user_agents as $user_string){
-                if(preg_match("/".$user_string."/i",$_SERVER["HTTP_USER_AGENT"])) {
-                    return true;
-                }
-            }
-        }
-    */
-
-// Let's NOT return "mobile" if it's an iPhone, because the iPhone can render normal pages quite well.
-    if(preg_match("/iphone/i",$_SERVER["HTTP_USER_AGENT"])) {
-        return false;
+    if(preg_match("/iphone|ipad/i",$_SERVER["HTTP_USER_AGENT"])) {
+        return true;
     }
-
 // None of the above? Then it's probably not a mobile device.
     return false;
 }
@@ -58,6 +41,7 @@ function mbYTPlayer_install() {
     add_option('mbYTPlayer_quality','default');
     add_option('mbYTPlayer_stop_onclick','false');
 }
+
 $mbYTPlayer_home_video_url = get_option('mbYTPlayer_home_video_url');
 $mbYTPlayer_version = get_option('mbYTPlayer_version');
 $mbYTPlayer_show_controls = get_option('mbYTPlayer_show_controls');
@@ -71,6 +55,7 @@ $mbYTPlayer_add_raster = get_option('mbYTPlayer_add_raster');
 $mbYTPlayer_stop_onclick = get_option('mbYTPlayer_stop_onclick');
 
 //set up defaults if these fields are empty
+if ($mbYTPlayer_version != MBYTPLAYER_VERSION) {$mbYTPlayer_version = MBYTPLAYER_VERSION;}
 if (empty($mbYTPlayer_show_controls)) {$mbYTPlayer_show_controls = "false";}
 if (empty($mbYTPlayer_show_videourl)) {$mbYTPlayer_show_videourl = "false";}
 if (empty($mbYTPlayer_mute)) {$mbYTPlayer_mute = "false";}
@@ -156,10 +141,7 @@ function mbYTPlayer_player_shortcode($atts) {
         $startat = $startat;
     };
 
-   // data-property="{videoURL:'http://www.youtube.com/watch?v=l_tHTmd5pgk',containment:'self',startAt:50,mute:false,autoPlay:false,loop:false,opacity:.8}">
-//    {opacity:'.$opacity.', isBgndMovie:{width:\'window\',mute:'.$mute.'}, optimizeDisplay:true, showControls:'.$showcontrols.', printUrl:'.$printurl.', ratio:\''.$ratio.'\', loop: '.$loop.', addRaster:'.$addraster.', quality: \''.$quality.'\''.$elId.'}
     $mbYTPlayer_player_shortcode = '<div id="bgndVideo'.$i.'" '. $style .' class="movie'. ($isinline ? " inline_YTPlayer" :"") .'" data-property="{videoURL:\''.$url.'\', opacity:'.$opacity.', autoPlay:'.$autoPlay.', containment:\''.$elId.'\', startAt:'.$startat.', mute:'.$mute.', optimizeDisplay:true, showControls:'.$showcontrols.', printUrl:'.$printurl.', loop:'.$loop.', addRaster:'.$addraster.', quality:\''.$quality.'\'}"></div>';
-   // $mbYTPlayer_player_shortcode = '<a id="bgndVideo'.$i.'" href="'.$url.'" class="movie {opacity:'.$opacity.', isBgndMovie:{width:\'window\',mute:'.$mute.'}, optimizeDisplay:true, showControls:'.$showcontrols.', printUrl:'.$printurl.', ratio:\''.$ratio.'\', loop: '.$loop.', addRaster:'.$addraster.', quality: \''.$quality.'\''.$elId.'}"></a>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
