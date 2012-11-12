@@ -173,9 +173,10 @@ function onYouTubePlayerAPIReady() {
 
 					YTPlayer.isInit = true;
 
+					//Get video info from FEEDS API
 					jQuery.getJSON('http://gdata.youtube.com/feeds/api/videos/'+videoID+'?v=2&alt=jsonc',function(data,status,xhr){
 
-						console.debug(data);
+						//	console.debug(data);
 
 						var videoData = data.data;
 

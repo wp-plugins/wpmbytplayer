@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.0
+Stable tag: 1.1
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
@@ -72,6 +72,9 @@ Use the editor button or write the below shortcode into the content of your post
 
 == Changelog ==
 
+= 1.1 =
+* bug fix: removed a console.debug() from the script that can cause IE to fail loading the video.
+
 = 1.0 =
 * Major update:
 	With this release all the YTPlayer code has been rewritten to use the Youtube® iframe API.
@@ -79,6 +82,9 @@ Use the editor button or write the below shortcode into the content of your post
 	saving processor worming and speeding up performances.
 	As the "seekTo()" method of the API was retrieving an error I opened an issue ticket on the Youtube bug tracking system thinking that anyway they would never take care of it.
 	But after 3 days they write me back saying the bug was fixed :-). So now I can publish this great new release!
+
+	If you have problems you can always fall back to the previous 6.8 version downloading it from: http://wordpress.org/extend/plugins/wpmbytplayer/developers/
+	Let me know.
 
 = 0.6.7 =
 * bug fix: 			raster image display.
