@@ -74,8 +74,8 @@ Use the editor button or write the below shortcode into the content of your post
 
 = 1.2 =
 * bug fix: Fixed a bug with the donate popup.
-	bug fix: fixed a bug with Chrome audio (didn't mute).
-	bug fix: fixed a bug appending the video in the DOM of the page.
+* bug fix: fixed a bug with Chrome audio (didn't mute).
+* bug fix: fixed a bug appending the video in the DOM of the page.
 
 = 1.1 =
 * bug fix: removed a console.debug() from the script that can cause IE to fail loading the video.
