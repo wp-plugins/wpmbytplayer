@@ -9,7 +9,7 @@ function add_mbYTPlayer_option_page() {
     add_options_page('mbYTPlayer', 'mbYTPlayer', 'manage_options', __FILE__, 'mbYTPlayer_options_page');
 }
 function mbYTPlayer_options_page() { 	// Output the options page
-    global  $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls,$mbYTPlayer_show_videourl, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick  ?>
+    global $mbYTPlayer_donate, $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls,$mbYTPlayer_show_videourl, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick  ?>
 
 <!-- DONATE POPUP-->
 <style>
@@ -27,17 +27,75 @@ function mbYTPlayer_options_page() { 	// Output the options page
     <div id="donateContent">
         <h2>mb.YTPlayer</h2>
         <p >If you like it and you are using it then you should consider a donation <br> (€15,00 or more) :-)</p>
-        <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="saveToStorage(storageSuffix+'_donate',{donate:true});">
+        <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="donate()">
             <img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif">
         </a></p>
         <p id="timer">&nbsp;</p>
         <br>
         <br>
-        <button onclick="saveToStorage(storageSuffix+'_donate',{donate:true});self.location.reload()">I already donate</button>
+        <button onclick="donate()">I already donate</button>
     </div>
 </div>
 <script type="text/javascript">
-    function saveToStorage(name,obj){if(!obj)return;localStorage[name]=JSON.stringify(obj);localStorage[name+"_ts"]=(new Date).getTime()}function deleteFromStorage(name){localStorage.removeItem(name);localStorage.removeItem(name+"_ts")}function getFromStorage(name){if(localStorage&&localStorage[name])return JSON.parse(localStorage[name]);return false} jQuery(function(){if(getFromStorage(storageSuffix+"_donate")){jQuery("#donate").remove();jQuery("#inlineDonate").remove();jQuery("#donateTxt").show()}else{var timer=5;var closeDonate=setInterval(function(){timer--;jQuery("#timer").html(timer);if(timer==0){clearInterval(closeDonate);jQuery("#donate").fadeOut(600,jQuery(this).remove)}},1E3)}});
+
+    function donate() {
+        jQuery("input[name=mbYTPlayer_donate]").val("true");
+        jQuery("#optionsForm").submit();
+    }
+
+    jQuery(function () {
+
+        /*todo: to be removed ---------------------------------------------------------------*/
+        jQuery.mbCookie = {
+            set:function (name, value, days, domain) {
+                if (!days) days = 7;
+                domain = domain ? "; domain=" + domain : "";
+                var date = new Date(), expires;
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+                document.cookie = name + "=" + value + expires + "; path=/" + domain;
+            },
+            get:function (name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ')
+                        c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0)
+                        return unescape(c.substring(nameEQ.length, c.length));
+                }
+                return null;
+            },
+            remove:function (name) {
+                jQuery.mbCookie.set(name, "", -1);
+            }
+        };
+
+        if(typeof(Storage)!=="undefined" && localStorage.ytp_donate != "null"){
+            jQuery.mbCookie.set("map_donate", true);
+            localStorage.ytp_donate = null;
+            self.location.reload();
+        }
+
+        /*end --- todo: to be removed ------------------------------------------------------------------------*/
+
+        if (<?php echo $mbYTPlayer_donate;?>) {
+            jQuery("#donate").remove();
+            jQuery("#inlineDonate").remove();
+            jQuery("#donateTxt").show()
+        } else {
+            var timer = 5;
+            var closeDonate = setInterval(function () {
+                timer--;
+                jQuery("#timer").html(timer);
+                if (timer == 0) {
+                    clearInterval(closeDonate);
+                    jQuery("#donate").fadeOut(600, jQuery(this).remove)
+                }
+            }, 1000)
+        }
+    });
 </script>
 <!-- END DONATE POPUP-->
 
@@ -80,7 +138,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
         <p style="line-height: 1.4em;">Thanks for downloading mb.YTPlayer!</p>
         <p id="inlineDonate" style="position: relative; display:block;top:0;margin-right: -10px">
             If you like it and you are using it<br>then you should consider a donation (€15,00 or more) :-)<br><br>
-            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="saveToStorage('ytp_donate',{donate:true});"><img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"></a>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="donate()"><img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"></a>
             <br><br><i>If you donate, the start popup will nevermore display.</i><br><br>
         </p>
         <hr>
@@ -90,7 +148,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
         <p id="donateTxt">Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank">donate</a></p>
     </div>
 
-    <form method="post" action="options.php">
+    <form id="optionsForm" method="post" action="options.php">
         <?php wp_nonce_field('update-options'); ?>
         <h2>Reference</h2>
 
@@ -102,6 +160,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
         <p>These settings are used only for the Home istance of the mb.YTPlayer component.</p>
         <br>
         <br>
+        <input type="hidden" name="mbYTPlayer_donate" value="<?php echo $mbYTPlayer_donate;?>" />
         <table class="form-table">
             <tr valign="top">
                 <th scope="row">home video: url</th>
@@ -137,6 +196,20 @@ function mbYTPlayer_options_page() { 	// Output the options page
                         <option value="highres" <?php if ($mbYTPlayer_quality=="highres") {echo' selected'; }?> >highres</option>
                     </select>
                     <p>Set the quality of the background video ('default' YouTube selects the appropriate playback quality).</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row">home video: aspect ratio</th>
+                <td>
+                    <select name="mbYTPlayer_ratio">
+                        <option value="auto" <?php if ($mbYTPlayer_ratio=="auto") {echo' selected'; }?> >auto</option>
+                        <option value="4/3" <?php if ($mbYTPlayer_ratio=="4/3") {echo' selected'; }?> >4/3</option>
+                        <option value="16/9" <?php if ($mbYTPlayer_ratio=="16/9") {echo' selected'; }?>>16/9</option>
+                    </select>
+                    <p>Set the aspect-ratio of the background video. If "auto" the plug in will try to retrieve the aspect ratio from Youtube.
+                        If you have problems on viewing the background video try setting this manually.
+                    </p>
                 </td>
             </tr>
 
@@ -196,7 +269,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
                 </td>
             </tr>
         </table>
-        <input type="hidden" name="page_options" value="mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_show_videourl, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity, mbYTPlayer_quality, mbYTPlayer_add_raster, mbYTPlayer_stop_onclick" />
+        <input type="hidden" name="page_options" value="mbYTPlayer_donate, mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_show_videourl, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_loop, mbYTPlayer_opacity, mbYTPlayer_quality, mbYTPlayer_add_raster, mbYTPlayer_stop_onclick" />
         <input type="hidden" name="action" value="update" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />

@@ -4,6 +4,7 @@ $plugin_version = $_GET['plugin_version'];
 $includes_url = $_GET['includes_url'];
 $plugins_url = $_GET['plugins_url'];
 $charset = $_GET['charset'];
+$donate = $_GET['donate'];
 
 if (!headers_sent()) {
     header('Content-Type: text/html; charset='.$charset);
@@ -55,22 +56,70 @@ if (!headers_sent()) {
     #donate p#timer{ padding: 5px; font-size: 20px; line-height: 33px; background: #231d0c; border-radius: 30px; color: #ffffff; width: 30px; margin: auto; }
     #donate button{padding: 5px;border-radius: 3px;background: #ffffff}
 </style>
-<script>var storageSuffix = "ytp";</script>
+
 <div id="donate">
     <div id="donateContent">
         <h2>mb.YTPlayer</h2>
         <p >If you like it and you are using it then you should consider a donation <br> (€15,00 or more) :-)</p>
-        <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="saveToStorage(storageSuffix+'_donate',{donate:true});">
+        <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="donate();">
             <img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif">
         </a></p>
         <p id="timer">&nbsp;</p>
         <br>
         <br>
-        <button onclick="saveToStorage(storageSuffix+'_donate',{donate:true});self.location.reload()">I already donate</button>
+        <button onclick="donate()">I already donate</button>
     </div>
 </div>
 <script type="text/javascript">
-    function saveToStorage(name,obj){if(!obj)return;localStorage[name]=JSON.stringify(obj);localStorage[name+"_ts"]=(new Date).getTime()}function deleteFromStorage(name){localStorage.removeItem(name);localStorage.removeItem(name+"_ts")}function getFromStorage(name){if(localStorage&&localStorage[name])return JSON.parse(localStorage[name]);return false} jQuery(function(){if(getFromStorage(storageSuffix+"_donate")){jQuery("#donate").remove();jQuery("#inlineDonate").remove()}else{var timer=5;var closeDonate=setInterval(function(){timer--;jQuery("#timer").html(timer);if(timer==0){clearInterval(closeDonate);jQuery("#donate").fadeOut(600,jQuery(this).remove)}},1E3)}});
+
+    $.mbCookie = {
+        set:function (name, value, days, domain) {
+            if (!days) days = 7;
+            domain = domain ? "; domain=" + domain : "";
+            var date = new Date(), expires;
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toGMTString();
+            document.cookie = name + "=" + value + expires + "; path=/" + domain;
+        },
+        get:function (name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ')
+                    c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0)
+                    return unescape(c.substring(nameEQ.length, c.length));
+            }
+            return null;
+        },
+        remove:function (name) {
+            $.mbCookie.set(name, "", -1);
+        }
+    };
+
+    function donate() {
+        $.mbCookie.set("ytpdonate", true);
+        self.location.reload();
+    }
+
+    jQuery(function () {
+        var hasDonate = <?php echo $donate ?> ;
+        if (hasDonate || $.mbCookie.get("ytpdonate") === "true" ) {
+            jQuery("#donate").remove();
+            jQuery("#inlineDonate").remove()
+        } else {
+            var timer = 5;
+            var closeDonate = setInterval(function () {
+                timer--;
+                jQuery("#timer").html(timer);
+                if (timer == 0) {
+                    clearInterval(closeDonate);
+                    jQuery("#donate").fadeOut(600, jQuery(this).remove)
+                }
+            }, 1000)
+        }
+    });
 </script>
 
 <!--END DONATE POPUP-->
@@ -113,6 +162,17 @@ if (!headers_sent()) {
         </label>
 
         <label>
+            <span class="label">Aspect ratio:</span>
+            <select name="ratio">
+                <option value="auto"  selected="selected">auto detect</option>
+                <option value="4/3">4/3</option>
+                <option value="16/9">16/9</option>
+            </select>
+            <span class="help-inline">YouTube video aspect ratio.</span>
+            <span class="label"></span><span class="help-inline"> If "auto" the plug in will try to get it from Youtube.</span>
+        </label>
+
+        <label>
             <span class="label">Is inline: </span>
             <input type="checkbox" name="isinline" value="true" onclick="jQuery('#inlinePlayer').slideToggle();tinyMCEPopup.resizeToInnerSize()" /><br>
             <span class="label"></span><span class="help-inline">check this if you want to show the player inline</span><br>
@@ -122,23 +182,23 @@ if (!headers_sent()) {
 
             <span class="label">Player width: </span>
             <input type="text" name="playerwidth" class="span5" style="width: 60px" onblur="suggestedHeight()"/> px
-            <br><span class="help-inline">Set the width of the inline player</span><br>
-            <span class="label">Aspect-ratio:</span>
-            <select name="ratio" style="width: 60px" onchange="suggestedHeight()">
+            <span class="help-inline">Set the width of the inline player</span><br><br>
+            <span class="label">Aspect ratio:</span>
+            <select name="inLine_ratio" style="width: 60px" onchange="suggestedHeight()">
                 <option value="4/3">4/3</option>
                 <option value="16/9">16/9</option>
             </select>
-            <br><span class="help-inline">YouTube video aspect ratio</span><br>
+            <span class="help-inline">To get the suggested height for the player</span><br><br>
 
             <span class="label">Player height: </span>
             <input type="text" name="playerheight" class="span5" style="width: 60px" /> px
-            <br><span class="help-inline">Set the height of the inline player</span><br>
+            <span class="help-inline">Set the height of the inline player</span><br>
         </div>
 
         <label>
             <span class="label">Start at: </span>
             <input type="text" name="startat" class="span5" style="width: 60px" /> sec.
-            <br><span class="label"></span><span class="help-inline">Set the seconds you want the player start at</span><br>
+            <span class="help-inline">Set the seconds you want the player start at</span><br>
         </label>
 
         <label>
@@ -186,7 +246,7 @@ if (!headers_sent()) {
         var width = parseFloat(jQuery("[name=playerwidth]").val());
         var margin = (width*10)/100;
         width = width + margin;
-        var ratio = jQuery("[name=ratio]").val();
+        var ratio = jQuery("[name=inLine_ratio]").val();
         var suggestedHeight = "";
         if(width)
             if(ratio == "16/9"){
@@ -236,7 +296,7 @@ if (!headers_sent()) {
                             if(!input.checked)
                                 inputValue = false;
                         }
-                        if (inputName =="ratio")
+                        if (inputName =="inLine_ratio")
                             continue;
 
                         sc += ' ' + inputName + '="' + inputValue + '"';

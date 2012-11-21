@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the shortcode following the reference in the settings panel. <strong>And don't forget to make a donation if you like it :-)</strong>
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.1
+Version: 1.2
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.1");
+define("MBYTPLAYER_VERSION", "1.2");
 
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
@@ -31,6 +31,7 @@ function isMobile() {
 function mbYTPlayer_install() {
 // add and update our default options upon activation
     update_option('mbYTPlayer_version', MBYTPLAYER_VERSION);
+    add_option('mbYTPlayer_donate','false');
     add_option('mbYTPlayer_home_video_url','');
     add_option('mbYTPlayer_show_controls','false');
     add_option('mbYTPlayer_show_videourl','false');
@@ -42,10 +43,12 @@ function mbYTPlayer_install() {
     add_option('mbYTPlayer_stop_onclick','false');
 }
 
+$mbYTPlayer_donate = get_option('mbYTPlayer_donate');
 $mbYTPlayer_home_video_url = get_option('mbYTPlayer_home_video_url');
 $mbYTPlayer_version = get_option('mbYTPlayer_version');
 $mbYTPlayer_show_controls = get_option('mbYTPlayer_show_controls');
 $mbYTPlayer_show_videourl = get_option('mbYTPlayer_show_videourl');
+$mbYTPlayer_ratio = get_option('mbYTPlayer_ratio');
 $mbYTPlayer_mute = get_option('mbYTPlayer_mute');
 $mbYTPlayer_loop = get_option('mbYTPlayer_loop');
 $mbYTPlayer_opacity = get_option('mbYTPlayer_opacity');
@@ -56,8 +59,10 @@ $mbYTPlayer_stop_onclick = get_option('mbYTPlayer_stop_onclick');
 
 //set up defaults if these fields are empty
 if ($mbYTPlayer_version != MBYTPLAYER_VERSION) {$mbYTPlayer_version = MBYTPLAYER_VERSION;}
+if (empty($mbYTPlayer_donate)) {$mbYTPlayer_donate = "false";}
 if (empty($mbYTPlayer_show_controls)) {$mbYTPlayer_show_controls = "false";}
 if (empty($mbYTPlayer_show_videourl)) {$mbYTPlayer_show_videourl = "false";}
+if (empty($mbYTPlayer_ratio)) {$mbYTPlayer_ratio = "auto";}
 if (empty($mbYTPlayer_mute)) {$mbYTPlayer_mute = "false";}
 if (empty($mbYTPlayer_loop)) {$mbYTPlayer_loop = "false";}
 if (empty($mbYTPlayer_opacity)) {$mbYTPlayer_opacity = "1";}
@@ -121,7 +126,7 @@ function mbYTPlayer_player_shortcode($atts) {
 
     if (empty($startat)) {$startat = 0;}
     if (empty($isinline)) {$isinline = "false";}
-    //if (empty($ratio)) {$ratio = "16/9";}
+    if (empty($ratio)) {$ratio = "auto";}
     if (empty($showcontrols)) {$showcontrols = "true";}
     if (empty($printurl)) {$printurl = "true";}
     if (empty($opacity)) {$opacity = "1";}
@@ -141,7 +146,7 @@ function mbYTPlayer_player_shortcode($atts) {
         $startat = $startat;
     };
 
-    $mbYTPlayer_player_shortcode = '<div id="bgndVideo'.$i.'" '. $style .' class="movie'. ($isinline ? " inline_YTPlayer" :"") .'" data-property="{videoURL:\''.$url.'\', opacity:'.$opacity.', autoPlay:'.$autoPlay.', containment:\''.$elId.'\', startAt:'.$startat.', mute:'.$mute.', optimizeDisplay:true, showControls:'.$showcontrols.', printUrl:'.$printurl.', loop:'.$loop.', addRaster:'.$addraster.', quality:\''.$quality.'\'}"></div>';
+    $mbYTPlayer_player_shortcode = '<div id="bgndVideo'.$i.'" '. $style .' class="movie'. ($isinline ? " inline_YTPlayer" :"") .'" data-property="{videoURL:\''.$url.'\', opacity:'.$opacity.', autoPlay:'.$autoPlay.', containment:\''.$elId.'\', startAt:'.$startat.', mute:'.$mute.', optimizeDisplay:true, showControls:'.$showcontrols.', printUrl:'.$printurl.', loop:'.$loop.', addRaster:'.$addraster.', quality:\''.$quality.'\', ratio:\''.$ratio.'\'}"></div>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
@@ -151,6 +156,19 @@ function mbYTPlayer_player_shortcode($atts) {
 // scripts to go in the header and/or footer
 function mbYTPlayer_init() {
     global $mbYTPlayer_version;
+
+    if(isset($_COOKIE['ytpdonate']) && $_COOKIE['ytpdonate'] !== "false"){
+        update_option('mbYTPlayer_donate', "true" );
+        echo '
+            <script type="text/javascript">
+                expires = "; expires= -10000";
+                document.cookie = "ytpdonate=false" + expires + "; path=/";
+            </script>
+        ';
+
+//        setcookie('ytp_donate', false);
+    }
+
     if ( !is_admin() && !isMobile()) {
         wp_enqueue_script('jquery');
         wp_enqueue_script('metadata', plugins_url( '/js/jquery.metadata.js', __FILE__ ), false, '1.2', false);
@@ -163,7 +181,7 @@ function mbYTPlayer_init() {
 add_action('init', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head() {
-    global $mbYTPlayer_home_video_url,$mbYTPlayer_show_controls,$mbYTPlayer_show_videourl,$mbYTPlayer_mute,$mbYTPlayer_loop,$mbYTPlayer_opacity,$mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick;
+    global $mbYTPlayer_home_video_url,$mbYTPlayer_show_controls,$mbYTPlayer_ratio,$mbYTPlayer_show_videourl,$mbYTPlayer_mute,$mbYTPlayer_loop,$mbYTPlayer_opacity,$mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick;
 
     if(isMobile())
         return false;
@@ -201,7 +219,7 @@ function mbYTPlayer_player_head() {
         if (empty($mbYTPlayer_home_video_url))
             return false;
 
-        $mbYTPlayer_player_homevideo = '<a id=\'bgndVideo_home\' href=\''.$mbYTPlayer_home_video_url.'\' class=\"movieHome {opacity:'.$mbYTPlayer_opacity.', isBgndMovie:{width:\'window\',mute:'.$mbYTPlayer_mute.'}, optimizeDisplay:true, showControls:'.$mbYTPlayer_show_controls.',printUrl:'.$mbYTPlayer_show_videourl.', loop: '.$mbYTPlayer_loop.', addRaster:'.$mbYTPlayer_add_raster.', quality:\''.$mbYTPlayer_quality.'\'}\"></a>';
+        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\''.$mbYTPlayer_home_video_url.'\', opacity:'.$mbYTPlayer_opacity.', autoPlay:true, containment:\'body\', startAt:0, mute:'.$mbYTPlayer_mute.', optimizeDisplay:true, showControls:'.$mbYTPlayer_show_controls.', printUrl:'.$mbYTPlayer_show_videourl.', loop:'.$mbYTPlayer_loop.', addRaster:'.$mbYTPlayer_add_raster.', quality:\''.$mbYTPlayer_quality.'\', ratio:\''.$mbYTPlayer_ratio.'\'}\"></div>';
 
         echo '
 	<!-- mbYTPlayer Home -->
@@ -217,7 +235,9 @@ function mbYTPlayer_player_head() {
         ';
     }
 
-}; // ends mbYTPlayer_player_head function
+};
+// ends mbYTPlayer_player_head function
+
 add_action('wp_head', 'mbYTPlayer_player_head');
 
 add_action('admin_init', 'setup_ytplayer_button');
@@ -247,15 +267,17 @@ function add_ytplayer_button_script($plugin_array) {
 }
 
 function get_ytplayer_pop_up_params(){
-    global $mbYTPlayer_version;
+    global $mbYTPlayer_version,$mbYTPlayer_donate;
 
     return urlencode(base64_encode(
         'plugin_version='.$mbYTPlayer_version.'&'.
             'includes_url='.urlencode(includes_url()).'&'.
             'plugins_url='.urlencode(plugins_url()).'&'.
-            'charset='.urlencode(get_option('blog_charset'))
+            'charset='.urlencode(get_option('blog_charset')).'&'.
+            'donate='.$mbYTPlayer_donate
     ));
 }
+
 
 if ( is_admin() ) {
     require('mbYTPlayer-admin.php');
