@@ -27,6 +27,9 @@ String.prototype.getVideoID=function(){
  */
 (function(c){c.extend({metadata:{defaults:{type:"class",name:"metadata",cre:/({.*})/,single:"metadata"},setType:function(b,c){this.defaults.type=b;this.defaults.name=c},get:function(b,f){var d=c.extend({},this.defaults,f);d.single.length||(d.single="metadata");var a=c.data(b,d.single);if(a)return a;a="{}";if("class"==d.type){var e=d.cre.exec(b.className);e&&(a=e[1])}else if("elem"==d.type){if(!b.getElementsByTagName)return;e=b.getElementsByTagName(d.name);e.length&&(a=c.trim(e[0].innerHTML))}else void 0!= b.getAttribute&&(e=b.getAttribute(d.name))&&(a=e);0>a.indexOf("{")&&(a="{"+a+"}");a=eval("("+a+")");c.data(b,d.single,a);return a}}});c.fn.metadata=function(b){return c.metadata.get(this[0],b)}})(jQuery);
 
+
+jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+
 function onYouTubePlayerAPIReady() {
 	jQuery(document).trigger("YTAPIReady");
 	jQuery.mbYTPlayer.YTAPIReady=true;
@@ -47,8 +50,6 @@ function onYouTubePlayerAPIReady() {
 		defaults:{
 			containment:"body",
 			ratio:"16/9",
-			chromeLess:true,
-			forceHTML5:true,
 			showYTLogo:false,
 			videoURL:null,
 			startAt:0,
@@ -127,7 +128,7 @@ function onYouTubePlayerAPIReady() {
 					canPlayHTML5 = true;
 				}
 
-				if(canPlayHTML5)
+				if(canPlayHTML5 && !jQuery.browser.msie)
 					jQuery.extend(playerVars,{'html5':1});
 
 				var playerBox= jQuery("<div/>").attr("id",playerID).addClass("playerBox");
@@ -461,11 +462,11 @@ function onYouTubePlayerAPIReady() {
 			var viewOnYT = jQuery(jQuery.mbYTPlayer.controls.ytLogo).on("click",function(){window.open(data.videoURL,"viewOnYT")});
 			var viewOnlyYT = jQuery(jQuery.mbYTPlayer.controls.onlyYT).toggle(
 					function(){
-						jQuery(YTPlayer.wrapper).css({zIndex:10000}).CSSAnimate({opacity:1},2000,0);
+						jQuery(YTPlayer.wrapper).css({zIndex:10000}).CSSAnimate({opacity:1},1000,0);
 						YTPlayer.isAlone = true;
 					},function(){
 						jQuery(YTPlayer.wrapper).CSSAnimate({opacity:YTPlayer.opt.opacity},500,function(){
-							jQuery(YTPlayer.wrapper).css({zIndex:0});
+							jQuery(YTPlayer.wrapper).css({zIndex:-1});
 							YTPlayer.isAlone = false;
 						});
 					});
