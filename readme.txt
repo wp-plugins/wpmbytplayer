@@ -3,7 +3,7 @@
 Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
-Tested up to: 3.4.1
+Tested up to: 3.4.2
 Stable tag: 1.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
