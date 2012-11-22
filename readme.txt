@@ -74,7 +74,7 @@ Use the editor button or write the below shortcode into the content of your post
 
 
 = 1.3 =
-* Bug fix for IE - Now it works on IE 7+ Forcing the rendering via Flash® if is Explorer.
+* Bug fix for IE - Now it works on IE 8+ Forcing the rendering via Flash® if is Explorer.
 
 = 1.2 =
 * bug fix: Fixed a bug with the donate popup.
