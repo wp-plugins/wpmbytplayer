@@ -159,9 +159,9 @@ function onYouTubePlayerAPIReady() {
 
 				if(YTPlayer.isBackground){
 					jQuery("body").css({position:"relative",minWidth:"100%",minHeight:"100%",zIndex:1});
-					wrapper.css({position:"fixed", top:0,zIndex:0});
+					wrapper.css({position:"fixed", top:0,left:0, zIndex:0});
 					$YTPlayer.hide();
-					YTPlayer.opt.containment.prepend(wrapper);
+					YTPlayer.opt.containment.before(wrapper);
 				}else
 					YTPlayer.opt.containment.prepend(wrapper);
 
@@ -440,7 +440,7 @@ function onYouTubePlayerAPIReady() {
 		buildYTPControls:function(){
 			var YTPlayer= jQuery(this).get(0);
 			var data = YTPlayer.opt;
-			var controlBar=jQuery("<span/>").attr("id","controlBar_"+YTPlayer.id).addClass("mb_YTVPBar").css({whiteSpace:"noWrap",position: YTPlayer.isBackground ? "fixed" : "absolute" }).hide();
+			var controlBar=jQuery("<span/>").attr("id","controlBar_"+YTPlayer.id).addClass("mb_YTVPBar").css({whiteSpace:"noWrap",position: YTPlayer.isBackground ? "fixed" : "absolute", zIndex:10000 }).hide();
 			var buttonBar=jQuery("<div/>").addClass("buttonBar");
 			var playpause =jQuery("<span>"+jQuery.mbYTPlayer.controls.play+"</span>").addClass("mb_YTVPPlaypause").click(function(){
 				if(YTPlayer.player.getPlayerState() == 1)
@@ -552,7 +552,7 @@ function onYouTubePlayerAPIReady() {
 
 		if(vid.height<win.height){
 			vid.height = win.height +((win.height*margin)/100);
-			vid.width= data.ratio=="16/9" ? Math.ceil((16*win.height)/9): Math.ceil((4*win.height)/3);
+			vid.width= data.ratio=="16/9" ? Math.floor((16*win.height)/9) : Math.floor((4*win.height)/3);
 			vid.marginTop=-((win.height*(margin/2))/100);
 			vid.marginLeft= -((vid.width-win.width)/2);
 		}
