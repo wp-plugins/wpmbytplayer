@@ -161,7 +161,7 @@ function onYouTubePlayerAPIReady() {
 					jQuery("body").css({position:"relative",minWidth:"100%",minHeight:"100%",zIndex:1});
 					wrapper.css({position:"fixed", top:0,left:0, zIndex:0});
 					$YTPlayer.hide();
-					YTPlayer.opt.containment.before(wrapper);
+					YTPlayer.opt.containment.prepend(wrapper);
 				}else
 					YTPlayer.opt.containment.prepend(wrapper);
 
