@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.4
+Stable tag: 1.5
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
@@ -71,6 +71,9 @@ Use the editor button or write the below shortcode into the content of your post
   * default: YouTube selects the appropriate playback quality.
 
 == Changelog ==
+
+= 1.5 =
+* Bug fix - Fixed a potential bug if there are more instances of the player in a single page (for example one as background video and one as inline player).
 
 = 1.4 =
 * CSS Bug fix - Defined specific player CSS classes to prevent incorrect positioning of the player due to possible CSS Theme definitions conflict.

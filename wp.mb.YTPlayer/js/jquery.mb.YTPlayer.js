@@ -27,10 +27,13 @@ String.prototype.getVideoID=function(){
  */
 (function(c){c.extend({metadata:{defaults:{type:"class",name:"metadata",cre:/({.*})/,single:"metadata"},setType:function(b,c){this.defaults.type=b;this.defaults.name=c},get:function(b,f){var d=c.extend({},this.defaults,f);d.single.length||(d.single="metadata");var a=c.data(b,d.single);if(a)return a;a="{}";if("class"==d.type){var e=d.cre.exec(b.className);e&&(a=e[1])}else if("elem"==d.type){if(!b.getElementsByTagName)return;e=b.getElementsByTagName(d.name);e.length&&(a=c.trim(e[0].innerHTML))}else void 0!= b.getAttribute&&(e=b.getAttribute(d.name))&&(a=e);0>a.indexOf("{")&&(a="{"+a+"}");a=eval("("+a+")");c.data(b,d.single,a);return a}}});c.fn.metadata=function(b){return c.metadata.get(this[0],b)}})(jQuery);
 
-
 jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+var isDevice = 'ontouchstart' in window;
 
 function onYouTubePlayerAPIReady() {
+	if(jQuery.mbYTPlayer.YTAPIReady)
+		return;
+
 	jQuery(document).trigger("YTAPIReady");
 	jQuery.mbYTPlayer.YTAPIReady=true;
 }
@@ -67,17 +70,20 @@ function onYouTubePlayerAPIReady() {
 			onError: function(event){}
 		},
 		controls:{
-			play:"",
-			pause:"",
-			mute:"",
-			unmute:"",
-			onlyYT:"",
-			ytLogo:""
+			play:"<img src='images/play.png'>",
+			pause:"<img src='images/pause.png'>",
+			mute:"<img src='images/mute.png'>",
+			unmute:"<img src='images/unmute.png'>",
+			onlyYT:"<img src='images/onlyVideo.png'>",
+			ytLogo:"<img src='images/YTLogo.png'>"
 		},
 		rasterImg:"",
 		rasterImgRetina:"",
 
 		buildPlayer:function(options){
+
+			if (isDevice)
+				return;
 
 			document.YTP = {};
 
@@ -158,7 +164,7 @@ function onYouTubePlayerAPIReady() {
 				});
 
 				if(YTPlayer.isBackground){
-					jQuery("body").css({position:"relative",minWidth:"100%",minHeight:"100%",zIndex:1});
+					jQuery("body").css({position:"relative",minWidth:"100%",minHeight:"100%",zIndex:1, boxSizing:"border-box"});
 					wrapper.css({position:"fixed", top:0,left:0, zIndex:0});
 					$YTPlayer.hide();
 					YTPlayer.opt.containment.prepend(wrapper);
@@ -177,14 +183,18 @@ function onYouTubePlayerAPIReady() {
 				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 				jQuery(document).on("YTAPIReady",function(){
-					if(document.YTP.isInit)
+
+					if((YTPlayer.isBackground && document.YTP.isInit) || YTPlayer.opt.isInit)
 						return;
 
-					document.YTP.isInit=true;
+					if(YTPlayer.isBackground)
+						document.YTP.isInit=true;
+					YTPlayer.opt.isInit = true;
 
 					YTPlayer.opt.vol = YTPlayer.opt.vol ? YTPlayer.opt.vol : 100;
 
-					jQuery(document).on("getVideoInfo", function(){
+					jQuery(document).on("getVideoInfo_"+YTPlayer.opt.id, function(){
+
 						var player = new YT.Player(playerID, {
 							videoId: videoID,
 							playerVars: playerVars,
@@ -193,6 +203,7 @@ function onYouTubePlayerAPIReady() {
 									YTPlayer.player = event.target;
 									YTPlayer.playerEl=YTPlayer.player.getIframe();
 									$YTPlayer.optimizeDisplay();
+
 									jQuery(window).resize(function(){
 										$YTPlayer.optimizeDisplay();
 									});
@@ -241,7 +252,10 @@ function onYouTubePlayerAPIReady() {
 									 5 (video cued).
 									 */
 
+									if(typeof event.target.getPlayerState != "function")
+										return;
 									var state = event.target.getPlayerState();
+
 									var playerBox = jQuery(YTPlayer.playerEl);
 									var controls = jQuery("#controlBar_"+YTPlayer.id);
 									playerBox.css({opacity:1});
@@ -251,13 +265,19 @@ function onYouTubePlayerAPIReady() {
 									if (state==0) {
 										if(YTPlayer.state == state)
 											return;
-										YTPlayer.state = state;
 
-										if(data.loop)
+										YTPlayer.state = state;
+										YTPlayer.player.pauseVideo();
+										var startAt = YTPlayer.opt.startAt ? YTPlayer.opt.startAt : 1;
+
+										if(data.loop) {
+											YTPlayer.player.seekTo(startAt);
 											$YTPlayer.playYTP();
-										else if(!YTPlayer.isBackground){
+										}else if(!YTPlayer.isBackground){
+											$YTPlayer.stopYTP();
+											YTPlayer.player.seekTo(startAt,true);
+											$YTPlayer.playYTP();
 											$YTPlayer.pauseYTP();
-											YTPlayer.player.seekTo(1,true);
 										}
 
 										if(!data.loop && YTPlayer.isBackground)
@@ -315,17 +335,21 @@ function onYouTubePlayerAPIReady() {
 					});
 
 					//Get video info from FEEDS API
-					if(YTPlayer.opt.ratio == "auto"){
+					//todo: add video title and other info
+					if(YTPlayer.opt.ratio == "auto" && !!jQuery.browser.msie){
 						jQuery.getJSON('http://gdata.youtube.com/feeds/api/videos/'+videoID+'?v=2&alt=jsonc',function(data,status,xhr){
 							var videoData = data.data;
 							if (videoData.aspectRatio && videoData.aspectRatio === "widescreen")
 								YTPlayer.opt.ratio="16/9";
 							else
 								YTPlayer.opt.ratio="4/3";
-							jQuery(document).trigger("getVideoInfo");
+
+							jQuery(document).trigger("getVideoInfo_"+YTPlayer.opt.id);
+
 						});
 					}else{
-						jQuery(document).trigger("getVideoInfo");
+						YTPlayer.opt.ratio == "auto" ? YTPlayer.opt.ratio = "16/9" : YTPlayer.opt.ratio;
+						jQuery(document).trigger("getVideoInfo_"+YTPlayer.opt.id);
 					}
 				})
 			});
