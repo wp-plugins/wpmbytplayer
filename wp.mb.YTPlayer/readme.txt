@@ -14,19 +14,22 @@ Play any Youtube video as background of your page or as custom player inside an 
 A Chrome-less Youtube® video player that let you play any YouTube® video as background of your WordPress® page or post.
 You can activate it for your home page from the settings panel or on any post or page using the short code as described in the Reference section of the settings.
 
+[youtube http://www.youtube.com/watch?v=lTW937ld02Y]
+
 **From version 1.0 the player is using the Youtube® iframe API displaying the video using the HTML5 VIDEO tag for all the browsers that support it.**
 
+The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.) due to restrictions applied by the vendors on media controls via javascript.
+Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
+
+note:
+If you doesn't want ADs on your background video and you are the owner of it you can disable this on your Youtube channel as explained here: http://12starsmedia.com/blog/how-to-remove-ads-from-youtube-videos .
+
+Links:
 
 * demo: http://pupunzi.com/mb.components/mb.YTPlayer/demo/demo_background.html
 * video: http://www.youtube.com/watch?v=lTW937ld02Y
 * pupunzi blog: http://pupunzi.open-lab.com
 * pupunzi site: http://pupunzi.com
-
-
-[youtube http://www.youtube.com/watch?v=lTW937ld02Y]
-
-
-note: If you doesn't want ADs on your background video and you are the owner of it you can disable this on your Youtube channel as explained here: http://12starsmedia.com/blog/how-to-remove-ads-from-youtube-videos
 
 == Installation ==
 
