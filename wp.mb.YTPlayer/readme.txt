@@ -41,6 +41,7 @@ Extract the zip file and upload the contents to the wp-content/plugins/ director
 2. You can add a video as background or targeted to a DOM element in any page or post by inserting a shortcode generated via the editor button.
 3. The shortcode editor.
 
+
 == To set your homepage background video: ==
 
 1. Go to the mbYTPlayer settings panel (you can find it under the "settings" section of the WP backend.
@@ -72,6 +73,12 @@ Use the editor button or write the below shortcode into the content of your post
   * hd1080: Player height is 1080px, and player dimensions are 1920px by 1080px (for 16:9 aspect ratio) or 1440px by 1080px (for 4:3 aspect ratio).
   * highres: Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
   * default: YouTube selects the appropriate playback quality.
+
+
+== What about mobile ==
+
+The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.) due to restrictions applied by the vendors on media controls via javascript.
+Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
 
 == Changelog ==
 
