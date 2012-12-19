@@ -15,7 +15,13 @@
  ***************************************************************************/
 
 String.prototype.getVideoID=function(){
-	return this.indexOf("http")>-1 ? this.match(/[\\?&]v=([^&#]*)/)[1]:this;
+  var movieURL;
+  if(this.substr(0,16)=="http://youtu.be/"){
+    movieURL= this.replace("http://youtu.be/","");
+  }else{
+    movieURL = this.match(/[\\?&]v=([^&#]*)/)[1];
+  }
+	return movieURL;
 };
 
 /*

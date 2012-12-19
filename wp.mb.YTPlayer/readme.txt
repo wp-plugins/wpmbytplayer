@@ -41,7 +41,6 @@ Extract the zip file and upload the contents to the wp-content/plugins/ director
 2. You can add a video as background or targeted to a DOM element in any page or post by inserting a shortcode generated via the editor button.
 3. The shortcode editor.
 
-
 == To set your homepage background video: ==
 
 1. Go to the mbYTPlayer settings panel (you can find it under the "settings" section of the WP backend.
@@ -81,6 +80,9 @@ The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.)
 Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
 
 == Changelog ==
+
+= 1.5.2 =
+* New feature - Added support for the short-url of youtube videos.
 
 = 1.5 =
 * Bug fix - Fixed a potential bug if there are more instances of the player in a single page (for example one as background video and one as inline player).
