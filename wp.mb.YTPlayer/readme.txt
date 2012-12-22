@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
@@ -30,6 +30,11 @@ Links:
 * video: http://www.youtube.com/watch?v=lTW937ld02Y
 * pupunzi blog: http://pupunzi.open-lab.com
 * pupunzi site: http://pupunzi.com
+
+This plug in has been tested successfully on:
+* Chrome 11+, Firefox 7+, Opera 9+    on Mac OsX, Windows and Linux
+* Safari 5+    on Mac OsX
+* IE7+    on Windows (via Adobe Flash player)
 
 == Installation ==
 
@@ -80,6 +85,10 @@ The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.)
 Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
 
 == Changelog ==
+
+= 1.5.3 =
+* Bug fix - fixed "url not valid" if a short url has been used in the post editor short code dialog.
+* Feature - Refined the in line use and display adding the poster frame to the player and introducing the "autoplay" that allow this also for in line players.
 
 = 1.5.2 =
 * New feature - Added support for the short-url of youtube videos.

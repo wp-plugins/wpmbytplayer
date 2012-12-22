@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the shortcode following the reference in the settings panel. <strong>And don't forget to make a donation if you like it :-)</strong>
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.5.2
+Version: 1.5.3
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.5.2");
+define("MBYTPLAYER_VERSION", "1.5.3");
 
 register_activation_hook( __FILE__, 'mbYTPlayer_install' );
 
@@ -103,7 +103,6 @@ function mbYTPlayer_player_shortcode($atts) {
     STATIC $i = 1;
     $elId = "body";
     $style = "";
-    $autoPlay = "true";
     extract(shortcode_atts(array(
         'url'	=> '',
         'showcontrols' => '',
@@ -117,6 +116,7 @@ function mbYTPlayer_player_shortcode($atts) {
         'isinline' => '',
         'playerwidth' => '',
         'playerheight' => '',
+        'autoplay' => '',
         'startat' => ''
     ), $atts));
     // stuff that loads when the shortcode is called goes here
@@ -138,15 +138,16 @@ function mbYTPlayer_player_shortcode($atts) {
     if ($isinline == "true"){
         if (empty($playerwidth)){$playerwidth = "300";};
         if (empty($playerheight)){$playerheight = "220";};
+        if (empty($autoplay)){$autoplay = "false";};
 
         $startat = $startat>0 ? $startat : 1;
         $elId = "self";
         $style = " style=\"width:".$playerwidth."px; height:".$playerheight."px; position:relative\"";
-        $autoPlay = "false";
-        $startat = $startat;
+    }else{
+        $autoplay = "true";
     };
 
-    $mbYTPlayer_player_shortcode = '<div id="bgndVideo'.$i.'" '. $style .' class="movie'. ($isinline ? " inline_YTPlayer" :"") .'" data-property="{videoURL:\''.$url.'\', opacity:'.$opacity.', autoPlay:'.$autoPlay.', containment:\''.$elId.'\', startAt:'.$startat.', mute:'.$mute.', optimizeDisplay:true, showControls:'.$showcontrols.', printUrl:'.$printurl.', loop:'.$loop.', addRaster:'.$addraster.', quality:\''.$quality.'\', ratio:\''.$ratio.'\'}"></div>';
+    $mbYTPlayer_player_shortcode = '<div id="bgndVideo'.$i.'" '. $style .' class="movie'. ($isinline ? " inline_YTPlayer" :"") .'" data-property="{videoURL:\''.$url.'\', opacity:'.$opacity.', autoPlay:'.$autoplay.', containment:\''.$elId.'\', startAt:'.$startat.', mute:'.$mute.', optimizeDisplay:true, showControls:'.$showcontrols.', printUrl:'.$printurl.', loop:'.$loop.', addRaster:'.$addraster.', quality:\''.$quality.'\', ratio:\''.$ratio.'\'}"></div>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;

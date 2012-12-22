@@ -164,7 +164,7 @@ if (!headers_sent()) {
         <label>
             <span class="label">Aspect ratio:</span>
             <select name="ratio">
-                <option value="auto"  selected="selected">auto detect</option>
+                <option value="auto" selected="selected">auto detect</option>
                 <option value="4/3">4/3</option>
                 <option value="16/9">16/9</option>
             </select>
@@ -174,12 +174,11 @@ if (!headers_sent()) {
 
         <label>
             <span class="label">Is inline: </span>
-            <input type="checkbox" name="isinline" value="true" onclick="jQuery('#inlinePlayer').slideToggle();tinyMCEPopup.resizeToInnerSize()" /><br>
+            <input type="checkbox" name="isinline" value="true" onclick="isInline()" /><br>
             <span class="label"></span><span class="help-inline">check this if you want to show the player inline</span><br>
         </label>
 
         <div id="inlinePlayer" style="">
-
             <span class="label">Player width: </span>
             <input type="text" name="playerwidth" class="span5" style="width: 60px" onblur="suggestedHeight()"/> px
             <span class="help-inline">Set the width of the inline player</span><br><br>
@@ -193,6 +192,12 @@ if (!headers_sent()) {
             <span class="label">Player height: </span>
             <input type="text" name="playerheight" class="span5" style="width: 60px" /> px
             <span class="help-inline">Set the height of the inline player</span><br>
+
+            <br>
+            <span class="label">Autoplay: </span>
+            <input type="checkbox" name="autoplay" value="true" /><br>
+            <span class="label"></span><span class="help-inline">check this if you want the player start on page load</span><br>
+
         </div>
 
         <label>
@@ -242,6 +247,17 @@ if (!headers_sent()) {
 
 <script type="text/javascript">
 
+    function isInline(){
+        var inlineBox = jQuery('#inlinePlayer');
+        if(inlineBox.is(":visible")){
+            inlineBox.slideUp();
+            $("[name=showcontrols]").removeAttr("checked").removeAttr("disabled");
+        }else{
+            inlineBox.slideDown();
+            $("[name=showcontrols]").attr("checked","checked").attr("disabled","disabled");
+        }
+    }
+
     function suggestedHeight(){
         var width = parseFloat(jQuery("[name=playerwidth]").val());
         var margin = (width*10)/100;
@@ -285,7 +301,7 @@ if (!headers_sent()) {
                     inputName = input.name;
                     inputValue = input.value;
                     // Video URL validation
-                    if (inputName == "url" && (isEmpty(inputValue) || inputValue.toLowerCase().indexOf("youtube")==-1)){
+                    if (inputName == "url" && (isEmpty(inputValue) || (inputValue.toLowerCase().indexOf("youtube")==-1) && inputValue.toLowerCase().indexOf("youtu.be")==-1)){
                         alert("a valid Youtube video URL is required");
                         return false;
                     }
