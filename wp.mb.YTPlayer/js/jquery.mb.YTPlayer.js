@@ -9,7 +9,7 @@
  http://www.gnu.org/licenses/gpl.html
 
  jQuery.mb.components: jQuery.mb.HTML5YTPlayer
- version: 1.5.0
+ version: 1.5.2
  © 2001 - 2012 Matteo Bicocchi (pupunzi), Open Lab
 
  ***************************************************************************/
@@ -20,13 +20,14 @@ jQuery.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
 jQuery.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
 jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 
-
 String.prototype.getVideoID=function(){
 	var movieURL;
 	if(this.substr(0,16)=="http://youtu.be/"){
 		movieURL= this.replace("http://youtu.be/","");
-	}else{
+	}else if(this.indexOf("http")>-1){
 		movieURL = this.match(/[\\?&]v=([^&#]*)/)[1];
+	}else{
+		movieURL = this
 	}
 	return movieURL;
 };
@@ -40,7 +41,6 @@ String.prototype.getVideoID=function(){
  */
 (function(c){c.extend({metadata:{defaults:{type:"class",name:"metadata",cre:/({.*})/,single:"metadata"},setType:function(b,c){this.defaults.type=b;this.defaults.name=c},get:function(b,f){var d=c.extend({},this.defaults,f);d.single.length||(d.single="metadata");var a=c.data(b,d.single);if(a)return a;a="{}";if("class"==d.type){var e=d.cre.exec(b.className);e&&(a=e[1])}else if("elem"==d.type){if(!b.getElementsByTagName)return;e=b.getElementsByTagName(d.name);e.length&&(a=c.trim(e[0].innerHTML))}else void 0!= b.getAttribute&&(e=b.getAttribute(d.name))&&(a=e);0>a.indexOf("{")&&(a="{"+a+"}");a=eval("("+a+")");c.data(b,d.single,a);return a}}});c.fn.metadata=function(b){return c.metadata.get(this[0],b)}})(jQuery);
 
-jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
 var isDevice = 'ontouchstart' in window;
 
 function onYouTubePlayerAPIReady() {
@@ -50,12 +50,6 @@ function onYouTubePlayerAPIReady() {
 	jQuery(document).trigger("YTAPIReady");
 	jQuery.mbYTPlayer.YTAPIReady=true;
 }
-
-/*
- *
- * YT videos thumb: http://img.youtube.com/vi/3ovA7zeviRo/0.jpg 1/2/3
- *
- * */
 
 (function(jQuery){
 
@@ -332,6 +326,8 @@ function onYouTubePlayerAPIReady() {
 											YTPlayer.wrapper.css({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity});
 										//}
 										controls.find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.pause);
+										$YTPlayer.css({background:"transparent"});
+
 										jQuery(document).trigger("YTPStart");
 									}
 
@@ -351,7 +347,6 @@ function onYouTubePlayerAPIReady() {
 
 					//Get video info from FEEDS API
 					//todo: add video title and other info
-
 					if(!jQuery.browser.msie){ //YTPlayer.opt.ratio == "auto" &&
 						jQuery.getJSON('http://gdata.youtube.com/feeds/api/videos/'+videoID+'?v=2&alt=jsonc',function(data,status,xhr){
 							var videoData = data.data;
@@ -384,12 +379,8 @@ function onYouTubePlayerAPIReady() {
 			if(opt){
 				jQuery.extend(data,opt);
 			}
-			data.movieURL=(url.match( /[\\?&]v=([^&#]*)/))[1];
-			if(url.substr(0,16)=="http://youtu.be/"){
-				data.movieURL= url.replace("http://youtu.be/","");
-			}else{
-				data.movieURL=(url.match( /[\\?&]v=([^&#]*)/))[1];
-			}
+			data.movieURL = url.getVideoID();
+
 			jQuery(YTPlayer).getPlayer().loadVideoByUrl("http://www.youtube.com/v/"+data.movieURL, 0);
 			jQuery(YTPlayer).optimizeDisplay();
 		},
