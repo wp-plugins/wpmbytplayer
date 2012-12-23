@@ -90,6 +90,7 @@ Adding a background image to the body as mobile devices fallback is a good pract
 = 1.5.4 =
 * Bug fix - Set poster frame to transparent once the player start playing (if the player had an opacity <1 the poster frame was visible).
 
+
 = 1.5.3 =
 * Bug fix - fixed "url not valid" if a short url has been used in the post editor short code dialog.
 * Feature - Refined the in line use and display adding the poster frame to the player and introducing the "autoplay" that allow this also for in line players.
