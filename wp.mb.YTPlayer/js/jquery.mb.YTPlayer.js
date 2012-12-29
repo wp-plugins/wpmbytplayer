@@ -14,7 +14,7 @@
 
  ***************************************************************************/
 
-
+jQuery.browser={};
 jQuery.browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase()) ;
 jQuery.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
 jQuery.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
@@ -233,12 +233,12 @@ function onYouTubePlayerAPIReady() {
 											if(YTPlayer.player.getCurrentTime() >= YTPlayer.opt.startAt){
 												clearInterval(YTPlayer.checkForStartAt);
 												$YTPlayer.pauseYTP();
-/*
-												setTimeout(function(){
-													jQuery(YTPlayer.playerEl).CSSAnimate({opacity:1},2000);
-													YTPlayer.wrapper.CSSAnimate({opacity:YTPlayer.opt.opacity},2000);
-												},1000);
-*/
+												/*
+												 setTimeout(function(){
+												 jQuery(YTPlayer.playerEl).CSSAnimate({opacity:1},2000);
+												 YTPlayer.wrapper.CSSAnimate({opacity:YTPlayer.opt.opacity},2000);
+												 },1000);
+												 */
 											}
 										},1);
 									}else{
@@ -280,8 +280,10 @@ function onYouTubePlayerAPIReady() {
 										var startAt = YTPlayer.opt.startAt ? YTPlayer.opt.startAt : 1;
 
 										if(data.loop) {
+											YTPlayer.wrapper.css({opacity:0});
 											YTPlayer.player.seekTo(startAt);
 											$YTPlayer.playYTP();
+
 										}else if(!YTPlayer.isBackground){
 											YTPlayer.player.seekTo(startAt,true);
 											$YTPlayer.playYTP();
@@ -293,9 +295,10 @@ function onYouTubePlayerAPIReady() {
 										if(!data.loop && YTPlayer.isBackground)
 											YTPlayer.wrapper.CSSAnimate({opacity:0},2000);
 										else if (data.loop){
-											//YTPlayer.wrapper.css({opacity:0});
+											YTPlayer.wrapper.css({opacity:0});
 											YTPlayer.loop++;
 										}
+
 										controls.find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.play);
 										jQuery(YTPlayer).trigger("YTPEnd");
 									}
@@ -320,11 +323,12 @@ function onYouTubePlayerAPIReady() {
 											return;
 										YTPlayer.state = state;
 
-										//if(YTPlayer.opt.autoPlay && YTPlayer.loop==0){
+										if(YTPlayer.opt.autoPlay && YTPlayer.loop==0){
 											YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity},2000);
-										//}else{
+										}else{
 											YTPlayer.wrapper.css({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity});
-										//}
+										}
+
 										controls.find(".mb_YTVPPlaypause").html(jQuery.mbYTPlayer.controls.pause);
 										$YTPlayer.css({background:"transparent"});
 
@@ -478,7 +482,7 @@ function onYouTubePlayerAPIReady() {
 		buildYTPControls:function(){
 			var YTPlayer= jQuery(this).get(0);
 			var data = YTPlayer.opt;
-			var controlBar=jQuery("<span/>").attr("id","controlBar_"+YTPlayer.id).addClass("mb_YTVPBar").css({whiteSpace:"noWrap",position: YTPlayer.isBackground ? "fixed" : "absolute", zIndex:10000 }).hide();
+			var controlBar=jQuery("<span/>").attr("id","controlBar_"+YTPlayer.id).addClass("mb_YTVPBar").css({whiteSpace:"noWrap",position: YTPlayer.isBackground ? "fixed" : "absolute", zIndex:YTPlayer.isBackground ? 10000 : 1000}).hide();
 			var buttonBar=jQuery("<div/>").addClass("buttonBar");
 			var playpause =jQuery("<span>"+jQuery.mbYTPlayer.controls.play+"</span>").addClass("mb_YTVPPlaypause").click(function(){
 				if(YTPlayer.player.getPlayerState() == 1)
@@ -546,10 +550,17 @@ function onYouTubePlayerAPIReady() {
 			controlBar.fadeIn();
 
 			clearInterval(YTPlayer.getState);
+			var startAt = YTPlayer.opt.startAt ? YTPlayer.opt.startAt : 1;
 			YTPlayer.getState=setInterval(function(){
 				var prog= jQuery(YTPlayer).manageYTPProgress();
 				controlBar.find(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime)+" / "+ jQuery.mbYTPlayer.formatTime(prog.totalTime));
-			},100);
+
+				if(data.loop && parseFloat(YTPlayer.player.getDuration() - 1) < YTPlayer.player.getCurrentTime() && YTPlayer.player.getPlayerState() == 1) {
+					YTPlayer.player.seekTo(startAt);
+					jQuery(YTPlayer).playYTP();
+				}
+			},10);
+
 		},
 		formatTime: function(s){
 			var min= Math.floor(s/60);

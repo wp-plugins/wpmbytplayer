@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components, cover video, embed, embed videos, embed youtube, embedding, plugin, shortcode, video cover, video HTML5, youtube, youtube embed, youtube player, youtube videos
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
@@ -87,9 +87,11 @@ Adding a background image to the body as mobile devices fallback is a good pract
 
 == Changelog ==
 
+= 1.5.5 =
+* Improvements - Refined the loop behavior of the background video.
+
 = 1.5.4 =
 * Bug fix - Set poster frame to transparent once the player start playing (if the player had an opacity <1 the poster frame was visible).
-
 
 = 1.5.3 =
 * Bug fix - fixed "url not valid" if a short url has been used in the post editor short code dialog.
