@@ -9,7 +9,7 @@
 
         init : function(ed, url) {
 
-        	var popUpURL = url + '/YTPlayertinymce.php?' + '<?php echo base64_decode(urldecode($_GET['params'])); ?>';
+        	var popUpURL = url + '/ytplayertinymce.php?' + '<?php echo base64_decode(urldecode($_GET['params'])); ?>';
 
 			ed.addCommand('YTPlayerpopup', function() {
 				ed.windowManager.open({
@@ -22,7 +22,7 @@
 
 			ed.addButton('YTPlayerbutton', {
 				title : 'YTPlayer TinyMCE',
-				image : url + '/YTPlayerbutton.png',
+				image : url + '/ytplayerbutton.png',
 				cmd : 'YTPlayerpopup'
 			});
 		},

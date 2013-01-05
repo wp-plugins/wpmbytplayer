@@ -39,6 +39,7 @@ String.prototype.getVideoID=function(){
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  */
+
 (function(c){c.extend({metadata:{defaults:{type:"class",name:"metadata",cre:/({.*})/,single:"metadata"},setType:function(b,c){this.defaults.type=b;this.defaults.name=c},get:function(b,f){var d=c.extend({},this.defaults,f);d.single.length||(d.single="metadata");var a=c.data(b,d.single);if(a)return a;a="{}";if("class"==d.type){var e=d.cre.exec(b.className);e&&(a=e[1])}else if("elem"==d.type){if(!b.getElementsByTagName)return;e=b.getElementsByTagName(d.name);e.length&&(a=c.trim(e[0].innerHTML))}else void 0!= b.getAttribute&&(e=b.getAttribute(d.name))&&(a=e);0>a.indexOf("{")&&(a="{"+a+"}");a=eval("("+a+")");c.data(b,d.single,a);return a}}});c.fn.metadata=function(b){return c.metadata.get(this[0],b)}})(jQuery);
 
 var isDevice = 'ontouchstart' in window;
@@ -46,7 +47,6 @@ var isDevice = 'ontouchstart' in window;
 function onYouTubePlayerAPIReady() {
 	if(jQuery.mbYTPlayer.YTAPIReady)
 		return;
-
 	jQuery(document).trigger("YTAPIReady");
 	jQuery.mbYTPlayer.YTAPIReady=true;
 }
@@ -76,6 +76,7 @@ function onYouTubePlayerAPIReady() {
 			onPlaybackQualityChange: function(event){},
 			onError: function(event){}
 		},
+		//todo: use @font-face instead
 		controls:{
 			play:"<img src='images/play.png'>",
 			pause:"<img src='images/pause.png'>",
@@ -150,7 +151,6 @@ function onYouTubePlayerAPIReady() {
 				YTPlayer.opt.containment = YTPlayer.opt.containment == "self"? jQuery(this) : jQuery(YTPlayer.opt.containment);
 				YTPlayer.isBackground = YTPlayer.opt.containment.get(0).tagName.toLowerCase() == "body";
 
-
 				if(YTPlayer.opt.addRaster){
 					var retina = (window.retina || window.devicePixelRatio > 1);
 					overlay.css({backgroundImage:"url("+ (retina ? jQuery.mbYTPlayer.rasterImgRetina :jQuery.mbYTPlayer.rasterImg) +")"});
@@ -160,7 +160,6 @@ function onYouTubePlayerAPIReady() {
 				wrapper.css({position:"absolute",zIndex:1,minWidth:"100%", minHeight:"100%", overflow:"hidden", opacity:0});
 				playerBox.css({position:"absolute",zIndex:0,width:"100%",height:"100%",top:0,left:0, overflow:"hidden",opacity:this.opt.opacity});
 				wrapper.append(playerBox);
-
 
 				if(YTPlayer.isBackground && document.YTP.isInit)
 					return;
@@ -554,13 +553,11 @@ function onYouTubePlayerAPIReady() {
 			YTPlayer.getState=setInterval(function(){
 				var prog= jQuery(YTPlayer).manageYTPProgress();
 				controlBar.find(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime)+" / "+ jQuery.mbYTPlayer.formatTime(prog.totalTime));
-
 				if(data.loop && parseFloat(YTPlayer.player.getDuration() - 1) < YTPlayer.player.getCurrentTime() && YTPlayer.player.getPlayerState() == 1) {
 					YTPlayer.player.seekTo(startAt);
 					jQuery(YTPlayer).playYTP();
 				}
-			},10);
-
+			},1);
 		},
 		formatTime: function(s){
 			var min= Math.floor(s/60);

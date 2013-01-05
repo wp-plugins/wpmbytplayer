@@ -22,8 +22,8 @@ function mbYTPlayer_options_page() { 	// Output the options page
     #donateTxt{display:none;}
     hr{border: none; height: 1px; background: #dfd490}
 </style>
-<script>var storageSuffix = "ytp";</script>
-<div id="donate">
+
+<div id="donate" style="display: none">
     <div id="donateContent">
         <h2>mb.YTPlayer</h2>
         <p >If you like it and you are using it then you should consider a donation <br> (€15,00 or more) :-)</p>
@@ -85,6 +85,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             jQuery("#inlineDonate").remove();
             jQuery("#donateTxt").show()
         } else {
+            jQuery("#donate").show();
             var timer = 5;
             var closeDonate = setInterval(function () {
                 timer--;
@@ -111,18 +112,9 @@ function mbYTPlayer_options_page() { 	// Output the options page
     <h2>mb.YTPlayer Settings</h2>
     <p>You're using mb.YTPlayer v. <?php echo $mbYTPlayer_version;?> by <a href="http://pupunzi.com">Pupunzi</a>.</p>
 
-    <div id="share" style="position: absolute; left:650px; top:0">
-        <p>Rate this plug in: <select onchange="window.open('http://wordpress.org/extend/plugins/wpmbytplayer/?rate='+this.value+'&topic_id=31313&_wpnonce=a0c718fddc', 'rate')">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="5" selected>rate it</option>
-        </select></p>
+    <div id="share" style="position: absolute; left:650px; top:20px">
         <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wordpress.org/extend/plugins/wpmbytplayer/" data-text="I'm using the mb.YTPlayer WP plugin for background videos" data-via="pupunzi" data-hashtags="HTML5,wordpress,plugin">Tweet</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];

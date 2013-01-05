@@ -57,7 +57,7 @@ if (!headers_sent()) {
     #donate button{padding: 5px;border-radius: 3px;background: #ffffff}
 </style>
 
-<div id="donate">
+<div id="donate" style="display: none">
     <div id="donateContent">
         <h2>mb.YTPlayer</h2>
         <p >If you like it and you are using it then you should consider a donation <br> (€15,00 or more) :-)</p>
@@ -109,6 +109,7 @@ if (!headers_sent()) {
             jQuery("#donate").remove();
             jQuery("#inlineDonate").remove()
         } else {
+            jQuery("#donate").show();
             var timer = 5;
             var closeDonate = setInterval(function () {
                 timer--;
