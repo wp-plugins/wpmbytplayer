@@ -87,6 +87,9 @@ Adding a background image to the body as mobile devices fallback is a good pract
 
 == Changelog ==
 
+= 1.5.7 =
+* Update for issue compatibility with jQuery 1.9.
+
 = 1.5.6 =
 * Bug fix - Solved a potential bug for servers that don't allow CamelCase in path for folders name.
 
