@@ -4,7 +4,7 @@ Contributors: Pupunzi (Matteo Bicocchi)
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components, cover video, embed, embed videos, embed youtube, embedding, plugin, shortcode, video cover, video HTML5, youtube, youtube embed, youtube player, youtube videos
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.5.7
+Stable tag: 1.5.8
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 
 Play any Youtube video as background of your page or as custom player inside an element of the page.
@@ -86,6 +86,9 @@ The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.)
 Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
 
 == Changelog ==
+
+= 1.5.8 =
+* Added the "start at" property in the settings panel.
 
 = 1.5.7 =
 * Update for issue compatibility with jQuery 1.9.

@@ -16,7 +16,7 @@ if (!headers_sent()) {
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />
     <title>Add a shortcode for mb.YTPlayer</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo $plugins_url.'/wpmbytplayer/ytpTinyMCE/bootstrap-1.4.0.min.css?v='.$plugin_version; ?>"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo $plugins_url.'/wpmbytplayer/ytptinymce/bootstrap-1.4.0.min.css?v='.$plugin_version; ?>"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="<?php echo $includes_url.'js/tinymce/tiny_mce_popup.js?v='.$plugin_version; ?>"></script>
     <style>

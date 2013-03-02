@@ -48,6 +48,8 @@
   -webkit-transform: none!important;
   -o-transform: none!important;
   transform: none!important;
+  margin:0!important;
+  padding:0!important
 }
 
 /*CONTROL BAR*/

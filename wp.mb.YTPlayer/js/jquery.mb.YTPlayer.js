@@ -211,8 +211,6 @@ function onYouTubePlayerAPIReady() {
 							}
 						});
 
-
-
 					if (YTPlayer.isBackground)
 						document.YTP.isInit = true;
 					YTPlayer.opt.isInit = true;
@@ -263,7 +261,6 @@ function onYouTubePlayerAPIReady() {
 									} else {
 										$YTPlayer.playYTP();
 									}
-									//jQuery(YTPlayer.playerEl).CSSAnimate({opacity:1},2000);
 
 									if (typeof YTPlayer.opt.onReady == "function")
 										YTPlayer.opt.onReady($YTPlayer);
@@ -369,6 +366,7 @@ function onYouTubePlayerAPIReady() {
 					});
 
 					//Get video info from FEEDS API
+
 					//todo: add video title and other info
 					if (!jQuery.browser.msie) { //YTPlayer.opt.ratio == "auto" &&
 						jQuery.getJSON('http://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=jsonc', function (data, status, xhr) {
