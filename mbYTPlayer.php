@@ -251,13 +251,16 @@ function mbYTPlayer_player_head()
 
     $mbYTPlayer_player_stopOnClick = "";
     if ($mbYTPlayer_stop_onclick == "true")
-        $mbYTPlayer_player_stopOnClick = 'var ytp = {}; ytp.stopMovieOnClick = true;';
+        $mbYTPlayer_player_stopOnClick = 'ytp.stopMovieOnClick = true;';
 
 
     echo '
 	<!-- mbYTPlayer -->
 	<script type="text/javascript">
+
+	 var ytp = {};
 	jQuery(function(){
+
 
 		' . $mbYTPlayer_player_stopOnClick . '
 
