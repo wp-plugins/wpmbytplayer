@@ -65,7 +65,7 @@ function onYouTubePlayerAPIReady() {
 
 	jQuery.mbYTPlayer = {
 		name           : "jquery.mb.YTPlayer",
-		version        : "2.2",
+		version        : "2.3",
 		author         : "Matteo Bicocchi",
 		defaults       : {
 			containment            : "body",
@@ -262,7 +262,6 @@ function onYouTubePlayerAPIReady() {
 												}else{
 													jQuery(YTPlayer).unmuteYTPVolume();
 												}
-
 											}
 										}, 1);
 									} else {
@@ -493,7 +492,6 @@ function onYouTubePlayerAPIReady() {
 			YTPlayer.opt.vol = YTPlayer.player.getVolume() || 50;
 			YTPlayer.player.mute();
 			YTPlayer.player.setVolume(0);
-
 			var controls = jQuery("#controlBar_" + YTPlayer.id);
 			var muteBtn = controls.find(".mb_YTVPMuteUnmute");
 			muteBtn.html(jQuery.mbYTPlayer.controls.unmute);
@@ -562,8 +560,8 @@ function onYouTubePlayerAPIReady() {
 						}else{
 							jQuery(YTPlayer.wrapper).CSSAnimate({opacity: YTPlayer.opt.opacity}, 500, function () {
 								jQuery(YTPlayer.wrapper).css({zIndex: -1});
-								YTPlayer.isAlone = false;
 							});
+							YTPlayer.isAlone = false;
 						}
 					});
 
@@ -610,7 +608,7 @@ function onYouTubePlayerAPIReady() {
 				controlBar.find(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime) + " / " + jQuery.mbYTPlayer.formatTime(prog.totalTime));
 				if (data.loop && parseFloat(YTPlayer.player.getDuration() - 1) < YTPlayer.player.getCurrentTime() && YTPlayer.player.getPlayerState() == 1) {
 					YTPlayer.player.seekTo(startAt);
-					YTPlayer.player.play();
+					//YTPlayer.player.play();
 					jQuery(YTPlayer).trigger("YTPEnd");
 					//jQuery(YTPlayer).playYTP();
 				}

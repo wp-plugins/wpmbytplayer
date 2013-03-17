@@ -77,9 +77,10 @@
   opacity:.1;
 }
 
-.mb_YTVPBar:hover{
+.mb_YTVPBar.visible, .mb_YTVPBar:hover{
   opacity:1;
 }
+
 
 .mb_YTVPBar .buttonBar{
 

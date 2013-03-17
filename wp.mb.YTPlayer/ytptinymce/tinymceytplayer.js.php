@@ -9,7 +9,7 @@
 
         init : function(ed, url) {
 
-        	var popUpURL = url + '/ytplayertinymce.php?' + '<?php echo base64_decode(urldecode($_GET['params'])); ?>';
+        	var popUpURL = url + '/ytplayertinymce.php?' + '<?php echo urldecode($_GET['params']); ?>';
 
 			ed.addCommand('YTPlayerpopup', function() {
 				ed.windowManager.open({

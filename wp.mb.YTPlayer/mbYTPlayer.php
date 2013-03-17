@@ -8,9 +8,9 @@ Version: 1.5.9
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.5.9");
+define("MBYTPLAYER_VERSION", "1.6.0");
 
-register_activation_hook(__FILE__, 'mbYTPlayer_install');
+
 
 function isMobile()
 {
@@ -28,6 +28,9 @@ function isMobile()
 // None of the above? Then it's probably not a mobile device.
     return false;
 }
+
+
+register_activation_hook(__FILE__, 'mbYTPlayer_install');
 
 function mbYTPlayer_install()
 {
@@ -124,10 +127,10 @@ function mbYTPlayer_action_links($links, $file)
 
 add_filter('plugin_action_links', 'mbYTPlayer_action_links', 10, 2);
 
+// define the shortcode function
+
 add_shortcode('mbYTPlayer', 'mbYTPlayer_player_shortcode');
 add_filter('widget_text', 'do_shortcode');
-
-// define the shortcode function
 
 function mbYTPlayer_player_shortcode($atts)
 {
@@ -341,13 +344,13 @@ function get_ytplayer_pop_up_params()
 {
     global $mbYTPlayer_version, $mbYTPlayer_donate;
 
-    return urlencode(base64_encode(
+    return urlencode(
         'plugin_version=' . $mbYTPlayer_version . '&' .
             'includes_url=' . urlencode(includes_url()) . '&' .
             'plugins_url=' . urlencode(plugins_url()) . '&' .
             'charset=' . urlencode(get_option('blog_charset')) . '&' .
             'donate=' . $mbYTPlayer_donate
-    ));
+    );
 }
 
 
