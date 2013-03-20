@@ -1,6 +1,6 @@
 === mb.YTPlayer for background videos ===
 
-Contributors: Pupunzi (Matteo Bicocchi)
+Contributors: pupunzi
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components, cover video, embed, embed videos, embed youtube, embedding, plugin, shortcode, video cover, video HTML5, youtube, youtube embed, youtube player, youtube videos
 Requires at least: 3.0
 Tested up to: 3.4.1
