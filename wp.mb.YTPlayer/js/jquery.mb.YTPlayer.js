@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 16/01/13 22.55
+ *  last modified: 18/03/13 22.42
  *  *****************************************************************************
  */
 
@@ -38,7 +38,6 @@ jQuery.fn.CSSAnimate=function(a,b,k,l,f){return this.each(function(){var c=jQuer
 (function(c){c.extend({metadata:{defaults:{type:"class",name:"metadata",cre:/({.*})/,single:"metadata"},setType:function(b,c){this.defaults.type=b;this.defaults.name=c},get:function(b,f){var d=c.extend({},this.defaults,f);d.single.length||(d.single="metadata");var a=c.data(b,d.single);if(a)return a;a="{}";if("class"==d.type){var e=d.cre.exec(b.className);e&&(a=e[1])}else if("elem"==d.type){if(!b.getElementsByTagName)return;e=b.getElementsByTagName(d.name);e.length&&(a=c.trim(e[0].innerHTML))}else void 0!= b.getAttribute&&(e=b.getAttribute(d.name))&&(a=e);0>a.indexOf("{")&&(a="{"+a+"}");a=eval("("+a+")");c.data(b,d.single,a);return a}}});c.fn.metadata=function(b){return c.metadata.get(this[0],b)}})(jQuery);
 
 /***************************************************************************************/
-
 
 String.prototype.getVideoID=function(){
 	var movieURL;
@@ -74,6 +73,7 @@ function onYouTubePlayerAPIReady() {
 			videoURL               : null,
 			startAt                : 0,
 			autoPlay               : true,
+			vol                    :100,
 			addRaster              : false,
 			opacity                : 1,
 			quality                : "default",
@@ -82,6 +82,7 @@ function onYouTubePlayerAPIReady() {
 			showControls           : true,
 			showAnnotations        : false,
 			printUrl               : true,
+			stopMovieOnClick       :false,
 			onReady                : function (event) {},
 			onStateChange          : function (event) {},
 			onPlaybackQualityChange: function (event) {},
@@ -213,7 +214,7 @@ function onYouTubePlayerAPIReady() {
 					if ((YTPlayer.isBackground && document.YTP.isInit) || YTPlayer.opt.isInit)
 						return;
 
-					if(YTPlayer.isBackground && ytp && ytp.stopMovieOnClick)
+					if(YTPlayer.isBackground && YTPlayer.opt.stopMovieOnClick)
 						jQuery(document).off("mousedown.ytplayer").on("mousedown,.ytplayer",function(e){
 							var target = jQuery(e.target);
 							if(target.is("a") || target.parents().is("a")){
@@ -239,7 +240,7 @@ function onYouTubePlayerAPIReady() {
 									YTPlayer.playerEl = YTPlayer.player.getIframe();
 									$YTPlayer.optimizeDisplay();
 
-									jQuery(window).resize(function () {
+									jQuery(window).on("resize.YTP",function () {
 										$YTPlayer.optimizeDisplay();
 									});
 
@@ -248,7 +249,7 @@ function onYouTubePlayerAPIReady() {
 
 									YTPlayer.player.setPlaybackQuality(YTPlayer.opt.quality);
 
-									if (YTPlayer.opt.startAt >= 0)
+									if (YTPlayer.opt.startAt > 0)
 										YTPlayer.player.seekTo(parseFloat(YTPlayer.opt.startAt), true);
 
 									if (!YTPlayer.opt.autoPlay) {
@@ -273,7 +274,6 @@ function onYouTubePlayerAPIReady() {
 										}else{
 											jQuery(YTPlayer).unmuteYTPVolume();
 										}
-
 									}
 
 									if (typeof YTPlayer.opt.onReady == "function")
@@ -352,6 +352,11 @@ function onYouTubePlayerAPIReady() {
 										if (YTPlayer.state == state)
 											return;
 										YTPlayer.state = state;
+
+										if(YTPlayer.opt.mute){
+											$YTPlayer.muteYTPVolume();
+											YTPlayer.opt.mute = false;
+										}
 
 										if (YTPlayer.opt.autoPlay && YTPlayer.loop == 0) {
 											YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
@@ -442,6 +447,9 @@ function onYouTubePlayerAPIReady() {
 			var playBtn = controls.find(".mb_YTVPPlaypause");
 			playBtn.html(jQuery.mbYTPlayer.controls.pause);
 			YTPlayer.player.playVideo();
+
+			YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.opt.opacity}, 2000);
+
 		},
 
 		toggleLoops: function () {

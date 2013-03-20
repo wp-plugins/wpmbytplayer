@@ -252,18 +252,16 @@ function mbYTPlayer_player_head()
     if (isMobile())
         return false;
 
-    $mbYTPlayer_player_stopOnClick = "";
     if ($mbYTPlayer_stop_onclick == "true")
-        $mbYTPlayer_player_stopOnClick = 'ytp.stopMovieOnClick = true;';
-
+        $mbYTPlayer_stop_onclick = true;
+    else
+        $mbYTPlayer_stop_onclick = false;
 
     echo '
 	<!-- mbYTPlayer -->
 	<script type="text/javascript">
 	var ytp = {};
 	jQuery(function(){
-
-		' . $mbYTPlayer_player_stopOnClick . '
 
 	    jQuery.mbYTPlayer.controls.play ="<img src=\'' . plugins_url('/images/', __FILE__) . 'play.png\'>";
 	    jQuery.mbYTPlayer.controls.pause ="<img src=\'' . plugins_url('/images/', __FILE__) . 'pause.png\'>";
@@ -274,6 +272,8 @@ function mbYTPlayer_player_head()
 
 	    jQuery.mbYTPlayer.rasterImg ="' . plugins_url('/images/', __FILE__) . 'raster.png";
 	    jQuery.mbYTPlayer.rasterImgRetina ="' . plugins_url('/images/', __FILE__) . 'raster@2x.png";
+
+        jQuery.mbYTPlayer.defaults.stopMovieOnClick = '.$mbYTPlayer_stop_onclick.';
 
 	    jQuery(".movie").mb_YTPlayer();
 	});
