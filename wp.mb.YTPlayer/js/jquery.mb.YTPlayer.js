@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 18/03/13 22.42
+ *  last modified: 16/01/13 22.55
  *  *****************************************************************************
  */
 
@@ -154,8 +154,12 @@ function onYouTubePlayerAPIReady() {
 					canPlayHTML5 = true;
 				}
 
-				if (canPlayHTML5 && !jQuery.browser.msie)
+				if (canPlayHTML5) // && !jQuery.browser.msie
 					jQuery.extend(playerVars, {'html5': 1});
+
+				if(jQuery.browser.msie && jQuery.browser.version < 9 ){
+					this.opt.opacity = 1;
+				}
 
 				var playerBox = jQuery("<div/>").attr("id", playerID).addClass("playerBox");
 				var overlay = jQuery("<div/>").css({position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}).addClass("YTPOverlay"); //YTPlayer.isBackground ? "fixed" :
@@ -169,7 +173,7 @@ function onYouTubePlayerAPIReady() {
 				}
 
 				var wrapper = jQuery("<div/>").addClass("mbYTP_wrapper").attr("id", "wrapper_" + playerID);
-				wrapper.css({position: "absolute", zIndex: 1, minWidth: "100%", minHeight: "100%", overflow: "hidden", opacity: 0});
+				wrapper.css({position: "absolute", zIndex: 0, minWidth: "100%", top:0, left:0, minHeight: "100%", overflow: "hidden", opacity: 0});
 				playerBox.css({position: "absolute", zIndex: 0, width: "100%", height: "100%", top: 0, left: 0, overflow: "hidden", opacity: this.opt.opacity});
 				wrapper.append(playerBox);
 
@@ -249,7 +253,7 @@ function onYouTubePlayerAPIReady() {
 
 									YTPlayer.player.setPlaybackQuality(YTPlayer.opt.quality);
 
-									if (YTPlayer.opt.startAt > 0)
+									if (YTPlayer.opt.startAt >= 0)
 										YTPlayer.player.seekTo(parseFloat(YTPlayer.opt.startAt), true);
 
 									if (!YTPlayer.opt.autoPlay) {
@@ -353,11 +357,6 @@ function onYouTubePlayerAPIReady() {
 											return;
 										YTPlayer.state = state;
 
-										if(YTPlayer.opt.mute){
-											$YTPlayer.muteYTPVolume();
-											YTPlayer.opt.mute = false;
-										}
-
 										if (YTPlayer.opt.autoPlay && YTPlayer.loop == 0) {
 											YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
 										} else if(! YTPlayer.isBackground) {
@@ -447,9 +446,6 @@ function onYouTubePlayerAPIReady() {
 			var playBtn = controls.find(".mb_YTVPPlaypause");
 			playBtn.html(jQuery.mbYTPlayer.controls.pause);
 			YTPlayer.player.playVideo();
-
-			YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.opt.opacity}, 2000);
-
 		},
 
 		toggleLoops: function () {
