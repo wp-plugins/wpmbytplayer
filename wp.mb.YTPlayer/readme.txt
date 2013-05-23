@@ -23,7 +23,7 @@ The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.)
 Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
 
 note:
-If you doesn't want ADs on your background video and you are the owner of it you can disable this on your Youtube channel as explained here: http://12starsmedia.com/blog/how-to-remove-ads-from-youtube-videos .
+If you doesn't want ADs on your background video and you are the owner of it you can disable this on your Youtube channel as explained here: http://candidio.com/blog/how-to-remove-ads-from-your-youtube-videos .
 
 Links:
 

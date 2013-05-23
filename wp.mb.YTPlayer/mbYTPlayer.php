@@ -12,8 +12,7 @@ define("MBYTPLAYER_VERSION", "1.6.0");
 
 
 
-function isMobile()
-{
+function isMobile() {
 // Check the server headers to see if they're mobile friendly
     if (isset($_SERVER["HTTP_X_WAP_PROFILE"])) {
         return true;
@@ -22,7 +21,7 @@ function isMobile()
     if (preg_match("/wap.|.wap/i", $_SERVER["HTTP_ACCEPT"])) {
         return true;
     }
-    if (preg_match("/iphone|ipad/i", $_SERVER["HTTP_USER_AGENT"])) {
+    if (preg_match("/iphone/i", $_SERVER["HTTP_USER_AGENT"])) {
         return true;
     }
 // None of the above? Then it's probably not a mobile device.
@@ -253,9 +252,9 @@ function mbYTPlayer_player_head()
         return false;
 
     if ($mbYTPlayer_stop_onclick == "true")
-        $mbYTPlayer_stop_onclick = true;
+        $mbYTPlayer_stop_onclick = "true";
     else
-        $mbYTPlayer_stop_onclick = false;
+        $mbYTPlayer_stop_onclick = "false";
 
     echo '
 	<!-- mbYTPlayer -->
@@ -273,8 +272,6 @@ function mbYTPlayer_player_head()
 	    jQuery.mbYTPlayer.rasterImg ="' . plugins_url('/images/', __FILE__) . 'raster.png";
 	    jQuery.mbYTPlayer.rasterImgRetina ="' . plugins_url('/images/', __FILE__) . 'raster@2x.png";
 
-        jQuery.mbYTPlayer.defaults.stopMovieOnClick = '.$mbYTPlayer_stop_onclick.';
-
 	    jQuery(".movie").mb_YTPlayer();
 	});
 
@@ -289,7 +286,7 @@ function mbYTPlayer_player_head()
 
         $mbYTPlayer_start_at = $mbYTPlayer_start_at > 0 ? $mbYTPlayer_start_at : 1;
 
-        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\'}\"></div>';
+        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\'}\"></div>';
 
         echo '
 	<!-- mbYTPlayer Home -->
@@ -309,9 +306,8 @@ function mbYTPlayer_player_head()
 
 ;
 // ends mbYTPlayer_player_head function
-
-add_action('wp_head', 'mbYTPlayer_player_head');
-
+add_action('wp_footer', 'mbYTPlayer_player_head',20);
+//add_action('wp_head', 'mbYTPlayer_player_head');
 add_action('admin_init', 'setup_ytplayer_button');
 
 
