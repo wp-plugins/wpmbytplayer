@@ -88,6 +88,9 @@ Adding a background image to the body as mobile devices fallback is a good pract
 
 == Changelog ==
 
+= 1.6.2 =
+* Button icons are rendered using @font-face instead of images.
+
 = 1.6.1 =
 * Major bug fix: the video ended behavior that prevent the display of the play button was available only if the control bar was available.
 

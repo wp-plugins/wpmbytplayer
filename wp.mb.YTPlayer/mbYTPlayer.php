@@ -4,15 +4,16 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.6.1
+Version: 1.6.2
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.6.1");
+define("MBYTPLAYER_VERSION", "1.6.2");
 
 
 
-function isMobile() {
+function isMobile()
+{
 // Check the server headers to see if they're mobile friendly
     if (isset($_SERVER["HTTP_X_WAP_PROFILE"])) {
         return true;
@@ -21,7 +22,7 @@ function isMobile() {
     if (preg_match("/wap.|.wap/i", $_SERVER["HTTP_ACCEPT"])) {
         return true;
     }
-    if (preg_match("/iphone/i", $_SERVER["HTTP_USER_AGENT"])) {
+    if (preg_match("/iphone|ipad/i", $_SERVER["HTTP_USER_AGENT"])) {
         return true;
     }
 // None of the above? Then it's probably not a mobile device.
@@ -238,7 +239,7 @@ function mbYTPlayer_init()
     if (!is_admin() && !isMobile()) {
         wp_enqueue_script('jquery');
         wp_enqueue_script('mb.YTPlayer', plugins_url('/js/jquery.mb.YTPlayer.js', __FILE__), false, $mbYTPlayer_version, false);
-        wp_enqueue_style('mbYTPlayer', plugins_url('/mb.YTPlayer.css', __FILE__), false, $mbYTPlayer_version, 'screen');
+        wp_enqueue_style('mbYTPlayer', plugins_url('/css/mb.YTPlayer.css', __FILE__), false, $mbYTPlayer_version, 'screen');
     }
 }
 
@@ -261,14 +262,6 @@ function mbYTPlayer_player_head()
 	<script type="text/javascript">
 	var ytp = {};
 	jQuery(function(){
-
-	    jQuery.mbYTPlayer.controls.play ="<img src=\'' . plugins_url('/images/', __FILE__) . 'play.png\'>";
-	    jQuery.mbYTPlayer.controls.pause ="<img src=\'' . plugins_url('/images/', __FILE__) . 'pause.png\'>";
-	    jQuery.mbYTPlayer.controls.mute ="<img src=\'' . plugins_url('/images/', __FILE__) . 'mute.png\'>";
-	    jQuery.mbYTPlayer.controls.unmute ="<img src=\'' . plugins_url('/images/', __FILE__) . 'unmute.png\'>";
-	    jQuery.mbYTPlayer.controls.ytLogo ="<img src=\'' . plugins_url('/images/', __FILE__) . 'YTLogo.png\'>";
-	    jQuery.mbYTPlayer.controls.onlyYT ="<img src=\'' . plugins_url('/images/', __FILE__) . 'onlyVideo.png\'>";
-
 	    jQuery.mbYTPlayer.rasterImg ="' . plugins_url('/images/', __FILE__) . 'raster.png";
 	    jQuery.mbYTPlayer.rasterImgRetina ="' . plugins_url('/images/', __FILE__) . 'raster@2x.png";
 
@@ -306,8 +299,9 @@ function mbYTPlayer_player_head()
 
 ;
 // ends mbYTPlayer_player_head function
-add_action('wp_footer', 'mbYTPlayer_player_head',20);
+
 //add_action('wp_head', 'mbYTPlayer_player_head');
+add_action('wp_footer', 'mbYTPlayer_player_head',20);
 add_action('admin_init', 'setup_ytplayer_button');
 
 
