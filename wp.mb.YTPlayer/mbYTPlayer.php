@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.6.2
+Version: 1.6.3
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.6.2");
+define("MBYTPLAYER_VERSION", "1.6.3");
 
 
 
@@ -187,30 +187,25 @@ function mbYTPlayer_player_shortcode($atts)
     }
     if (empty($addraster)) {
         $addraster = "false";
-    }
-    ;
+    };
 
     if ($isinline == "true") {
         if (empty($playerwidth)) {
             $playerwidth = "300";
-        }
-        ;
+        };
         if (empty($playerheight)) {
             $playerheight = "220";
-        }
-        ;
+        };
         if (empty($autoplay)) {
             $autoplay = "false";
-        }
-        ;
+        };
 
         $startat = $startat > 0 ? $startat : 1;
         $elId = "self";
         $style = " style=\"width:" . $playerwidth . "px; height:" . $playerheight . "px; position:relative\"";
     } else {
         $autoplay = "true";
-    }
-    ;
+    };
 
     $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="movie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', ratio:\'' . $ratio . '\'}"></div>';
 

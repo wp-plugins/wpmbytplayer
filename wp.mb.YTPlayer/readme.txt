@@ -88,6 +88,9 @@ Adding a background image to the body as mobile devices fallback is a good pract
 
 == Changelog ==
 
+= 1.6.3 =
+* Bug fix: the player was initialized twice duplicating the controls HTML element.
+
 = 1.6.2 =
 * Button icons are rendered using @font-face instead of images.
 
