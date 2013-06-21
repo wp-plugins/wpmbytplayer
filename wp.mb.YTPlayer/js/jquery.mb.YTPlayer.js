@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 06/06/13 1.55
+ *  last modified: 15/06/13 0.58
  *  *****************************************************************************
  */
 
@@ -236,7 +236,6 @@ function onYouTubePlayerAPIReady() {
 				//jQuery("#YTAPI").remove();
 
 				if(!ytp.YTAPIReady){
-
 					var tag = document.createElement('script');
 					tag.src = "http://www.youtube.com/player_api";
 					tag.id = "YTAPI";
@@ -768,7 +767,6 @@ function onYouTubePlayerAPIReady() {
 		},
 
 		buildYTPControls: function () {
-
 			var YTPlayer = this.get(0);
 			var data = YTPlayer.opt;
 
@@ -780,7 +778,6 @@ function onYouTubePlayerAPIReady() {
 			var controlBar = jQuery("<span/>").attr("id", "controlBar_" + YTPlayer.id).addClass("mb_YTVPBar").css({whiteSpace: "noWrap", position: YTPlayer.isBackground ? "fixed" : "absolute", zIndex: YTPlayer.isBackground ? 10000 : 1000}).hide();
 			var buttonBar = jQuery("<div/>").addClass("buttonBar");
 			var playpause = jQuery("<span>" + jQuery.mbYTPlayer.controls.play + "</span>").addClass("mb_YTVPPlaypause ytpicon").click(function () {
-
 				if (YTPlayer.player.getPlayerState() == 1)
 					jQuery(YTPlayer).pauseYTP();
 				else
