@@ -163,7 +163,7 @@ function mbYTPlayer_player_shortcode($atts)
     // stuff that loads when the shortcode is called goes here
 
     if (empty($url) || ((is_home() || is_front_page()) && !empty($mbYTPlayer_home_video_url) && empty($isInline))) // || (empty($id) && (is_home() || is_front_page()))
-        return false;
+    return false;
 
     if (empty($startat)) {
         $startat = 0;
@@ -252,7 +252,7 @@ add_action('init', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head()
 {
-    global $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_ratio, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_mute, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_stop_onclick;
+    global $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_ratio, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_mute, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick;
 
     if (isMobile())
         return false;
@@ -284,7 +284,7 @@ function mbYTPlayer_player_head()
 
         $mbYTPlayer_start_at = $mbYTPlayer_start_at > 0 ? $mbYTPlayer_start_at : 1;
 
-        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\'}\"></div>';
+        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', realfullscreen:\'' . $mbYTPlayer_realfullscreen . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\'}\"></div>';
 
         echo '
 	<!-- mbYTPlayer Home -->
@@ -341,10 +341,10 @@ function get_ytplayer_pop_up_params()
 
     return urlencode(
         'plugin_version=' . $mbYTPlayer_version . '&' .
-            'includes_url=' . urlencode(includes_url()) . '&' .
-            'plugins_url=' . urlencode(plugins_url()) . '&' .
-            'charset=' . urlencode(get_option('blog_charset')) . '&' .
-            'donate=' . $mbYTPlayer_donate
+        'includes_url=' . urlencode(includes_url()) . '&' .
+        'plugins_url=' . urlencode(plugins_url()) . '&' .
+        'charset=' . urlencode(get_option('blog_charset')) . '&' .
+        'donate=' . $mbYTPlayer_donate
     );
 }
 

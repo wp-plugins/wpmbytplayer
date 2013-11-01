@@ -638,6 +638,9 @@ function onYouTubePlayerAPIReady() {
 
 		fullscreen: function(real) {
 
+			if(typeof real == "string")
+				real = eval(real);
+
 			if((jQuery.browser.msie || jQuery.browser.opera || self.location.href != top.location.href))
 				real=false;
 
