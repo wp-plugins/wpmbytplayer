@@ -62,8 +62,8 @@ if (!headers_sent()) {
         <h2>mb.YTPlayer</h2>
         <p >If you like it and you are using it then you should consider a donation <br> (€15,00 or more) :-)</p>
         <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="donate();">
-            <img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif">
-        </a></p>
+                <img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif">
+            </a></p>
         <p id="timer">&nbsp;</p>
         <br>
         <br>
@@ -208,6 +208,15 @@ if (!headers_sent()) {
         </label>
 
         <label>
+            <span class="label">full screen:</span><br>
+            <input type="radio" name="realfullscreen" value="true" checked/>
+            <span class="help-inline">Full screen containment is the screen</span><br>
+
+            <input type="radio" name="realfullscreen" value="false"/>
+            <span class="help-inline">Full screen containment is the browser window</span><br>
+        </label>
+
+        <label>
             <span class="label">Show controls:</span>
             <input type="checkbox" name="showcontrols" value="true"/>
             <span class="help-inline">show controls at the bottom of the page</span><br>
@@ -307,12 +316,16 @@ if (!headers_sent()) {
                         return false;
                     }
                     // inputs of type "checkbox", "radio" and "text"
-                    if ((input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type == "select-one" || input.type =="checkbox") {
+                    if ((input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type == "select-one" || input.type =="checkbox"|| input.type =="radio") {
 
                         if (input.type =="checkbox") {
                             if(!input.checked)
                                 inputValue = false;
                         }
+
+                        if (inputName =="realfullscreen" && !input.checked)
+                            continue;
+
                         if (inputName =="inLine_ratio")
                             continue;
 
@@ -333,4 +346,4 @@ if (!headers_sent()) {
     });
 </script>
 </body>
-</html>    
+</html>
