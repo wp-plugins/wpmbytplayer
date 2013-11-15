@@ -53,7 +53,6 @@ String.prototype.getVideoID=function(){
 	return movieURL;
 };
 
-
 var isDevice = 'ontouchstart' in window;
 
 function onYouTubePlayerAPIReady() {
@@ -68,7 +67,7 @@ function onYouTubePlayerAPIReady() {
 
 	jQuery.mbYTPlayer = {
 		name           : "jquery.mb.YTPlayer",
-		version        : "2.5.6",
+		version        : "2.5.8",
 		author         : "Matteo Bicocchi",
 		defaults       : {
 			containment            : "body",
@@ -105,7 +104,7 @@ function onYouTubePlayerAPIReady() {
 		rasterImg      : "images/raster.png",
 		rasterImgRetina: "images/raster@2x.png",
 
-		locationProtocol: location.protocol,
+		locationProtocol: location.protocol != "file:" ? location.protocol : "http:",
 
 		buildPlayer: function (options) {
 
@@ -116,6 +115,9 @@ function onYouTubePlayerAPIReady() {
 				YTPlayer.loop = 0;
 				YTPlayer.opt = {};
 				var property = {};
+
+				$YTPlayer.addClass("mb_YTVPlayer");
+
 				if (jQuery.metadata) {
 					jQuery.metadata.setType("class");
 					property = $YTPlayer.metadata();
@@ -126,6 +128,10 @@ function onYouTubePlayerAPIReady() {
 
 				jQuery.extend(YTPlayer.opt, jQuery.mbYTPlayer.defaults, options, property);
 
+				var canGoFullscreen = !(jQuery.browser.msie || jQuery.browser.opera || self.location.href != top.location.href);
+
+				if(!canGoFullscreen)
+					YTPlayer.opt.realfullscreen = false;
 
 				if (!$YTPlayer.attr("id"))
 					$YTPlayer.attr("id", "id_" + new Date().getTime());
@@ -576,6 +582,15 @@ function onYouTubePlayerAPIReady() {
 			jQuery(YTPlayer).changeMovie(YTPlayer.videos[YTPlayer.videoCounter]);
 		},
 
+		playPrev: function(){
+			var YTPlayer = this.get(0);
+			YTPlayer.videoCounter--;
+			if(YTPlayer.videoCounter<=0)
+				YTPlayer.videoCounter = YTPlayer.videoLength;
+			jQuery(YTPlayer.playerEl).css({opacity:0});
+			jQuery(YTPlayer).changeMovie(YTPlayer.videos[YTPlayer.videoCounter]);
+		},
+
 		changeMovie: function (opt) {
 			var YTPlayer = this.get(0);
 			var data = YTPlayer.opt;
@@ -675,9 +690,12 @@ function onYouTubePlayerAPIReady() {
 
 					if(real){
 						YTPlayer.wrapper.append(controls);
+						jQuery(YTPlayer).addClass("fullscreen");
 						launchFullscreen(videoWrapper.get(0));
 					} else
 						videoWrapper.css({zIndex: 10000}).CSSAnimate({opacity: 1}, 1000, 0);
+
+					jQuery(YTPlayer).trigger("YTPFullScreenStart");
 
 					fullScreenBtn.html(jQuery.mbYTPlayer.controls.showSite)
 					YTPlayer.isAlone = true;
@@ -685,11 +703,11 @@ function onYouTubePlayerAPIReady() {
 			} else {
 				if(real){
 					cancelFullscreen();
-					jQuery("body").after(controls);
-				} else
+				} else{
 					videoWrapper.CSSAnimate({opacity: YTPlayer.opt.opacity}, 500);
+				}
 
-				jQuery(YTPlayer).setVideoQuality(YTPlayer.opt.quality);
+				jQuery(YTPlayer).trigger("YTPFullScreenEnd");
 
 				videoWrapper.css({zIndex: -1});
 				fullScreenBtn.html(jQuery.mbYTPlayer.controls.onlyYT)
@@ -768,6 +786,11 @@ function onYouTubePlayerAPIReady() {
 			var playBtn = controls.find(".mb_YTVPPlaypause");
 			playBtn.html(jQuery.mbYTPlayer.controls.play);
 			YTPlayer.player.pauseVideo();
+		},
+
+		seekToYTP: function(val) {
+			var YTPlayer = this.get(0);
+			YTPlayer.player.seekTo(val,true);
 		},
 
 		setYTPVolume: function (val) {
@@ -873,10 +896,9 @@ function onYouTubePlayerAPIReady() {
 
 			if (data.printUrl){
 				buttonBar.append(movieUrl);
-
 			}
 
-			if (YTPlayer.isBackground)
+			if (YTPlayer.isBackground || (YTPlayer.opt.realfullscreen && !YTPlayer.isBackground))
 				buttonBar.append(onlyVideo);
 
 			controlBar.append(buttonBar).append(progressBar);
@@ -983,6 +1005,7 @@ function onYouTubePlayerAPIReady() {
 	jQuery.fn.mb_YTPlayer = jQuery.mbYTPlayer.buildPlayer;
 	jQuery.fn.YTPlaylist = jQuery.mbYTPlayer.YTPlaylist;
 	jQuery.fn.playNext = jQuery.mbYTPlayer.playNext;
+	jQuery.fn.playPrev = jQuery.mbYTPlayer.playPrev;
 	jQuery.fn.changeMovie = jQuery.mbYTPlayer.changeMovie;
 	jQuery.fn.getVideoID = jQuery.mbYTPlayer.getVideoID;
 	jQuery.fn.getPlayer = jQuery.mbYTPlayer.getPlayer;
@@ -993,6 +1016,7 @@ function onYouTubePlayerAPIReady() {
 	jQuery.fn.toggleLoops = jQuery.mbYTPlayer.toggleLoops;
 	jQuery.fn.stopYTP = jQuery.mbYTPlayer.stopYTP;
 	jQuery.fn.pauseYTP = jQuery.mbYTPlayer.pauseYTP;
+	jQuery.fn.seekToYTP = jQuery.mbYTPlayer.seekToYTP;
 	jQuery.fn.muteYTPVolume = jQuery.mbYTPlayer.muteYTPVolume;
 	jQuery.fn.unmuteYTPVolume = jQuery.mbYTPlayer.unmuteYTPVolume;
 	jQuery.fn.setYTPVolume = jQuery.mbYTPlayer.setYTPVolume;
