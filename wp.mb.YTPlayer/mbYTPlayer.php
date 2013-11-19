@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.6.6
+Version: 1.6.7
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.6.6");
+define("MBYTPLAYER_VERSION", "1.6.7");
 
 
 
@@ -109,7 +109,6 @@ if (empty($mbYTPlayer_realfullscreen)) {
     $mbYTPlayer_realfullscreen = "true";
 }
 
-
 //action link http://www.wpmods.com/adding-plugin-action-links
 
 function mbYTPlayer_action_links($links, $file)
@@ -198,6 +197,9 @@ function mbYTPlayer_player_shortcode($atts)
     if (empty($realfullscreen)) {
         $realfullscreen = "true";
     };
+    if (empty($autoplay)) {
+        $autoplay = "false";
+    };
 
     if ($isinline == "true") {
         if (empty($playerwidth)) {
@@ -206,15 +208,9 @@ function mbYTPlayer_player_shortcode($atts)
         if (empty($playerheight)) {
             $playerheight = "220";
         };
-        if (empty($autoplay)) {
-            $autoplay = "false";
-        };
-
         $startat = $startat > 0 ? $startat : 1;
         $elId = "self";
         $style = " style=\"width:" . $playerwidth . "px; height:" . $playerheight . "px; position:relative\"";
-    } else {
-        $autoplay = "true";
     };
 
     $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="movie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\'}"></div>';
@@ -238,10 +234,9 @@ function mbYTPlayer_init()
                 document.cookie = "ytpdonate=false" + expires + "; path=/";
             </script>
         ';
-
     }
 
-    if (!is_admin() && !isMobile()) {
+    if (!is_admin()) { // && !isMobile()
         wp_enqueue_script('jquery');
         wp_enqueue_script('mb.YTPlayer', plugins_url('/js/jquery.mb.YTPlayer.js', __FILE__), false, $mbYTPlayer_version, false);
         wp_enqueue_style('mbYTPlayer', plugins_url('/css/mb.YTPlayer.css', __FILE__), false, $mbYTPlayer_version, 'screen');
@@ -300,9 +295,7 @@ function mbYTPlayer_player_head()
         ';
     }
 
-}
-
-;
+};
 // ends mbYTPlayer_player_head function
 
 //add_action('wp_head', 'mbYTPlayer_player_head');
