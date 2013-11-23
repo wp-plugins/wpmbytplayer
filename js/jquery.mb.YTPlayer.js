@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 24/06/13 13.17
+ *  last modified: 23/11/13 21.05
  *  *****************************************************************************
  */
 
@@ -92,7 +92,7 @@ function onYouTubePlayerAPIReady() {
 
 	jQuery.mbYTPlayer = {
 		name           : "jquery.mb.YTPlayer",
-		version        : "2.5.9",
+		version        : "2.6.0",
 		author         : "Matteo Bicocchi",
 		defaults       : {
 			containment            : "body",
@@ -338,7 +338,7 @@ function onYouTubePlayerAPIReady() {
 									if (YTPlayer.opt.showControls)
 										jQuery(YTPlayer).buildYTPControls();
 
-									//YTPlayer.player.setPlaybackQuality(YTPlayer.opt.quality);
+									YTPlayer.player.setPlaybackQuality(YTPlayer.opt.quality);
 
 									if (YTPlayer.opt.startAt > 0)
 										YTPlayer.player.seekTo(parseFloat(YTPlayer.opt.startAt), true);
@@ -350,7 +350,7 @@ function onYouTubePlayerAPIReady() {
 											if (YTPlayer.player.getCurrentTime() >= YTPlayer.opt.startAt) {
 												clearInterval(YTPlayer.checkForStartAt);
 
-												YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
+												//YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
 
 												if (YTPlayer.opt.mute) {
 													jQuery(YTPlayer).muteYTPVolume();
@@ -685,52 +685,57 @@ function onYouTubePlayerAPIReady() {
 
 		fullscreen: function(real) {
 
-			if(typeof real == "string")
-				real = eval(real);
-
-			if((jQuery.browser.msie || jQuery.browser.opera || self.location.href != top.location.href))
-				real=false;
-
 			var YTPlayer = this.get(0);
 
 			var controls = jQuery("#controlBar_" + YTPlayer.id);
 			var fullScreenBtn = controls.find(".mb_OnlyYT");
 			var videoWrapper = jQuery(YTPlayer.wrapper);
+			if(real){
+				var fullscreenchange = jQuery.browser.mozilla ? "mozfullscreenchange" : jQuery.browser.webkit ? "webkitfullscreenchange" : "fullscreenchange";
+				jQuery(document).off(fullscreenchange);
+				jQuery(document).on(fullscreenchange, function() {
+					var isFullScreen = RunPrefixMethod(document, "IsFullScreen") || RunPrefixMethod(document, "FullScreen");
 
-			if(real)
-				setTimeout(function(){
-					var fullscreenchange = jQuery.browser.mozilla ? "mozfullscreenchange" : jQuery.browser.webkit ? "webkitfullscreenchange" : jQuery.browser.msie ? "msfullscreenchange" :  jQuery.browser.opera ? "ofullscreenchange" : "fullscreenchange";
-					jQuery(document).one(fullscreenchange, function(e) {
-						var isFullScreen = RunPrefixMethod(document, "IsFullScreen") || RunPrefixMethod(document, "FullScreen");
-						if (!isFullScreen) {
-							YTPlayer.isAlone = false;
-							fullScreenBtn.html(jQuery.mbYTPlayer.controls.onlyYT)
+					if (!isFullScreen) {
+						jQuery(YTPlayer).removeClass("fullscreen");
+						YTPlayer.isAlone = false;
+						fullScreenBtn.html(jQuery.mbYTPlayer.controls.onlyYT)
+						jQuery(YTPlayer).setVideoQuality(YTPlayer.opt.quality);
+
+						if (YTPlayer.isBackground){
 							jQuery("body").after(controls);
+						}else{
+							YTPlayer.wrapper.before(controls);
 						}
-					});
-				},2000);
+
+						jQuery(window).resize();
+
+					}else{
+						jQuery(YTPlayer).setVideoQuality("default");
+					}
+				});
+			}
 
 			if (!YTPlayer.isAlone) {
-				if (YTPlayer.player.getPlayerState() >= 1) {
 
-					if(YTPlayer.player.getPlayerState() != 1 && YTPlayer.player.getPlayerState() != 2)
-						jQuery(YTPlayer).playYTP();
 
-					jQuery(YTPlayer).setVideoQuality("default");
+				if(YTPlayer.player.getPlayerState() != 1 && YTPlayer.player.getPlayerState() != 2)
+					jQuery(YTPlayer).playYTP();
 
-					if(real){
-						YTPlayer.wrapper.append(controls);
-						jQuery(YTPlayer).addClass("fullscreen");
-						launchFullscreen(videoWrapper.get(0));
-					} else
-						videoWrapper.css({zIndex: 10000}).CSSAnimate({opacity: 1}, 1000, 0);
+				if(real){
+					YTPlayer.wrapper.append(controls);
+					jQuery(YTPlayer).addClass("fullscreen");
+					launchFullscreen(videoWrapper.get(0));
+				} else
+					videoWrapper.css({zIndex: 10000}).CSSAnimate({opacity: 1}, 1000, 0);
 
-					jQuery(YTPlayer).trigger("YTPFullScreenStart");
+				jQuery(YTPlayer).trigger("YTPFullScreenStart");
 
-					fullScreenBtn.html(jQuery.mbYTPlayer.controls.showSite)
-					YTPlayer.isAlone = true;
-				}
+				fullScreenBtn.html(jQuery.mbYTPlayer.controls.showSite)
+				YTPlayer.isAlone = true;
+
 			} else {
+
 				if(real){
 					cancelFullscreen();
 				} else{
