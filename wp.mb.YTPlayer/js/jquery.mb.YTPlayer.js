@@ -77,14 +77,14 @@ function onYouTubePlayerAPIReady() {
 	(function(c){c.extend({metadata:{defaults:{type:"class",name:"metadata",cre:/({.*})/,single:"metadata"},setType:function(b,c){this.defaults.type=b;this.defaults.name=c},get:function(b,f){var d=c.extend({},this.defaults,f);d.single.length||(d.single="metadata");var a=c.data(b,d.single);if(a)return a;a="{}";if("class"==d.type){var e=d.cre.exec(b.className);e&&(a=e[1])}else if("elem"==d.type){if(!b.getElementsByTagName)return;e=b.getElementsByTagName(d.name);e.length&&(a=c.trim(e[0].innerHTML))}else void 0!= b.getAttribute&&(e=b.getAttribute(d.name))&&(a=e);0>a.indexOf("{")&&(a="{"+a+"}");a=eval("("+a+")");c.data(b,d.single,a);return a}}});c.fn.metadata=function(b){return c.metadata.get(this[0],b)}})(jQuery);
 
 
-	String.prototype.getVideoID=function(){
+	var getYTPVideoID=function(url){
 		var movieURL;
-		if(this.substr(0,16)=="http://youtu.be/"){
-			movieURL= this.replace("http://youtu.be/","");
-		}else if(this.indexOf("http")>-1){
-			movieURL = this.match(/[\\?&]v=([^&#]*)/)[1];
+		if(url.substr(0,16)=="http://youtu.be/"){
+			movieURL= url.replace("http://youtu.be/","");
+		}else if(url.indexOf("http")>-1){
+			movieURL = url.match(/[\\?&]v=([^&#]*)/)[1];
 		}else{
-			movieURL = this
+			movieURL = url
 		}
 		return movieURL;
 	};
@@ -178,7 +178,7 @@ function onYouTubePlayerAPIReady() {
 				/************************************************************/
 
 				var playerID = "mbYTP_" + YTPlayer.id;
-				var videoID = this.opt.videoURL ? this.opt.videoURL.getVideoID() : $YTPlayer.attr("href") ? $YTPlayer.attr("href").getVideoID() : false;
+				var videoID = this.opt.videoURL ? getYTPVideoID(this.opt.videoURL) : $YTPlayer.attr("href") ? getYTPVideoID($YTPlayer.attr("href")) : false;
 				YTPlayer.videoID = videoID;
 
 
@@ -256,15 +256,20 @@ function onYouTubePlayerAPIReady() {
 							})
 				}
 
-				// add YT API to the header
-				//jQuery("#YTAPI").remove();
-
 				if(!ytp.YTAPIReady){
-					var tag = document.createElement('script');
-					tag.src = jQuery.mbYTPlayer.locationProtocol+"//www.youtube.com/player_api";
-					tag.id = "YTAPI";
-					var firstScriptTag = document.getElementsByTagName('script')[0];
-					firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+					jQuery("#YTAPI").remove();
+					var tag = jQuery("<script></script>").attr({"src":jQuery.mbYTPlayer.locationProtocol+"//www.youtube.com/player_api?v="+jQuery.mbYTPlayer.version, "id": "YTAPI"});
+					jQuery("head title").after(tag);
+
+					/*
+										var tag = document.createElement('script');
+										tag.src = jQuery.mbYTPlayer.locationProtocol+"//www.youtube.com/player_api";
+										tag.id = "YTAPI";
+
+										var firstScriptTag = document.getElementsByTagName('script')[0];
+										firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+					*/
+
 				}else{
 					setTimeout(function(){
 						jQuery(document).trigger("YTAPIReady");
@@ -626,7 +631,7 @@ function onYouTubePlayerAPIReady() {
 				jQuery.extend(data, opt);
 			}
 
-			YTPlayer.videoID = data.videoURL.getVideoID();
+			YTPlayer.videoID = getYTPVideoID(data.videoURL);
 
 			jQuery(YTPlayer).pauseYTP();
 			var timer = jQuery.browser.msie ? 1000 : 0;
