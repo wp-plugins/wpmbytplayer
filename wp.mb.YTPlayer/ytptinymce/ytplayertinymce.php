@@ -207,7 +207,7 @@ if (!headers_sent()) {
             <span class="help-inline">Set the seconds you want the player start at</span><br>
         </label>
 
-        <div>
+        <div id="fullScreen">
             <label class="label">full screen:</label><br>
             <input type="radio" name="realfullscreen" value="true" checked/>
             <span class="help-inline">Full screen containment is the screen</span><br>
