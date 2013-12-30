@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.7.1
+Version: 1.7.2
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.7.1");
+define("MBYTPLAYER_VERSION", "1.7.2");
 
 
 
@@ -213,7 +213,7 @@ function mbYTPlayer_player_shortcode($atts)
         $style = " style=\"width:" . $playerwidth . "px; height:" . $playerheight . "px; position:relative\"";
     };
 
-    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="movie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\'}"></div>';
+    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\'}"></div>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
@@ -272,7 +272,7 @@ function mbYTPlayer_player_head()
 	    jQuery.mbYTPlayer.rasterImg ="' . plugins_url('/images/', __FILE__) . 'raster.png";
 	    jQuery.mbYTPlayer.rasterImgRetina ="' . plugins_url('/images/', __FILE__) . 'raster@2x.png";
 
-	    jQuery(".movie").mb_YTPlayer();
+	    jQuery(".mbYTPMovie").mb_YTPlayer();
 	});
 
 	</script>
@@ -285,7 +285,6 @@ function mbYTPlayer_player_head()
             return false;
 
         $mbYTPlayer_start_at = $mbYTPlayer_start_at > 0 ? $mbYTPlayer_start_at : 1;
-
         $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', realfullscreen:\'' . $mbYTPlayer_realfullscreen . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\'}\"></div>';
 
         echo '
