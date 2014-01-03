@@ -1,15 +1,11 @@
-<?php
-	if (!headers_sent()) {
-	    header("Content-Type: application/x-javascript; charset=UTF-8");
-	}
-?>
 (function() {
 
-    tinymce.create('tinymce.plugins.YTPlayer', {
+    window.tinyPopUp = {};
+
+      tinymce.create('tinymce.plugins.YTPlayer', {
 
         init : function(ed, url) {
-
-        	var popUpURL = url + '/ytplayertinymce.php?' + '<?php echo urldecode($_GET['params']); ?>';
+        	var popUpURL = url + '/ytplayertinymce.php';
 
 			ed.addCommand('YTPlayerpopup', function() {
 				ed.windowManager.open({

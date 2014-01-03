@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.7.2
+Version: 1.7.3
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.7.2");
+define("MBYTPLAYER_VERSION", "1.7.3");
 
 
 
@@ -304,10 +304,7 @@ function mbYTPlayer_player_head()
 };
 // ends mbYTPlayer_player_head function
 
-//add_action('wp_head', 'mbYTPlayer_player_head');
 add_action('wp_footer', 'mbYTPlayer_player_head',20);
-add_action('admin_init', 'setup_ytplayer_button');
-
 
 // TinyMCE Button ***************************************************
 
@@ -330,11 +327,11 @@ function register_ytplayer_button($buttons)
 // Register our TinyMCE Script
 function add_ytplayer_button_script($plugin_array)
 {
-    $plugin_array['YTPlayer'] = plugins_url('ytptinymce/tinymceytplayer.js.php?params=' . get_ytplayer_pop_up_params(), __FILE__);
+    $plugin_array['YTPlayer'] = plugins_url('ytptinymce/tinymceytplayer.js', __FILE__);
     return $plugin_array;
 }
 
-function get_ytplayer_pop_up_params()
+/*function get_ytplayer_pop_up_params()
 {
     global $mbYTPlayer_version, $mbYTPlayer_donate;
 
@@ -345,8 +342,9 @@ function get_ytplayer_pop_up_params()
         'charset=' . urlencode(get_option('blog_charset')) . '&' .
         'donate=' . $mbYTPlayer_donate
     );
-}
+}*/
 
+add_action('admin_init', 'setup_ytplayer_button');
 
 if (is_admin()) {
     require('mbYTPlayer-admin.php');

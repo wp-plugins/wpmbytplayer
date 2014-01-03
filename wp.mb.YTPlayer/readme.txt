@@ -4,7 +4,7 @@ Contributors: pupunzi
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components, cover video, embed, embed videos, embed youtube, embedding, plugin, shortcode, video cover, video HTML5, youtube, youtube embed, youtube player, youtube videos
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag:  1.7.2
+Stable tag:  1.7.3
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 License: GPLv2 or later
 
@@ -88,9 +88,12 @@ Adding a background image to the body as mobile devices fallback is a good pract
 
 == Changelog ==
 
+= 1.7.3 =
+* fixed a vulnerability issue in the TinyMCE popup.
+* fixed bug that prevented the correct behavior of the switch between the two full-screen modality.
+
 = 1.7.2 =
-* Bug fix:
-Better detection of the video availability to check when to start the video.
+* Bug fix: Better detection of the video availability to check when to start the video.
 
 = 1.7.1 =
 * Bug fix:

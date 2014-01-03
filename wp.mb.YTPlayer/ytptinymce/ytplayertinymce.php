@@ -1,15 +1,18 @@
 <?php
 
-$plugin_version = $_GET['plugin_version'];
-$includes_url = $_GET['includes_url'];
-$plugins_url = $_GET['plugins_url'];
-$charset = $_GET['charset'];
-$donate = $_GET['donate'];
+require('../../../../wp-blog-header.php');
+
+$plugin_version =get_option('mbYTPlayer_version');
+$includes_url = includes_url();
+$plugins_url = plugins_url();
+$charset = get_option('blog_charset');
+$donate = get_option('mbYTPlayer_donate');
 
 if (!headers_sent()) {
     header('Content-Type: text/html; charset='.$charset);
 }
 
+if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -31,7 +34,6 @@ if (!headers_sent()) {
             border-bottom: 1px solid #f9f9f9;
             display: block;
         }
-
         .actions{
             text-align: right;
         }
@@ -45,7 +47,6 @@ if (!headers_sent()) {
 
 </head>
 <body>
-
 <!-- DONATE POPUP-->
 <style>
     #donate{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; padding: 30px; text-align: center; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; z-index: 10000; }
@@ -347,3 +348,5 @@ if (!headers_sent()) {
 </script>
 </body>
 </html>
+<?php
+}

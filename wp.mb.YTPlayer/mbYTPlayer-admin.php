@@ -7,6 +7,7 @@ add_action('admin_menu', 'add_mbYTPlayer_option_page');
 function add_mbYTPlayer_option_page() {
     // hook in the options page function
     add_options_page('mbYTPlayer', 'mb.YTPlayer', 'manage_options', __FILE__, 'mbYTPlayer_options_page');
+    // add_menu_page( 'mb.YTPlayer', 'mb.YTPlayer', 'manage_options', __FILE__, "mbYTPlayer_options_page", "", 100 );
 }
 function mbYTPlayer_options_page() { 	// Output the options page
     global $mbYTPlayer_donate, $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick  ?>
