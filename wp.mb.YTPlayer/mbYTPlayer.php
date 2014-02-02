@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.7.4
+Version: 1.7.5
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.7.4");
+define("MBYTPLAYER_VERSION", "1.7.5");
 
 
 function isMobile()
@@ -41,6 +41,7 @@ function mbYTPlayer_install()
     add_option('mbYTPlayer_show_videourl', 'false');
     add_option('mbYTPlayer_mute', 'false');
     add_option('mbYTPlayer_start_at', 'false');
+    add_option('mbYTPlayer_stop_at', 'false');
     add_option('mbYTPlayer_ratio', '16/9');
     add_option('mbYTPlayer_loop', 'false');
     add_option('mbYTPlayer_opacity', '1');
@@ -57,6 +58,7 @@ $mbYTPlayer_show_videourl = get_option('mbYTPlayer_show_videourl');
 $mbYTPlayer_ratio = get_option('mbYTPlayer_ratio');
 $mbYTPlayer_mute = get_option('mbYTPlayer_mute');
 $mbYTPlayer_start_at = get_option('mbYTPlayer_start_at');
+$mbYTPlayer_stop_at = get_option('mbYTPlayer_stop_at');
 $mbYTPlayer_loop = get_option('mbYTPlayer_loop');
 $mbYTPlayer_opacity = get_option('mbYTPlayer_opacity');
 $mbYTPlayer_quality = get_option('mbYTPlayer_quality');
@@ -87,6 +89,10 @@ if (empty($mbYTPlayer_mute)) {
 if (empty($mbYTPlayer_start_at)) {
     $mbYTPlayer_start_at = 0;
 }
+if (empty($mbYTPlayer_stop_at)) {
+    $mbYTPlayer_stop_at = 0;
+}
+
 if (empty($mbYTPlayer_loop)) {
     $mbYTPlayer_loop = "false";
 }
@@ -156,7 +162,8 @@ function mbYTPlayer_player_shortcode($atts)
         'playerheight' => '',
         'autoplay' => '',
         'realfullscreen' => 'true',
-        'startat' => ''
+        'startat' => '',
+        'stopat' => ''
     ), $atts));
     // stuff that loads when the shortcode is called goes here
 
@@ -165,6 +172,9 @@ function mbYTPlayer_player_shortcode($atts)
 
     if (empty($startat)) {
         $startat = 0;
+    }
+    if (empty($stopat)) {
+        $stopat = 0;
     }
     if (empty($isinline)) {
         $isinline = "false";
@@ -207,12 +217,14 @@ function mbYTPlayer_player_shortcode($atts)
         if (empty($playerheight)) {
             $playerheight = "220";
         };
+
         $startat = $startat > 0 ? $startat : 1;
+
         $elId = "self";
         $style = " style=\"width:" . $playerwidth . "px; height:" . $playerheight . "px; position:relative\"";
     };
 
-    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\'}"></div>';
+    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', stopAt:' . $stopat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\'}"></div>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
@@ -253,7 +265,7 @@ add_action('init', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head()
 {
-    global $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_ratio, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_mute, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick;
+    global $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_ratio, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_stop_at, $mbYTPlayer_mute, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick;
 
     if (isMobile())
         return false;
@@ -284,7 +296,7 @@ function mbYTPlayer_player_head()
             return false;
 
         $mbYTPlayer_start_at = $mbYTPlayer_start_at > 0 ? $mbYTPlayer_start_at : 1;
-        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', realfullscreen:\'' . $mbYTPlayer_realfullscreen . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\'}\"></div>';
+        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', stopAt:' . $mbYTPlayer_stop_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', realfullscreen:\'' . $mbYTPlayer_realfullscreen . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\'}\"></div>';
 
         echo '
 	<!-- mbYTPlayer Home -->
@@ -329,19 +341,6 @@ function add_ytplayer_button_script($plugin_array)
     $plugin_array['YTPlayer'] = plugins_url('ytptinymce/tinymceytplayer.js', __FILE__);
     return $plugin_array;
 }
-
-/*function get_ytplayer_pop_up_params()
-{
-    global $mbYTPlayer_version, $mbYTPlayer_donate;
-
-    return urlencode(
-        'plugin_version=' . $mbYTPlayer_version . '&' .
-        'includes_url=' . urlencode(includes_url()) . '&' .
-        'plugins_url=' . urlencode(plugins_url()) . '&' .
-        'charset=' . urlencode(get_option('blog_charset')) . '&' .
-        'donate=' . $mbYTPlayer_donate
-    );
-}*/
 
 add_action('admin_init', 'setup_ytplayer_button');
 
