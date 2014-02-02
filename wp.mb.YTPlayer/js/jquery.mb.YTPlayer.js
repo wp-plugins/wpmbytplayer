@@ -342,6 +342,10 @@ function onYouTubePlayerAPIReady() {
 										if (YTPlayer.player.getCurrentTime() >= YTPlayer.opt.startAt && YTPlayer.player.getDuration()>0) {
 											clearInterval(YTPlayer.checkForStartAt);
 
+											if (typeof YTPlayer.opt.onReady == "function")
+												YTPlayer.opt.onReady($YTPlayer);
+
+
 											if (YTPlayer.opt.autoPlay)
 												$YTPlayer.playYTP();
 											else
@@ -937,15 +941,15 @@ function onYouTubePlayerAPIReady() {
 
 		checkForState:function(YTPlayer){
 
-			var $YTPlayer = jQuery(YTPlayer);
-			var controlBar = jQuery("#controlBar_" + YTPlayer.id);
-			var data = YTPlayer.opt;
-			var startAt = YTPlayer.opt.startAt ? YTPlayer.opt.startAt : 1;
-			var stopAt = YTPlayer.opt.stopAt > YTPlayer.opt.startAt ? YTPlayer.opt.stopAt : 0;
-			stopAt = stopAt < YTPlayer.player.getDuration() ? stopAt : 0;
 
 			YTPlayer.getState = setInterval(function () {
 				var prog = jQuery(YTPlayer).manageYTPProgress();
+				var $YTPlayer = jQuery(YTPlayer);
+				var controlBar = jQuery("#controlBar_" + YTPlayer.id);
+				var data = YTPlayer.opt;
+				var startAt = YTPlayer.opt.startAt ? YTPlayer.opt.startAt : 1;
+				var stopAt = YTPlayer.opt.stopAt > YTPlayer.opt.startAt ? YTPlayer.opt.stopAt : 0;
+				stopAt = stopAt < YTPlayer.player.getDuration() ? stopAt : 0;
 
 				if(YTPlayer.player.getVolume() == 0)
 					$YTPlayer.addClass("isMuted");
