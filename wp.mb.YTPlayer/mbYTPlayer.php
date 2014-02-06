@@ -247,6 +247,8 @@ function mbYTPlayer_init()
         ';
     }
 
+    load_plugin_textdomain('mbYTPlayer', false, basename( dirname( __FILE__ ) ) . '/languages' );
+
     if (!is_admin()) { // && !isMobile()
 
 
@@ -261,6 +263,7 @@ function mbYTPlayer_init()
 
     }
 }
+
 add_action('init', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head()
