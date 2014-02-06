@@ -80,6 +80,7 @@ Use the editor button or write the below shortcode into the content of your post
   * highres: Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
   * default: YouTube selects the appropriate playback quality.
 
+
 == What about mobile ==
 
 The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.) due to restrictions applied by the vendors on media controls via javascript.

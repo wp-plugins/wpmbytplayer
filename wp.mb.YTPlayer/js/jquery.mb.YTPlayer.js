@@ -336,7 +336,7 @@ function onYouTubePlayerAPIReady() {
 									YTPlayer.player.setVolume(YTPlayer.opt.vol);
 									YTPlayer.player.seekTo(parseFloat(YTPlayer.opt.startAt), true);
 
-									//jQuery.mbYTPlayer.checkForState(YTPlayer);
+									jQuery.mbYTPlayer.checkForState(YTPlayer);
 
 									YTPlayer.checkForStartAt = setInterval(function () {
 										if (YTPlayer.player.getCurrentTime() >= YTPlayer.opt.startAt && YTPlayer.player.getDuration()>0) {

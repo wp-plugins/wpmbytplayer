@@ -237,6 +237,8 @@ function mbYTPlayer_init()
 {
     global $mbYTPlayer_version;
 
+    load_plugin_textdomain('mbYTPlayer', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+
     if (isset($_COOKIE['ytpdonate']) && $_COOKIE['ytpdonate'] !== "false") {
         update_option('mbYTPlayer_donate', "true");
         echo '
@@ -246,8 +248,6 @@ function mbYTPlayer_init()
             </script>
         ';
     }
-
-    load_plugin_textdomain('mbYTPlayer', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
     if (!is_admin()) { // && !isMobile()
 
@@ -263,7 +263,6 @@ function mbYTPlayer_init()
 
     }
 }
-
 add_action('init', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head()
