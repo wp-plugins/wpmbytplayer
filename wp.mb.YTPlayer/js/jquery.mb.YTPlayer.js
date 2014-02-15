@@ -292,6 +292,7 @@ function onYouTubePlayerAPIReady() {
 
 						if(ytp.isDevice && !YTPlayer.isBackground){
 							new YT.Player(playerID, {
+								videoId   : YTPlayer.videoID.toString(),
 								height: '100%',
 								width: '100%',
 								videoId: YTPlayer.videoID,
@@ -666,7 +667,7 @@ function onYouTubePlayerAPIReady() {
 
 			var controls = jQuery("#controlBar_" + YTPlayer.id);
 			var fullScreenBtn = controls.find(".mb_OnlyYT");
-			var videoWrapper = YTPlayer.isBackground ? jQuery(YTPlayer.wrapper) : jQuery(YTPlayer);
+			var videoWrapper = YTPlayer.isBackground ? YTPlayer.wrapper : jQuery(YTPlayer);
 
 			if(real){
 				var fullscreenchange = jQuery.browser.mozilla ? "mozfullscreenchange" : jQuery.browser.webkit ? "webkitfullscreenchange" : "fullscreenchange";
@@ -678,6 +679,9 @@ function onYouTubePlayerAPIReady() {
 						fullScreenBtn.html(jQuery.mbYTPlayer.controls.onlyYT)
 						jQuery(YTPlayer).setVideoQuality(YTPlayer.opt.quality);
 						jQuery(YTPlayer).removeClass("fullscreen");
+
+						videoWrapper.CSSAnimate({opacity: YTPlayer.opt.opacity}, 500);
+						videoWrapper.css({zIndex: 0});
 
 						if (YTPlayer.isBackground){
 							jQuery("body").after(controls);
@@ -769,7 +773,7 @@ function onYouTubePlayerAPIReady() {
 			playBtn.html(jQuery.mbYTPlayer.controls.pause);
 			YTPlayer.player.playVideo();
 
-			//YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.opt.opacity}, 2000);
+			YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
 			jQuery(YTPlayer).on("YTPStart", function(){
 				jQuery(YTPlayer).css("background-image", "none");
 			})
