@@ -19,11 +19,17 @@ You can activate it for your home page from the settings panel or on any post or
 
 **From version 1.0 the player is using the Youtube® iframe API displaying the video using the HTML5 VIDEO tag for all the browsers that support it.**
 
+**From version 1.7.6 the plug in is internationalized; available in English, Italian and Spanish (thanks to Andrew Kurtis http://www.webhostinghub.com ).**
+
+
 The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.) due to restrictions applied by the vendors on media controls via javascript.
 Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
 
+
+
 note:
 If you doesn't want ADs on your background video and you are the owner of it you can disable this on your Youtube channel as explained here: http://candidio.com/blog/how-to-remove-ads-from-your-youtube-videos .
+
 
 Links:
 
