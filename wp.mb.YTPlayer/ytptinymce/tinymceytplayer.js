@@ -10,8 +10,8 @@
 			ed.addCommand('YTPlayerpopup', function() {
 				ed.windowManager.open({
 					url : popUpURL,
-					width : 600,
-					height : 670,
+					width : 680,
+					height : 700,
 					inline : 1
 				});
 			});
