@@ -89,7 +89,7 @@ Adding a background image to the body as mobile devices fallback is a good pract
 == Changelog ==
 
 = 1.7.6 =
-* Added internationalization. In addition to English are now available the Italian translation and the Spanish translation (thanks to Andrew Kurtis http://www.webhostinghub.com).
+* Added internationalization. In addition to English are now available the Italian translation and the Spanish translation (thanks to Andrew Kurtis http://www.webhostinghub.com ).
   If you want to translate the YTPlayer plugin in your language here is the .POT file: http://pupunzi.open-lab.com/wp-translations/mbYTPlayer.pot
   Send me the translation once finished; it'll be available with the next update.
 
