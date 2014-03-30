@@ -336,7 +336,7 @@ function onYouTubePlayerAPIReady() {
 						}
 
 						new YT.Player(playerID, {
-							//	videoId   :YTPlayer.videoID.toString(),
+							videoId   :YTPlayer.videoID.toString(),
 							playerVars: playerVars,
 							events    : {
 								'onReady': function (event) {
@@ -363,16 +363,16 @@ function onYouTubePlayerAPIReady() {
 									var startAt = YTPlayer.opt.startAt ? YTPlayer.opt.startAt : 1;
 
 									//if(jQuery.browser.webkit)
-									YTPlayer.player.loadVideoById(YTPlayer.videoID.toString(), startAt, YTPlayer.opt.quality);
+									//YTPlayer.player.loadVideoById(YTPlayer.videoID.toString(), startAt, YTPlayer.opt.quality);
 
-									YTPlayer.player.setVolume(0);
-
+//									YTPlayer.player.setVolume(0);
+									YTPlayer.player.stopVideo();
 									jQuery.mbYTPlayer.checkForState(YTPlayer);
 
 									YTPlayer.checkForStartAt = setInterval(function () {
 
-//										if(!jQuery.browser.webkit)
-//											YTPlayer.player.seekTo(startAt, true);
+										//if(!jQuery.browser.webkit)
+										YTPlayer.player.seekTo(startAt, true);
 
 										if (YTPlayer.player.getCurrentTime() >= startAt && YTPlayer.player.getDuration()>0) {
 											clearInterval(YTPlayer.checkForStartAt);
@@ -386,13 +386,12 @@ function onYouTubePlayerAPIReady() {
 
 												if (YTPlayer.opt.autoPlay)
 													$YTPlayer.playYTP();
-												else
+												else{
 													$YTPlayer.pauseYTP();
+//													YTPlayer.player.setVolume(YTPlayer.opt.vol);
+												}
 
-												YTPlayer.player.setVolume(YTPlayer.opt.vol);
-
-											},500);
-
+											},100);
 
 											jQuery.mbYTPlayer.checkForState(YTPlayer);
 										}
@@ -1007,7 +1006,7 @@ function onYouTubePlayerAPIReady() {
 				if(prog.totalTime){
 					controlBar.find(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime) + " / " + jQuery.mbYTPlayer.formatTime(prog.totalTime));
 				} else{
-					clearInterval(YTPlayer.getState);
+//					clearInterval(YTPlayer.getState);
 					controlBar.find(".mb_YTVPTime").html("-- : -- / -- : --");
 				}
 
