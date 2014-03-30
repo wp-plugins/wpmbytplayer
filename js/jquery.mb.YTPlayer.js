@@ -361,9 +361,7 @@ function onYouTubePlayerAPIReady() {
 										jQuery(YTPlayer).buildYTPControls();
 
 									YTPlayer.player.loadVideoById(YTPlayer.videoID.toString(), YTPlayer.opt.startAt, YTPlayer.opt.quality);
-									YTPlayer.player.pauseVideo();
-//									YTPlayer.player.setPlaybackQuality(YTPlayer.opt.quality);
-									YTPlayer.player.setVolume(YTPlayer.opt.vol);
+									YTPlayer.player.setVolume(0);
 
 									jQuery.mbYTPlayer.checkForState(YTPlayer);
 
@@ -381,6 +379,8 @@ function onYouTubePlayerAPIReady() {
 												$YTPlayer.playYTP();
 											else
 												$YTPlayer.pauseYTP();
+
+											YTPlayer.player.setVolume(YTPlayer.opt.vol);
 
 											setTimeout(function(){
 												$YTPlayer.css("background-image", "none");
