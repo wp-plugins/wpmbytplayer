@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 19/03/14 1.07
+ *  last modified: 30/03/14 18.47
  *  *****************************************************************************
  */
 
@@ -100,7 +100,7 @@ function onYouTubePlayerAPIReady() {
 
 	jQuery.mbYTPlayer = {
 		name           : "jquery.mb.YTPlayer",
-		version        : "2.6.4",
+		version        : "2.6.5",
 		author         : "Matteo Bicocchi",
 		defaults       : {
 			containment            : "body",
@@ -336,7 +336,7 @@ function onYouTubePlayerAPIReady() {
 						}
 
 						new YT.Player(playerID, {
-							videoId   :"",
+							//	videoId   :YTPlayer.videoID.toString(),
 							playerVars: playerVars,
 							events    : {
 								'onReady': function (event) {
@@ -360,32 +360,39 @@ function onYouTubePlayerAPIReady() {
 									if (YTPlayer.opt.showControls)
 										jQuery(YTPlayer).buildYTPControls();
 
-									YTPlayer.player.loadVideoById(YTPlayer.videoID.toString(), YTPlayer.opt.startAt, YTPlayer.opt.quality);
+									var startAt = YTPlayer.opt.startAt ? YTPlayer.opt.startAt : 1;
+
+									//if(jQuery.browser.webkit)
+									YTPlayer.player.loadVideoById(YTPlayer.videoID.toString(), startAt, YTPlayer.opt.quality);
+
 									YTPlayer.player.setVolume(0);
 
 									jQuery.mbYTPlayer.checkForState(YTPlayer);
 
 									YTPlayer.checkForStartAt = setInterval(function () {
 
-										//YTPlayer.player.seekTo(YTPlayer.opt.startAt, true);
+//										if(!jQuery.browser.webkit)
+//											YTPlayer.player.seekTo(startAt, true);
 
-										if (YTPlayer.player.getCurrentTime() >= YTPlayer.opt.startAt && YTPlayer.player.getDuration()>0) {
+										if (YTPlayer.player.getCurrentTime() >= startAt && YTPlayer.player.getDuration()>0) {
 											clearInterval(YTPlayer.checkForStartAt);
 
 											if (typeof YTPlayer.opt.onReady == "function")
 												YTPlayer.opt.onReady($YTPlayer);
 
-											if (YTPlayer.opt.autoPlay)
-												$YTPlayer.playYTP();
-											else
-												$YTPlayer.pauseYTP();
-
-											YTPlayer.player.setVolume(YTPlayer.opt.vol);
-
 											setTimeout(function(){
 												$YTPlayer.css("background-image", "none");
 												YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
-											},1000);
+
+												if (YTPlayer.opt.autoPlay)
+													$YTPlayer.playYTP();
+												else
+													$YTPlayer.pauseYTP();
+
+												YTPlayer.player.setVolume(YTPlayer.opt.vol);
+
+											},500);
+
 
 											jQuery.mbYTPlayer.checkForState(YTPlayer);
 										}
