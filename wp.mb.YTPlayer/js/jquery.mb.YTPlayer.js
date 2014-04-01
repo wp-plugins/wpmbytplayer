@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 30/03/14 18.47
+ *  last modified: 30/03/14 22.28
  *  *****************************************************************************
  */
 
@@ -100,7 +100,7 @@ function onYouTubePlayerAPIReady() {
 
 	jQuery.mbYTPlayer = {
 		name           : "jquery.mb.YTPlayer",
-		version        : "2.6.5",
+		version        : "2.6.6",
 		author         : "Matteo Bicocchi",
 		defaults       : {
 			containment            : "body",
@@ -709,7 +709,8 @@ function onYouTubePlayerAPIReady() {
 
 			var controls = jQuery("#controlBar_" + YTPlayer.id);
 			var fullScreenBtn = controls.find(".mb_OnlyYT");
-			var videoWrapper = YTPlayer.isBackground ? YTPlayer.wrapper : jQuery(YTPlayer);
+			var videoWrapper = YTPlayer.isBackground ? YTPlayer.wrapper : YTPlayer.opt.containment;
+			//var videoWrapper = YTPlayer.wrapper;
 
 			if(real){
 				var fullscreenchange = jQuery.browser.mozilla ? "mozfullscreenchange" : jQuery.browser.webkit ? "webkitfullscreenchange" : "fullscreenchange";
@@ -718,9 +719,9 @@ function onYouTubePlayerAPIReady() {
 
 					if (!isFullScreen) {
 						YTPlayer.isAlone = false;
-						fullScreenBtn.html(jQuery.mbYTPlayer.controls.onlyYT)
+						fullScreenBtn.html(jQuery.mbYTPlayer.controls.onlyYT);
 						jQuery(YTPlayer).setVideoQuality(YTPlayer.opt.quality);
-						jQuery(YTPlayer).removeClass("fullscreen");
+						videoWrapper.removeClass("fullscreen");
 
 						videoWrapper.CSSAnimate({opacity: YTPlayer.opt.opacity}, 500);
 						videoWrapper.css({zIndex: 0});
@@ -742,28 +743,29 @@ function onYouTubePlayerAPIReady() {
 
 			if (!YTPlayer.isAlone) {
 
-				if(YTPlayer.player.getPlayerState() != 1 && YTPlayer.player.getPlayerState() != 2)
-					jQuery(YTPlayer).playYTP();
 
 				if(real){
+
+					var playerState = YTPlayer.player.getPlayerState();
 					YTPlayer.wrapper.append(controls);
 					launchFullscreen(videoWrapper.get(0));
-					jQuery(YTPlayer).css({opacity:0}).addClass("fullscreen");
+					videoWrapper.css({opacity:0}).addClass("fullscreen");
 					setTimeout(function(){
-						videoWrapper.CSSAnimate({zIndex: 10000, opacity:1},1000);
-					},1000)
+						videoWrapper.CSSAnimate({ opacity:1},1000);
+
+						YTPlayer.player.seekTo(YTPlayer.player.getCurrentTime() +.1, true);
+					},2000)
 				} else
 					videoWrapper.css({zIndex: 10000}).CSSAnimate({opacity: 1}, 1000);
 
 
-				fullScreenBtn.html(jQuery.mbYTPlayer.controls.showSite)
+				fullScreenBtn.html(jQuery.mbYTPlayer.controls.showSite);
 				YTPlayer.isAlone = true;
 
 			} else {
 
 				if(real){
 					cancelFullscreen();
-					videoWrapper.css({zIndex: 0});
 				} else{
 					videoWrapper.CSSAnimate({opacity: YTPlayer.opt.opacity}, 500);
 					videoWrapper.css({zIndex: 0});
@@ -1066,6 +1068,7 @@ function onYouTubePlayerAPIReady() {
 		win.height = el.outerHeight();
 
 		var margin = 24;
+		var overprint = 100;
 		var vid = {};
 		vid.width = win.width + ((win.width * margin) / 100);
 		vid.height = data.ratio == "16/9" ? Math.ceil((9 * win.width) / 16) : Math.ceil((3 * win.width) / 4);
@@ -1078,6 +1081,12 @@ function onYouTubePlayerAPIReady() {
 			vid.marginTop = -((win.height * (margin / 2)) / 100);
 			vid.marginLeft = -((vid.width - win.width) / 2);
 		}
+
+		vid.width += overprint;
+		vid.height += overprint;
+		vid.marginTop -= overprint/2;
+		vid.marginLeft -= overprint/2;
+
 		playerBox.css({width: vid.width, height: vid.height, marginTop: vid.marginTop, marginLeft: vid.marginLeft});
 	};
 
