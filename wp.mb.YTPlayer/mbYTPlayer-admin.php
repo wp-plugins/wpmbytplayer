@@ -10,7 +10,7 @@ function add_mbYTPlayer_option_page() {
 add_action('admin_menu', 'add_mbYTPlayer_option_page');
 
 function mbYTPlayer_options_page() { 	// Output the options page
-    global $mbYTPlayer_donate, $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_stop_at, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick  ?>
+    global $mbYTPlayer_donate, $mbYTPlayer_version, $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_stop_at, $mbYTPlayer_mute, $mbYTPlayer_ratio, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_track_ga, $mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick  ?>
 
     <!-- DONATE POPUP-->
     <style>
@@ -290,6 +290,14 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
+                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('track on Google Analytics', 'mbYTPlayer'); ?></th>
+                <td>
+                    <input type="checkbox" name="mbYTPlayer_track_ga" value="true" <?php if ($mbYTPlayer_track_ga=="true") {echo' checked="checked"'; }?>/>
+                    <p><?php _e('Check to track this video on Google Analytics if played', 'mbYTPlayer'); ?>.</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
                 <th scope="row"><?php _e('Stop the player if a link is clicked', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_stop_onclick" value="true" <?php if ($mbYTPlayer_stop_onclick=="true") {echo' checked="checked"'; }?>/>
@@ -297,7 +305,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
                 </td>
             </tr>
         </table>
-        <input type="hidden" name="page_options" value="mbYTPlayer_donate, mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_show_videourl, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_start_at, mbYTPlayer_stop_at, mbYTPlayer_loop, mbYTPlayer_opacity, mbYTPlayer_quality, mbYTPlayer_add_raster, mbYTPlayer_stop_onclick, mbYTPlayer_realfullscreen" />
+        <input type="hidden" name="page_options" value="mbYTPlayer_donate, mbYTPlayer_home_video_url, mbYTPlayer_show_controls, mbYTPlayer_show_videourl, mbYTPlayer_mute, mbYTPlayer_ratio, mbYTPlayer_start_at, mbYTPlayer_stop_at, mbYTPlayer_loop, mbYTPlayer_opacity, mbYTPlayer_quality, mbYTPlayer_add_raster, mbYTPlayer_track_ga, mbYTPlayer_stop_onclick, mbYTPlayer_realfullscreen" />
         <input type="hidden" name="action" value="update" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />

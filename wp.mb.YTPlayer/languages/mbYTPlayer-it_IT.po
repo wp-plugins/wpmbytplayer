@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mb.YTPlayer background video\n"
-"POT-Creation-Date: 2014-02-06 00:49+0100\n"
-"PO-Revision-Date: 2014-02-06 22:29+0100\n"
+"POT-Creation-Date: 2014-04-13 18:28+0100\n"
+"PO-Revision-Date: 2014-04-13 18:28+0100\n"
 "Last-Translator: Pupunzi <matteo@open-lab.com>\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -122,7 +122,7 @@ msgstr "Queste opzioni si riferiscono soltanto al video per la homepage"
 #: mbYTPlayer-admin.php:169 mbYTPlayer-admin.php:177 mbYTPlayer-admin.php:190
 #: mbYTPlayer-admin.php:206 mbYTPlayer-admin.php:219 mbYTPlayer-admin.php:227
 #: mbYTPlayer-admin.php:235 mbYTPlayer-admin.php:258 mbYTPlayer-admin.php:276
-#: mbYTPlayer-admin.php:285
+#: mbYTPlayer-admin.php:285 mbYTPlayer-admin.php:293
 msgid "home video"
 msgstr "video "
 
@@ -281,16 +281,24 @@ msgstr ""
 "bassa qualità)"
 
 #: mbYTPlayer-admin.php:293
+msgid "track on Google Analytics"
+msgstr "Aggiungi Google Analytics"
+
+#: mbYTPlayer-admin.php:296
+msgid "Check to track this video on Google Analytics if played"
+msgstr "Seleziona per tracciare questo video su Google Analytics se guardato"
+
+#: mbYTPlayer-admin.php:301
 msgid "Stop the player if a link is clicked"
 msgstr "Ferma il video se viene ciccato un link"
 
-#: mbYTPlayer-admin.php:296
+#: mbYTPlayer-admin.php:304
 msgid ""
 "Check to stop the player once clicked on a link<br>(firefox has problems "
 "catching the event and this speedup the action)"
 msgstr "Seleziona per fermare il video se viene ciccato un link"
 
-#: mbYTPlayer-admin.php:303
+#: mbYTPlayer-admin.php:311
 msgid "Save Changes"
 msgstr "Salva i cambiamenti"
 
@@ -430,3 +438,11 @@ msgstr "Aggiungi una trama"
 #: ytptinymce/ytplayertinymce.php:251
 msgid "add a raster effect"
 msgstr "Aggiungi una trama in pixel al video"
+
+#: ytptinymce/ytplayertinymce.php:255
+msgid "Add Google Analytics"
+msgstr "Aggiungi Google Analytics"
+
+#: ytptinymce/ytplayertinymce.php:257
+msgid "add the event \"play\" on Google Analytics track"
+msgstr "Aggiungi un evento \"play\" su Google Analytics"

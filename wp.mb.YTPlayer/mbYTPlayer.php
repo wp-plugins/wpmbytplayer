@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.7.8
+Version: 1.7.9
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.7.8");
+define("MBYTPLAYER_VERSION", "1.7.9");
 
 
 function isMobile()
@@ -45,6 +45,8 @@ function mbYTPlayer_install()
     add_option('mbYTPlayer_loop', 'false');
     add_option('mbYTPlayer_opacity', '1');
     add_option('mbYTPlayer_quality', 'default');
+    add_option('mbYTPlayer_add_raster', 'false');
+    add_option('mbYTPlayer_track_ga', 'true');
     add_option('mbYTPlayer_stop_onclick', 'false');
     add_option('mbYTPlayer_realfullscreen', 'true');
 }
@@ -63,6 +65,7 @@ $mbYTPlayer_loop = get_option('mbYTPlayer_loop');
 $mbYTPlayer_opacity = get_option('mbYTPlayer_opacity');
 $mbYTPlayer_quality = get_option('mbYTPlayer_quality');
 $mbYTPlayer_add_raster = get_option('mbYTPlayer_add_raster');
+$mbYTPlayer_track_ga = get_option('mbYTPlayer_track_ga');
 $mbYTPlayer_realfullscreen = get_option('mbYTPlayer_realfullscreen');
 
 $mbYTPlayer_stop_onclick = get_option('mbYTPlayer_stop_onclick');
@@ -105,11 +108,12 @@ if (empty($mbYTPlayer_quality)) {
 if (empty($mbYTPlayer_add_raster)) {
     $mbYTPlayer_add_raster = "false";
 }
-
+if (empty($mbYTPlayer_track_ga)) {
+    $mbYTPlayer_add_raster = "true";
+}
 if (empty($mbYTPlayer_stop_onclick)) {
     $mbYTPlayer_stop_onclick = "false";
 }
-
 if (empty($mbYTPlayer_realfullscreen)) {
     $mbYTPlayer_realfullscreen = "true";
 }
@@ -161,6 +165,7 @@ function mbYTPlayer_player_shortcode($atts)
         'playerwidth' => '',
         'playerheight' => '',
         'autoplay' => '',
+        'gaTrack' => '',
         'realfullscreen' => 'true',
         'startat' => '',
         'stopat' => ''
@@ -203,6 +208,9 @@ function mbYTPlayer_player_shortcode($atts)
     if (empty($addraster)) {
         $addraster = "false";
     };
+    if (empty($gaTrack)) {
+        $gaTrack = "false";
+    };
     if (empty($realfullscreen)) {
         $realfullscreen = "true";
     };
@@ -224,7 +232,7 @@ function mbYTPlayer_player_shortcode($atts)
         $style = " style=\"width:" . $playerwidth . "px; height:" . $playerheight . "px; position:relative\"";
     };
 
-    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', stopAt:' . $stopat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\'}"></div>';
+    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', stopAt:' . $stopat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\', gaTrack:\'' . $gaTrack . '\'}"></div>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
@@ -267,7 +275,7 @@ add_action('init', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head()
 {
-    global $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_ratio, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_stop_at, $mbYTPlayer_mute, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick;
+    global $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_ratio, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_stop_at, $mbYTPlayer_mute, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_track_ga,$mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick;
 
     if (isMobile())
         return false;
@@ -298,7 +306,7 @@ function mbYTPlayer_player_head()
             return false;
 
         $mbYTPlayer_start_at = $mbYTPlayer_start_at > 0 ? $mbYTPlayer_start_at : 1;
-        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', stopAt:' . $mbYTPlayer_stop_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', realfullscreen:\'' . $mbYTPlayer_realfullscreen . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\'}\"></div>';
+        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', stopAt:' . $mbYTPlayer_stop_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', realfullscreen:\'' . $mbYTPlayer_realfullscreen . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\', gaTrack:\'' . $mbYTPlayer_track_ga . '\'}\"></div>';
 
         echo '
 	<!-- mbYTPlayer Home -->
