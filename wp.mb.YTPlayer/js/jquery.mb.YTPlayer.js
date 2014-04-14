@@ -490,8 +490,6 @@ function onYouTubePlayerAPIReady() {
 
 										jQuery(YTPlayer).trigger("YTPStart");
 
-										console.debug("ga", eval(YTPlayer.opt.gaTrack), YTPlayer.opt.gaTrack);
-
 										if (typeof _gaq != "undefined" && eval(YTPlayer.opt.gaTrack))
 											_gaq.push(['_trackEvent', 'YTPlayer', 'Play', (YTPlayer.title || YTPlayer.videoID.toString())]);
 
