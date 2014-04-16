@@ -306,67 +306,68 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
             jQuery("[name=playerheight]").val(Math.floor(suggestedHeight));
         }
 
-        tinyMCEPopup.onInit.add(function(ed) {
+        // tinyMCEPopup.onInit.add(function(ed) {
 
-            var form = document.forms[0],
+        var ed = top.tinymce.activeEditor;
 
-                isEmpty = function(value) {
-                    return (/^\s*$/.test(value));
-                },
+        var form = document.forms[0],
 
-                encodeStr = function(value) {
-                    return value.replace(/\s/g, "%20")
-                        .replace(/"/g, "%22")
-                        .replace(/'/g, "%27")
-                        .replace(/=/g, "%3D")
-                        .replace(/\[/g, "%5B")
-                        .replace(/\]/g, "%5D")
-                        .replace(/\//g, "%2F");
-                },
+            isEmpty = function(value) {
+                return (/^\s*$/.test(value));
+            },
 
-                insertShortcode = function(e){
-                    var sc = "[mbYTPlayer ",
-                        inputs = form.elements, input, inputName, inputValue,
-                        l = inputs.length, i = 0;
+            encodeStr = function(value) {
+                return value.replace(/\s/g, "%20")
+                    .replace(/"/g, "%22")
+                    .replace(/'/g, "%27")
+                    .replace(/=/g, "%3D")
+                    .replace(/\[/g, "%5B")
+                    .replace(/\]/g, "%5D")
+                    .replace(/\//g, "%2F");
+            },
 
-                    for ( ; i < l; i++) {
-                        input = inputs[i];
-                        inputName = input.name;
-                        inputValue = input.value;
-                        // Video URL validation
-                        if (inputName == "url" && (isEmpty(inputValue) || (inputValue.toLowerCase().indexOf("youtube")==-1) && inputValue.toLowerCase().indexOf("youtu.be")==-1)){
-                            alert("a valid Youtube video URL is required");
-                            return false;
-                        }
-                        // inputs of type "checkbox", "radio" and "text"
-                        if ((input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type == "select-one" || input.type =="checkbox"|| input.type =="radio") {
+            insertShortcode = function(e){
+                var sc = "[mbYTPlayer ",
+                    inputs = form.elements, input, inputName, inputValue,
+                    l = inputs.length, i = 0;
 
-                            if (input.type =="checkbox") {
-                                if(!input.checked)
-                                    inputValue = false;
-                            }
-
-                            if (inputName =="realfullscreen" && !input.checked)
-                                continue;
-
-                            if (inputName =="inLine_ratio")
-                                continue;
-
-                            sc += ' ' + inputName + '="' + inputValue + '"';
-                        }
+                for ( ; i < l; i++) {
+                    input = inputs[i];
+                    inputName = input.name;
+                    inputValue = input.value;
+                    // Video URL validation
+                    if (inputName == "url" && (isEmpty(inputValue) || (inputValue.toLowerCase().indexOf("youtube")==-1) && inputValue.toLowerCase().indexOf("youtu.be")==-1)){
+                        alert("a valid Youtube video URL is required");
+                        return false;
                     }
-                    sc += "]";
+                    // inputs of type "checkbox", "radio" and "text"
+                    if ((input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type == "select-one" || input.type =="checkbox"|| input.type =="radio") {
 
-                    ed.execCommand('mceInsertContent', 0, sc);
-                    tinyMCEPopup.close();
+                        if (input.type =="checkbox") {
+                            if(!input.checked)
+                                inputValue = false;
+                        }
 
-                    return false;
-                };
+                        if (inputName =="realfullscreen" && !input.checked)
+                            continue;
 
-            form.onsubmit = insertShortcode;
+                        if (inputName =="inLine_ratio")
+                            continue;
 
-            tinyMCEPopup.resizeToInnerSize();
-        });
+                        sc += ' ' + inputName + '="' + inputValue + '"';
+                    }
+                }
+                sc += "]";
+
+                ed.execCommand('mceInsertContent', 0, sc);
+                tinyMCEPopup.close();
+
+                return false;
+            };
+
+        form.onsubmit = insertShortcode;
+
+        // });
     </script>
     </body>
     </html>
