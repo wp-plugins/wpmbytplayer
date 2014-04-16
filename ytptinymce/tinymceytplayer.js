@@ -17,7 +17,7 @@
 			});
 
 			ed.addButton('YTPlayerbutton', {
-				title : 'YTPlayer TinyMCE',
+				title : 'Add a YTPlayer',
 				image : url + '/ytplayerbutton.png',
 				cmd : 'YTPlayerpopup'
 			});
