@@ -284,3 +284,22 @@ added wp_enqueue_script('yt_api_player', '//www.youtube.com/player_api', false, 
 
 = 0.1 =
 * First release
+
+== Frequently Asked Questions ==
+
+= I'm using the plug in as background video and I can see the control bar on the bottom but the video doesn't display =
+ Your theme is probably using a wrapper for the content and it probably has a background color or image. You should check the CSS and remove that background to let the video that is behind do display correctly.
+
+= Everything is working fine on my desktop but it doesn't work on any mobile devices =
+Do to restrictions adopted both by browser vendors and Youtube this plugin can't work on touch devices.
+
+= I would have an image on the background before the video starts and after the video end; how can I do? =
+The simples way is to add an image as background of the body via CSS.
+
+= I set the video quality to hd1080 but it doesn't display at this quality; why? =
+The video quality option is just a suggestion for the Youtube API; the video is served by Youtube with the quality that best fits the bandwidth and the display size according to that setting.
+
+= The video stops some seconds before the real end; why? =
+To prevent the display of the "play" button provided by the Youtube API the video intentionally stops some seconds before the end; if you are the owner of the video I can suggest to make it a little bit longer (about 3/4 seconds).
+
+
