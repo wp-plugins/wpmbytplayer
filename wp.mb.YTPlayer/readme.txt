@@ -4,7 +4,7 @@ Contributors: pupunzi
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components, cover video, embed, embed videos, embed youtube, embedding, plugin, shortcode, video cover, video HTML5, youtube, youtube embed, youtube player, youtube videos
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag:  1.8.1
+Stable tag:  1.8.2
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 License: GPLv2 or later
 
@@ -94,6 +94,9 @@ Adding a background image to the body as mobile devices fallback is a good pract
 
 == Changelog ==
 
+= 1.8.2 =
+* Bug fix: Updated to solve a problem with the "YTPEnd" event that was not firing anymore.
+
 = 1.8.1 =
 * Major update: Updated to solve issue compatibilities with the latest 3.9 Wordpress release.
 
@@ -153,134 +156,7 @@ added wp_enqueue_script('yt_api_player', '//www.youtube.com/player_api', false, 
 = 1.6.5 =
 * New feature: You can choose if the fullscreen behavior should be contained into the browser window or cover all the screen.
 
-= 1.6.4 =
-* Bug fix: fixed a jQuery $ conflict.
-
-= 1.6.3 =
-* Bug fix: the player was initialized twice duplicating the controls HTML element.
-
-= 1.6.2 =
-* Button icons are rendered using @font-face instead of images.
-
-= 1.6.1 =
-* Major bug fix: the video ended behavior that prevent the display of the play button was available only if the control bar was available.
-
-= 1.6.0 =
-* fixed a bug on Safari that was affecting the "mute/unmute" behaviour.
-
-= 1.5.8 /  1.5.9 =
-* Added the "start at" property in the settings panel.
-* Fixed a bug introduced in the 1.5.8 release.
-
-= 1.5.7 =
-* Update for issue compatibility with jQuery 1.9.
-
-= 1.5.6 =
-* Bug fix - Solved a potential bug for servers that don't allow CamelCase in path for folders name.
-
-= 1.5.5 =
-* Improvements - Refined the loop behavior of the background video.
-
-= 1.5.4 =
-* Bug fix - Set poster frame to transparent once the player start playing (if the player had an opacity <1 the poster frame was visible).
-
-= 1.5.3 =
-* Bug fix - fixed "url not valid" if a short url has been used in the post editor short code dialog.
-* Feature - Refined the in line use and display adding the poster frame to the player and introducing the "autoplay" that allow this also for in line players.
-
-= 1.5.2 =
-* New feature - Added support for the short-url of youtube videos.
-
-= 1.5 =
-* Bug fix - Fixed a potential bug if there are more instances of the player in a single page (for example one as background video and one as inline player).
-
-= 1.4 =
-* CSS Bug fix - Defined specific player CSS classes to prevent incorrect positioning of the player due to possible CSS Theme definitions conflict.
-
-= 1.3 =
-* Bug fix for IE - Now it works on IE 8+ Forcing the rendering via Flash® if is Explorer.
-
-= 1.2 =
-* bug fix: Fixed a bug with the donate popup.
-	bug fix: fixed a bug with Chrome audio (didn't mute).
-	bug fix: fixed a bug appending the video in the DOM of the page.
-
-= 1.1 =
-* bug fix: removed a console.debug() from the script that can cause IE to fail loading the video.
-
-= 1.0 =
-* Major update:
-	With this release all the YTPlayer code has been rewritten to use the Youtube® iframe API.
-	That means that for all browsers that support HTML5 VIDEO tags the component will use that instead of the FLASH player;
-	saving processor worming and speeding up performances.
-	As the "seekTo()" method of the API was retrieving an error I opened an issue ticket on the Youtube bug tracking system thinking that anyway they would never take care of it.
-	But after 3 days they write me back saying the bug was fixed :-). So now I can publish this great new release!
-
-	If you have problems you can always fall back to the previous 6.8 version downloading it from: http://wordpress.org/extend/plugins/wpmbytplayer/developers/
-	Let me know.
-
-= 0.6.7 =
-* bug fix: 			raster image display.
-
-= 0.6.7 =
-* bug fix: 			var BGisInit = typeof document.YTPBG != "undefined";.
-
-= 0.6.6 =
-* Cleaned up the js.
-* Video fade in once start playing.
-
-= 0.6.5 =
-* bugfix for Chrome: The control bar was unreachable.
-
-= 0.6.4 =
-* minor bugfix for the bottom player tool bar and for body positioning.
-
-= 0.6.3 =
-* Added the "link to Youtube® video" option both on settings and shortcode editor; if checked shows the link to the original video at the bottom right over the seek bar.
-
-= 0.6.2 =
-* Solved a bug that prevent the use of the plugin into a target DOM element on the front or home page.
-
-= 0.6.1 =
-* added a new property to choose if the player should stop or not if a link is clicked.
-
-= 0.6.0 =
-* fixed a bug for YT player API (OnStateChange is not triggered anymore) AGAIN!!!
-* Now it supports youtube short-urls too ( ex: http://youtu.be/V2rifmjZuKQ ).
-
-= 0.5.9 =
-* removed a "console.debug" that break the component in IE
-
-= 0.5.8 =
-* fixed a bug for YT player API (OnStateChange is not triggered anymore)
-
-= 0.5.7 =
-* Tested on wordpress v. 3.4.1
-
-= 0.5.6 =
-* bug fix: video took too much to show
-
-= 0.5.5 =
-* Added: addRaster parameter -> choose to add or remove the raster over the video
-* bug fix: added is_frontPage() for home background video
-
-= 0.5.2 =
-* Added: Quality parameter
-* Added: better fade in once video loaded
-
-= 0.5 =
-* Added: You can now add a short code to a text widget and it will be rendered as background video if the widget is printed out in the page.
-* Added: TinyMCE editor button to easily add the short code.
-
-= 0.4 =
-* bugfix: Warning: preg_match() [function.preg-match]: Unknown modifier '/' in /home/content/28/9255928/html/wp-content/plugins/wpmbytplayer/mbYTPlayer.php on line 32.
-          removed the check.
-
-= 0.3 =
-* bugfix: FF had some problems getting click events.
-
-= 0.2 =
-* bugfix: settings url was broken.
+...
 
 = 0.1 =
 * First release
@@ -294,7 +170,7 @@ added wp_enqueue_script('yt_api_player', '//www.youtube.com/player_api', false, 
 Do to restrictions adopted both by browser vendors and Youtube this plugin can't work on touch devices.
 
 = I would have an image on the background before the video starts and after the video end; how can I do? =
-The simples way is to add an image as background of the body via CSS.
+The simplest way is to add an image as background of the body via CSS.
 
 = I set the video quality to hd1080 but it doesn't display at this quality; why? =
 The video quality option is just a suggestion for the Youtube API; the video is served by Youtube with the quality that best fits the bandwidth and the display size according to that setting.
