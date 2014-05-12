@@ -294,7 +294,7 @@ added wp_enqueue_script('yt_api_player', '//www.youtube.com/player_api', false, 
 Do to restrictions adopted both by browser vendors and Youtube this plugin can't work on touch devices.
 
 = I would have an image on the background before the video starts and after the video end; how can I do? =
-The simples way is to add an image as background of the body via CSS.
+The simplest way is to add an image as background of the body via CSS.
 
 = I set the video quality to hd1080 but it doesn't display at this quality; why? =
 The video quality option is just a suggestion for the Youtube API; the video is served by Youtube with the quality that best fits the bandwidth and the display size according to that setting.
