@@ -134,8 +134,8 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
 
             <label>
                 <span class="label"><?php _e('Video url', 'mbYTPlayer'); ?> <span style="color:red">*</span>: </span>
-                <input type="text" name="url" class="span5"/>
-                <span class="help-inline"><?php _e('YouTube video URL', 'mbYTPlayer'); ?></span>
+                <textarea type="text" name="url" class="span5"></textarea><br>
+                <span class="help-inline"><?php _e('YouTube video URLs (comma separated)', 'mbYTPlayer'); ?></span>
             </label>
 
             <label>
@@ -170,8 +170,8 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
                     <option value="4/3"><?php _e('4/3', 'mbYTPlayer'); ?></option>
                     <option value="16/9"><?php _e('16/9', 'mbYTPlayer'); ?></option>
                 </select>
-                <span class="help-inline"><?php _e('YouTube video aspect ratio'); ?>.</span><br>
-                <span class="label"></span><span class="help-inline"> <?php _e('If "auto" the plug in will try to get it from Youtube', 'mbYTPlayer'); ?>.</span>
+                <span class="help-inline"><?php _e('YouTube video aspect ratio'); ?>.</span>
+                <br><span class="help-inline"> <?php _e('If "auto" the plug in will try to get it from Youtube', 'mbYTPlayer'); ?>.</span>
             </label>
 
             <label>

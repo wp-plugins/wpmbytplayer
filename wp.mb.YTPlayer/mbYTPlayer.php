@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.8.2
+Version: 1.8.3
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.8.2");
+define("MBYTPLAYER_VERSION", "1.8.3");
 
 
 function isMobile()
@@ -27,7 +27,6 @@ function isMobile()
 // None of the above? Then it's probably not a mobile device.
     return false;
 }
-
 
 
 function mbYTPlayer_install()
@@ -173,7 +172,7 @@ function mbYTPlayer_player_shortcode($atts)
     // stuff that loads when the shortcode is called goes here
 
     if (empty($url) || ((is_home() || is_front_page()) && !empty($mbYTPlayer_home_video_url) && empty($isInline))) // || (empty($id) && (is_home() || is_front_page()))
-    return false;
+        return false;
 
     if (empty($startat)) {
         $startat = 0;
@@ -232,7 +231,16 @@ function mbYTPlayer_player_shortcode($atts)
         $style = " style=\"width:" . $playerwidth . "px; height:" . $playerheight . "px; position:relative\"";
     };
 
-    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $url . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', stopAt:' . $stopat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\', gaTrack:\'' . $gaTrack . '\'}"></div>';
+    /*
+     * If multiple URL are inserted than choose one randomly
+     * */
+
+    $vids = explode(',', $url);
+    $n = rand(0, count($vids)-1);
+    $mbYTPlayer_home_video_url_revised = $vids[$n];
+
+
+    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $mbYTPlayer_home_video_url_revised . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', stopAt:' . $stopat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\', gaTrack:\'' . $gaTrack . '\'}"></div>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
@@ -257,11 +265,8 @@ function mbYTPlayer_init()
         ';
     }
 
-    if (!is_admin()) { // && !isMobile()
+    if (!is_admin()) {
 
-
-        // added to solve the incompatibility with the audio wp short-code.
-        //wp_enqueue_script('yt_api_player', '//www.youtube.com/player_api', [], $mbYTPlayer_version, false, 1);
         wp_deregister_script( 'mediaelement');
 
         wp_enqueue_script('jquery');
@@ -305,9 +310,12 @@ function mbYTPlayer_player_head()
         if (empty($mbYTPlayer_home_video_url))
             return false;
 
-        $mbYTPlayer_start_at = $mbYTPlayer_start_at > 0 ? $mbYTPlayer_start_at : 1;
-        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', stopAt:' . $mbYTPlayer_stop_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', realfullscreen:\'' . $mbYTPlayer_realfullscreen . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\', gaTrack:\'' . $mbYTPlayer_track_ga . '\'}\"></div>';
+        $vids = explode(',', $mbYTPlayer_home_video_url);
+        $n = rand(0, count($vids)-1);
+        $mbYTPlayer_home_video_url_revised = $vids[$n];
 
+        $mbYTPlayer_start_at = $mbYTPlayer_start_at > 0 ? $mbYTPlayer_start_at : 1;
+        $mbYTPlayer_player_homevideo = '<div id=\"bgndVideo_home\" data-property=\"{videoURL:\'' . $mbYTPlayer_home_video_url_revised . '\', opacity:' . $mbYTPlayer_opacity . ', autoPlay:true, containment:\'body\', startAt:' . $mbYTPlayer_start_at . ', stopAt:' . $mbYTPlayer_stop_at . ', mute:' . $mbYTPlayer_mute . ', optimizeDisplay:true, showControls:' . $mbYTPlayer_show_controls . ', printUrl:' . $mbYTPlayer_show_videourl . ', loop:' . $mbYTPlayer_loop . ', addRaster:' . $mbYTPlayer_add_raster . ', quality:\'' . $mbYTPlayer_quality . '\', ratio:\'' . $mbYTPlayer_ratio . '\', realfullscreen:\'' . $mbYTPlayer_realfullscreen . '\', stopMovieOnClick:\'' . $mbYTPlayer_stop_onclick . '\', gaTrack:\'' . $mbYTPlayer_track_ga . '\'}\"></div>';
         echo '
 	<!-- mbYTPlayer Home -->
 	<script type="text/javascript">

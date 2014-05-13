@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mb.YTPlayer background video\n"
-"POT-Creation-Date: 2014-04-13 18:50+0100\n"
-"PO-Revision-Date: 2014-04-13 18:54+0100\n"
+"POT-Creation-Date: 2014-05-13 21:55+0100\n"
+"PO-Revision-Date: 2014-05-13 21:58+0100\n"
 "Last-Translator: Pupunzi <matteo@open-lab.com>\n"
 "Language-Team: Open Lab srl <info@open-lab.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -134,11 +134,11 @@ msgstr "url"
 
 #: mbYTPlayer-admin.php:172
 msgid ""
-"Copy and paste here the URL of the Youtube video you want as your homepage "
-"background"
+"Copy and paste here one or more URL (comma separated) of the Youtube video "
+"you want as your homepage background"
 msgstr ""
-"Copie y pegue aquí la URL del vídeo de Youtube que quiere como fonde de su "
-"página de inicio"
+"Copia y pega aquí una o más URL (separadas por comas) del vídeo de Youtube "
+"que quieres como fonde de su página de inicio"
 
 #: mbYTPlayer-admin.php:177
 msgid "opacity"
@@ -319,8 +319,8 @@ msgid "Video url"
 msgstr "Url del vídeo"
 
 #: ytptinymce/ytplayertinymce.php:138
-msgid "YouTube video URL"
-msgstr "URL de vídeo de YouTube"
+msgid "YouTube video URLs (comma separated)"
+msgstr "URL de video de YouTube (separadas por comas)"
 
 #: ytptinymce/ytplayertinymce.php:142
 msgid "Opacity"
@@ -449,3 +449,6 @@ msgstr "Utilice Google Analytics"
 #: ytptinymce/ytplayertinymce.php:257
 msgid "add the event \"play\" on Google Analytics track"
 msgstr "agregar el evento \"play\" en la pista de Google Analytics"
+
+#~ msgid "YouTube video URL"
+#~ msgstr "URL de vídeo de YouTube"
