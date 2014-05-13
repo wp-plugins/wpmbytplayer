@@ -95,7 +95,7 @@ Adding a background image to the body as mobile devices fallback is a good pract
 == Changelog ==
 
 = 1.8.3 =
-* New feature: You can now add a comma separated list of YT videos; every time you load the page one of them will be randomly chosen.
+* New feature: You can now add a comma separated list of YT videos; every time you load the page one of them will be randomly chosen (thanx to Giampaolo D'Amico).
 
 = 1.8.2 =
 * Bug fix: Updated to solve a problem with the "YTPEnd" event that was not firing anymore.
