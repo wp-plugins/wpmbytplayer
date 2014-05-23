@@ -341,7 +341,7 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
                         return false;
                     }
                     // inputs of type "checkbox", "radio" and "text"
-                    if ((input.type == "text" && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type == "select-one" || input.type =="checkbox"|| input.type =="radio") {
+                    if (((input.type == "text" || input.type == "textarea") && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type == "select-one" || input.type =="checkbox" || input.type =="radio") {
 
                         if (input.type =="checkbox") {
                             if(!input.checked)
