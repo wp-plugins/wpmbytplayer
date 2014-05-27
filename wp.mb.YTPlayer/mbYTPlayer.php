@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.8.4
+Version: 1.8.5
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.8.4");
+define("MBYTPLAYER_VERSION", "1.8.5");
 
 
 function isMobile()
@@ -267,16 +267,14 @@ function mbYTPlayer_init()
 
     if (!is_admin()) {
 
-        wp_deregister_script( 'mediaelement');
-
         wp_enqueue_script('jquery');
-        wp_enqueue_script('mb.YTPlayer', plugins_url('/js/jquery.mb.YTPlayer.js', __FILE__), array('jquery'), $mbYTPlayer_version, false, 1);
+        wp_enqueue_script('mb.YTPlayer', plugins_url('/js/jquery.mb.YTPlayer.js', __FILE__), array('jquery'), $mbYTPlayer_version, true, 1000);
 
-        wp_enqueue_style('mb.YTPlayer_css', plugins_url('/css/mb.YTPlayer.css', __FILE__), array(), $mbYTPlayer_version, 'screen' );
+        wp_enqueue_style('mb.YTPlayer_css', plugins_url('/css/mb.YTPlayer.css', __FILE__), array( ), $mbYTPlayer_version, 'screen' );
 
     }
 }
-add_action('init', 'mbYTPlayer_init');
+add_action('wp_enqueue_scripts', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head()
 {
@@ -293,13 +291,20 @@ function mbYTPlayer_player_head()
     echo '
 	<!-- mbYTPlayer -->
 	<script type="text/javascript">
-	var ytp = {};
-	jQuery(function(){
+
+    function onYouTubePlayerAPIReady() {
+    	if(ytp.YTAPIReady)
+		    return;
+	    ytp.YTAPIReady=true;
+	    jQuery(document).trigger("YTAPIReady");
+    }
+
+	//jQuery(function(){
 	    jQuery.mbYTPlayer.rasterImg ="' . plugins_url('/images/', __FILE__) . 'raster.png";
 	    jQuery.mbYTPlayer.rasterImgRetina ="' . plugins_url('/images/', __FILE__) . 'raster@2x.png";
 
-	    jQuery(".mbYTPMovie").mb_YTPlayer();
-	});
+        jQuery(".mbYTPMovie").mb_YTPlayer()
+	//});
 
 	</script>
 	<!-- end mbYTPlayer -->
@@ -319,11 +324,11 @@ function mbYTPlayer_player_head()
         echo '
 	<!-- mbYTPlayer Home -->
 	<script type="text/javascript">
-	jQuery(function(){
+	//jQuery(function(){
 	    var homevideo = "' . $mbYTPlayer_player_homevideo . '";
 	    jQuery("body").prepend(homevideo);
 	    jQuery("#bgndVideo_home").mb_YTPlayer();
-	});
+//});
 
 	</script>
 	<!-- end mbYTPlayer Home -->
