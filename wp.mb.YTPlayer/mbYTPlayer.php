@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.8.5
+Version: 1.8.6
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.8.5");
+define("MBYTPLAYER_VERSION", "1.8.6");
 
 
 function isMobile()
@@ -299,12 +299,12 @@ function mbYTPlayer_player_head()
 	    jQuery(document).trigger("YTAPIReady");
     }
 
-	//jQuery(function(){
-	    jQuery.mbYTPlayer.rasterImg ="' . plugins_url('/images/', __FILE__) . 'raster.png";
-	    jQuery.mbYTPlayer.rasterImgRetina ="' . plugins_url('/images/', __FILE__) . 'raster@2x.png";
+    jQuery.mbYTPlayer.rasterImg ="' . plugins_url('/images/', __FILE__) . 'raster.png";
+	jQuery.mbYTPlayer.rasterImgRetina ="' . plugins_url('/images/', __FILE__) . 'raster@2x.png";
 
+	jQuery(function(){
         jQuery(".mbYTPMovie").mb_YTPlayer()
-	//});
+	});
 
 	</script>
 	<!-- end mbYTPlayer -->
@@ -324,11 +324,11 @@ function mbYTPlayer_player_head()
         echo '
 	<!-- mbYTPlayer Home -->
 	<script type="text/javascript">
-	//jQuery(function(){
+	jQuery(function(){
 	    var homevideo = "' . $mbYTPlayer_player_homevideo . '";
 	    jQuery("body").prepend(homevideo);
 	    jQuery("#bgndVideo_home").mb_YTPlayer();
-//});
+    });
 
 	</script>
 	<!-- end mbYTPlayer Home -->
