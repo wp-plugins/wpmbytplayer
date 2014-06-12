@@ -190,4 +190,3 @@ The video quality option is just a suggestion for the Youtube API; the video is 
 = The video stops some seconds before the real end; why? =
 To prevent the display of the "play" button provided by the Youtube API the video intentionally stops some seconds before the end; if you are the owner of the video I can suggest to make it a little bit longer (about 3/4 seconds).
 
-
