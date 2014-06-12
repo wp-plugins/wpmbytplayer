@@ -495,6 +495,8 @@ function onYouTubePlayerAPIReady() {
 										if (typeof _gaq != "undefined" && eval(YTPlayer.opt.gaTrack))
 											_gaq.push(['_trackEvent', 'YTPlayer', 'Play', (YTPlayer.title || YTPlayer.videoID.toString())]);
 
+										if (typeof ga != "undefined" && eval(YTPlayer.opt.gaTrack))
+											ga('send', 'event', 'YTPlayer', 'play', (YTPlayer.title || YTPlayer.videoID.toString()));
 									}
 
 									if (state == 2) { // pause

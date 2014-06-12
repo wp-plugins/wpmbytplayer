@@ -4,7 +4,7 @@ Contributors: pupunzi
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components, cover video, embed, embed videos, embed youtube, embedding, plugin, shortcode, video cover, video HTML5, youtube, youtube embed, youtube player, youtube videos
 Requires at least: 3.0
 Tested up to: 3.9
-Stable tag:  1.8.6
+Stable tag:  1.8.7
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 License: GPLv2 or later
 
@@ -93,6 +93,9 @@ The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.)
 Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
 
 == Changelog ==
+
+= 1.8.7 =
+* New feature: Added support for Google Analytic Universal event tracking; before this update the "play" event was tracked only if the standard version of GA was present on the page; now it works also if the latest Universal GA is installed.
 
 = 1.8.6 =
 * bugfix: Fixed a bug that prevents the player to run correctly within certain environments.
