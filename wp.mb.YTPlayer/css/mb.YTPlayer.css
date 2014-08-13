@@ -45,7 +45,6 @@
   outline: 0;
 }
 
-
 .mb_YTVPlayer{
   display:block;
   transform:translateZ(0);
@@ -54,7 +53,6 @@
   backface-visibility: hidden;
   transform:translate3d(0,0,0);
   animation-timing-function: linear;
-
 }
 
 .mb_YTVPlayer.fullscreen{
