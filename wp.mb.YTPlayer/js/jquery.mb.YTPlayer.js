@@ -35,8 +35,6 @@ function onYouTubePlayerAPIReady() {
 
 (function (jQuery, ytp) {
 
-	ytp.isDevice = 'ontouchstart' in window;
-
 	/*Browser detection patch*/
 	var nAgt = navigator.userAgent;
 	if (!jQuery.browser) {
@@ -71,6 +69,7 @@ function onYouTubePlayerAPIReady() {
 	jQuery.browser.windowsMobile = /IEMobile/i.test(nAgt);
 	jQuery.browser.mobile = jQuery.browser.android || jQuery.browser.blackberry || jQuery.browser.ios || jQuery.browser.windowsMobile || jQuery.browser.operaMobile;
 
+	ytp.isDevice = jQuery.browser.mobile;
 	/*******************************************************************************
 	 * jQuery.mb.components: jquery.mb.CSSAnimate
 	 ******************************************************************************/
@@ -94,7 +93,7 @@ function onYouTubePlayerAPIReady() {
 
 	jQuery.mbYTPlayer = {
 		name            : "jquery.mb.YTPlayer",
-		version         : "2.7.0",
+		version         : "2.7.1",
 		author          : "Matteo Bicocchi",
 		defaults        : {
 			containment            : "body",
@@ -378,7 +377,7 @@ function onYouTubePlayerAPIReady() {
 											YTPlayer.player.playVideo();
 											YTPlayer.player.seekTo(startAt, true);
 										}
-									}, 1000);
+									}, 100);
 								},
 
 								'onStateChange'          : function (event) {
