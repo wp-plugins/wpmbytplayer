@@ -31,7 +31,7 @@ note:
 If you doesn't want ADs on your background video and you are the owner of it you can disable this on your Youtube channel as explained here: http://candidio.com/blog/how-to-remove-ads-from-your-youtube-videos .
 
 
-Links:
+Links:/Users/mbicocchi/Dropbox/wordpress/My-Game/wordpress/wp-content/themes/myGame/templates/urban-1/css/intro.css
 
 * demo: http://pupunzi.com/mb.components/mb.YTPlayer/demo/demo_background.html
 * video: http://www.youtube.com/watch?v=lTW937ld02Y
