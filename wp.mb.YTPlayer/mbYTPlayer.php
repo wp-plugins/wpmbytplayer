@@ -225,10 +225,13 @@ function mbYTPlayer_player_shortcode($atts)
             $playerheight = "220";
         };
 
+        $unitWidth = strrpos($playerwidth, "%") ? "" : "px";
+        $unitHeight = strrpos($playerheight, "%") ? "" : "px";
+
         $startat = $startat > 0 ? $startat : 1;
 
         $elId = "self";
-        $style = " style=\"width:" . $playerwidth . "px; height:" . $playerheight . "px; position:relative\"";
+        $style = " style=\"width:" . $playerwidth . $unitWidth . "; height:" . $playerheight . $unitHeight . "; position:relative\"";
     };
 
     /*
