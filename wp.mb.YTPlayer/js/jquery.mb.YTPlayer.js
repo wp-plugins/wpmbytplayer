@@ -356,19 +356,25 @@ function onYouTubePlayerAPIReady() {
 											if (typeof YTPlayer.opt.onReady == "function")
 												YTPlayer.opt.onReady($YTPlayer);
 
-											if (YTPlayer.opt.autoPlay){
-												$YTPlayer.playYTP();
-												$YTPlayer.css("background-image", "none");
-											} else{
-												YTPlayer.player.pauseVideo();
-											}
-
 											if (!YTPlayer.opt.mute)
 												jQuery(YTPlayer).unmuteYTPVolume();
 
 											YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
-
 											jQuery.mbYTPlayer.checkForState(YTPlayer);
+
+											YTPlayer.player.pauseVideo();
+
+											setTimeout(function(){
+
+												if (YTPlayer.opt.autoPlay){
+													$YTPlayer.playYTP();
+													$YTPlayer.css("background-image", "none");
+												} else  {
+													YTPlayer.player.pauseVideo();
+												}
+
+											},10)
+
 										}else{
 											YTPlayer.player.playVideo();
 											YTPlayer.player.seekTo(startAt, true);
