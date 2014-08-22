@@ -2,7 +2,7 @@
  — jquery.mb.components                                                                           —
  —                                                                                                —
  —  file: jquery.mb.YTPlayer.js                                                                   —
- —  last modified: 23/06/14 22.49                                                                 —
+ —  last modified: 23/06/14 12.49                                                                 —
  —                                                                                                —
  —  Open lab srl, Firenze - Italy                                                                 —
  —                                                                                                —
