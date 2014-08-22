@@ -359,7 +359,6 @@ function onYouTubePlayerAPIReady() {
 											if (!YTPlayer.opt.mute)
 												jQuery(YTPlayer).unmuteYTPVolume();
 
-											YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
 											jQuery.mbYTPlayer.checkForState(YTPlayer);
 
 											YTPlayer.player.pauseVideo();
@@ -373,7 +372,10 @@ function onYouTubePlayerAPIReady() {
 													YTPlayer.player.pauseVideo();
 												}
 
-											},10)
+												YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 2000);
+
+
+											},100)
 
 										}else{
 											YTPlayer.player.playVideo();
