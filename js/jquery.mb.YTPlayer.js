@@ -451,7 +451,7 @@ function onYouTubePlayerAPIReady() {
 											return;
 
 										YTPlayer.state = state;
-										YTPlayer.wrapper.css({opacity: 0});
+										//YTPlayer.wrapper.css({opacity: 0});
 
 										jQuery(YTPlayer).trigger("YTPUnstarted");
 									}
