@@ -346,7 +346,7 @@ function onYouTubePlayerAPIReady() {
 
 										var canPlayVideo = (YTPlayer.player.getVideoLoadedFraction() > startAt/YTPlayer.player.getDuration()) || true;
 
-										if (YTPlayer.player.getCurrentTime() >= startAt && YTPlayer.player.getDuration() > 0 && canPlayVideo) {
+										if (YTPlayer.player.getDuration() > 0 && YTPlayer.player.getCurrentTime() >= startAt &&  canPlayVideo) {
 
 											clearInterval(YTPlayer.checkForStartAt);
 
@@ -355,11 +355,6 @@ function onYouTubePlayerAPIReady() {
 
 											if (typeof YTPlayer.opt.onReady == "function")
 												YTPlayer.opt.onReady($YTPlayer);
-
-											if (YTPlayer.opt.autoPlay)
-												$YTPlayer.playYTP();
-											else
-												YTPlayer.player.pauseVideo();
 
 											if (YTPlayer.opt.autoPlay){
 												$YTPlayer.playYTP();
@@ -378,7 +373,7 @@ function onYouTubePlayerAPIReady() {
 											YTPlayer.player.playVideo();
 											YTPlayer.player.seekTo(startAt, true);
 										}
-									}, 100);
+									},1);
 								},
 
 								'onStateChange'          : function (event) {
