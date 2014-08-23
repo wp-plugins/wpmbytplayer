@@ -33,6 +33,7 @@ function mbYTPlayer_install()
 {
 // add and update our default options upon activation
     update_option('mbYTPlayer_version', MBYTPLAYER_VERSION);
+
     add_option('mbYTPlayer_donate', 'false');
     add_option('mbYTPlayer_home_video_url', '');
     add_option('mbYTPlayer_show_controls', 'false');
@@ -47,6 +48,7 @@ function mbYTPlayer_install()
     add_option('mbYTPlayer_add_raster', 'false');
     add_option('mbYTPlayer_track_ga', 'true');
     add_option('mbYTPlayer_stop_onclick', 'false');
+    add_option('mbYTPlayer_track_ga', 'false');
     add_option('mbYTPlayer_realfullscreen', 'true');
 }
 register_activation_hook(__FILE__, 'mbYTPlayer_install');
@@ -108,7 +110,7 @@ if (empty($mbYTPlayer_add_raster)) {
     $mbYTPlayer_add_raster = "false";
 }
 if (empty($mbYTPlayer_track_ga)) {
-    $mbYTPlayer_add_raster = "true";
+    $mbYTPlayer_track_ga = "false";
 }
 if (empty($mbYTPlayer_stop_onclick)) {
     $mbYTPlayer_stop_onclick = "false";
