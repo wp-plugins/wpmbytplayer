@@ -297,7 +297,7 @@ function onYouTubePlayerAPIReady() {
                                     'onReady'      : function (event) {
                                         YTPlayer.player = event.target;
                                         playerBox.css({opacity: 1});
-                                        YTPlayer.wrapper.css({opacity: 1});
+                                        YTPlayer.wrapper.css({opacity: YTPlayer.opt.opacity});
                                         $YTPlayer.optimizeDisplay();
                                     },
                                     'onStateChange': function () {}
