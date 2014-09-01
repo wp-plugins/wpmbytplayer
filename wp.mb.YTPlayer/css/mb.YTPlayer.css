@@ -228,6 +228,10 @@
   -webkit-box-shadow:#666666 1px 1px 3px;
 }
 
+.YTPOverlay{
+    -webkit-backface-visibility: hidden;
+}
+
 .YTPOverlay.raster{
   background: url("../images/raster.png");
 }

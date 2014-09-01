@@ -48,7 +48,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
         <div id="donateContent">
             <h2>mb.YTPlayer</h2>
             <p ><?php _e('If you like it and you are using it then you should consider a donation <br> (€15,00 or more) :-)', 'mbYTPlayer'); ?></p>
-            <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="donate()">
+            <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=V6ZS8JPMZC446&lc=GB&item_name=mb%2eideas&item_number=MBIDEAS&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted" target="_blank" onclick="donate()">
                     <img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif">
                 </a></p>
             <p id="timer">&nbsp;</p>
@@ -116,14 +116,14 @@ function mbYTPlayer_options_page() { 	// Output the options page
         <p style="line-height: 1.4em;"><?php _e('Thanks for downloading mb.YTPlayer!', 'mbYTPlayer'); ?></p>
         <p id="inlineDonate" style="position: relative; display:block;top:0;margin-right: -10px">
             <?php _e('If you like it and you are using it<br>then you should consider a donation (€15,00 or more) :-)', 'mbYTPlayer'); ?><br><br>
-            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank" onclick="donate()"><img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"></a>
+            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=V6ZS8JPMZC446&lc=GB&item_name=mb%2eideas&item_number=MBIDEAS&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted" target="_blank" onclick="donate()"><img border="0" alt="PayPal" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif"></a>
             <br><br><i><?php _e('If you donate, the start popup will nevermore display', 'mbYTPlayer'); ?>.</i><br><br>
         </p>
         <hr>
         <p><?php _e('Don’t forget to follow me on twitter', 'mbYTPlayer'); ?>: <a href="https://twitter.com/pupunzi">@pupunzi</a></p>
         <p><?php _e('Visit my site', 'mbYTPlayer'); ?>: <a href="http://pupunzi.com">http://pupunzi.com</a></p>
         <p><?php _e('Visit my blog', 'mbYTPlayer'); ?>: <a href="http://pupunzi.open-lab.com">http://pupunzi.open-lab.com</a></p>
-        <p id="donateTxt">Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y" target="_blank"><?php _e('donate', 'mbYTPlayer'); ?></a></p>
+        <p id="donateTxt">Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=V6ZS8JPMZC446&lc=GB&item_name=mb%2eideas&item_number=MBIDEAS&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG_global%2egif%3aNonHosted" target="_blank"><?php _e('donate', 'mbYTPlayer'); ?></a></p>
     </div>
 
     <div class="highlight fade" style="padding: 10px; margin: 0">
