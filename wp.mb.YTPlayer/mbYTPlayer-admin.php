@@ -17,6 +17,7 @@ function register_YTPlayerSettings() {
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_show_controls' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_show_videourl' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_start_at' );
+    register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_at' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_mute' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_ratio' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_loop' );
@@ -27,6 +28,7 @@ function register_YTPlayerSettings() {
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_realfullscreen' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_onclick' );
 }
+
 
 function mbYTPlayer_options_page() { 	// Output the options page
     ?>

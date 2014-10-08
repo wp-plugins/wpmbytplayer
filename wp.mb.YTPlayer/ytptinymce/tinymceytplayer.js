@@ -18,7 +18,7 @@
 
 			ed.addButton('YTPlayerbutton', {
 				title : 'Add a YTPlayer',
-				image : url + '/ytplayerbutton.png',
+				image : url + '/ytplayerbutton.svg',
 				cmd : 'YTPlayerpopup'
 			});
 		},
