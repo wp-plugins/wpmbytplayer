@@ -79,6 +79,8 @@ function onYouTubePlayerAPIReady() {
 		var movieURL;
 		if(url.substr(0,16)=="http://youtu.be/"){
 			movieURL= url.replace("http://youtu.be/","");
+		}else if(url.substr(0,17)=="https://youtu.be/"){
+			movieURL= url.replace("https://youtu.be/","");
 		}else if(url.indexOf("http")>-1){
 			movieURL = url.match(/[\\?&]v=([^&#]*)/)[1];
 		}else{
@@ -159,6 +161,8 @@ function onYouTubePlayerAPIReady() {
 				YTPlayer.opt.id = YTPlayer.id;
 				YTPlayer.isAlone = false;
 
+				YTPlayer.hasFocus = true;
+
 				var playerID = "mbYTP_" + YTPlayer.id;
 				var videoID = this.opt.videoURL ? getYTPVideoID(this.opt.videoURL) : $YTPlayer.attr("href") ? getYTPVideoID($YTPlayer.attr("href")) : false;
 				YTPlayer.videoID = videoID;
@@ -201,10 +205,26 @@ function onYouTubePlayerAPIReady() {
 				}
 
 				if (YTPlayer.opt.addRaster) {
+					var classN = YTPlayer.opt.addRaster == "dot" ? "raster-dot" : "raster";
+
 					var retina = (window.retina || window.devicePixelRatio > 1);
-					overlay.addClass(retina ? "raster retina" : "raster");
+					overlay.addClass(retina ? classN + " retina" : classN);
 				} else {
-					overlay.removeClass("raster retina");
+
+					overlay.removeClass(function (index, classNames) {
+						var current_classes = classNames.split(" "), // change the list into an array
+								classes_to_remove = []; // array of classes which are to be removed
+
+						jQuery.each(current_classes, function (index, class_name) {
+							// if the classname begins with bg add it to the classes_to_remove array
+							if (/raster-.*/.test(class_name)) {
+								classes_to_remove.push(class_name);
+							}
+						});
+						classes_to_remove.push("retina");
+						// turn the array back into a string
+						return classes_to_remove.join(" ");
+					})
 				}
 
 				var wrapper = jQuery("<div/>").addClass("mbYTP_wrapper").attr("id", "wrapper_" + playerID);
@@ -219,7 +239,7 @@ function onYouTubePlayerAPIReady() {
 				});
 
 				if (YTPlayer.isBackground) {
-					jQuery("body").css({position: "relative", minWidth: "100%", minHeight: "100%", zIndex: 1, boxSizing: "border-box"});
+					jQuery("body").css({position: "absolute", minWidth: "100%", minHeight: "100%", zIndex: 1, boxSizing: "border-box"});
 					wrapper.css({position: "fixed", top: 0, left: 0, zIndex: 0, webkitTransform: "translateZ(0)"});
 					$YTPlayer.hide();
 				} else if (YTPlayer.opt.containment.css("position") == "static")
@@ -240,8 +260,8 @@ function onYouTubePlayerAPIReady() {
 					overlay.on("mouseenter", function () {
 						$YTPlayer.find(".mb_YTVPBar").addClass("visible");
 					}).on("mouseleave", function () {
-								$YTPlayer.find(".mb_YTVPBar").removeClass("visible");
-							})
+						$YTPlayer.find(".mb_YTVPBar").removeClass("visible");
+					})
 				}
 
 				if (!ytp.YTAPIReady) {
@@ -991,6 +1011,8 @@ function onYouTubePlayerAPIReady() {
 		},
 
 		checkForState: function (YTPlayer) {
+
+			var interval = YTPlayer.opt.showControls ? 10 : 1000;
 			clearInterval(YTPlayer.getState);
 			YTPlayer.getState = setInterval(function () {
 				var prog = jQuery(YTPlayer).manageYTPProgress();
@@ -1006,11 +1028,23 @@ function onYouTubePlayerAPIReady() {
 				else
 					$YTPlayer.removeClass("isMuted");
 
-				if (prog.totalTime) {
-					controlBar.find(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime) + " / " + jQuery.mbYTPlayer.formatTime(prog.totalTime));
-				} else {
-//					clearInterval(YTPlayer.getState);
-					controlBar.find(".mb_YTVPTime").html("-- : -- / -- : --");
+				if(YTPlayer.opt.showControls)
+					if (prog.totalTime) {
+						controlBar.find(".mb_YTVPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime) + " / " + jQuery.mbYTPlayer.formatTime(prog.totalTime));
+					} else {
+						controlBar.find(".mb_YTVPTime").html("-- : -- / -- : --");
+					}
+
+				if ( !document.hasFocus() ){
+
+					YTPlayer.hasFocus = false;
+					$YTPlayer.pauseYTP();
+
+				} else if(document.hasFocus() && !YTPlayer.hasFocus){
+
+					YTPlayer.hasFocus = true;
+					$YTPlayer.playYTP();
+
 				}
 
 				if (YTPlayer.player.getPlayerState() == 1 && (parseFloat(YTPlayer.player.getDuration() - 3) < YTPlayer.player.getCurrentTime() || (stopAt > 0 && parseFloat(YTPlayer.player.getCurrentTime()) > stopAt))) {
@@ -1040,7 +1074,7 @@ function onYouTubePlayerAPIReady() {
 					} else
 						YTPlayer.player.seekTo(startAt, true);
 				}
-			}, 1);
+			}, interval);
 		},
 
 		formatTime: function (s) {

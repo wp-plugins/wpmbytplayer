@@ -229,13 +229,24 @@
 }
 
 .YTPOverlay{
-    -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: "flat"
 }
 
+/*RASTER OVERLAY*/
 .YTPOverlay.raster{
   background: url("../images/raster.png");
 }
 
 .YTPOverlay.raster.retina{
   background: url("../images/raster@2x.png");
+}
+
+.YTPOverlay.raster-dot{
+  background: url("../images/raster_dot.png");
+}
+
+.YTPOverlay.raster-dot.retina{
+  background: url("../images/raster_dot@2x.png");
 }
