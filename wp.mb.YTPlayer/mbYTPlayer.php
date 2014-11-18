@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.9.3
+Version: 1.9.4
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.9.3");
+define("MBYTPLAYER_VERSION", "1.9.4");
 
 
 function isMobile()
@@ -245,7 +245,7 @@ function mbYTPlayer_player_shortcode($atts)
     $mbYTPlayer_home_video_url_revised = $vids[$n];
 
 
-    $mbYTPlayer_player_shortcode = '<div id="bgndVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $mbYTPlayer_home_video_url_revised . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', stopAt:' . $stopat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\', gaTrack:\'' . $gaTrack . '\'}"></div>';
+    $mbYTPlayer_player_shortcode = '<div id="playerVideo' . $i . '" ' . $style . ' class="mbYTPMovie' . ($isinline ? " inline_YTPlayer" : "") . '" data-property="{videoURL:\'' . $mbYTPlayer_home_video_url_revised . '\', opacity:' . $opacity . ', autoPlay:' . $autoplay . ', containment:\'' . $elId . '\', startAt:' . $startat . ', stopAt:' . $stopat . ', mute:' . $mute . ', optimizeDisplay:true, showControls:' . $showcontrols . ', printUrl:' . $printurl . ', loop:' . $loop . ', addRaster:' . $addraster . ', quality:\'' . $quality . '\', realfullscreen:\'' . $realfullscreen . '\', ratio:\'' . $ratio . '\', gaTrack:\'' . $gaTrack . '\'}"></div>';
 
     $i++; //increment static variable for unique player IDs
     return $mbYTPlayer_player_shortcode;
@@ -308,7 +308,7 @@ function mbYTPlayer_player_head()
 	jQuery.mbYTPlayer.rasterImgRetina ="' . plugins_url('/images/', __FILE__) . 'raster@2x.png";
 
 	jQuery(function(){
-        jQuery(".mbYTPMovie").mb_YTPlayer()
+        jQuery(".mbYTPMovie").YTPlayer()
 	});
 
 	</script>
@@ -332,7 +332,7 @@ function mbYTPlayer_player_head()
 	jQuery(function(){
 	    var homevideo = "' . $mbYTPlayer_player_homevideo . '";
 	    jQuery("body").prepend(homevideo);
-	    jQuery("#bgndVideo_home").mb_YTPlayer();
+	    jQuery("#bgndVideo_home").YTPlayer();
     });
 
 	</script>

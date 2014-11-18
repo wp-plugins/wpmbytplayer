@@ -181,7 +181,7 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
             </label>
 
             <div id="inlinePlayer" style="">
-                <span class="label"><?php _e('Player width', 'mbYTPlayer'); ?>: </span>
+                <span class="label"><?php _e('Player width', 'mbYTPlayer'); ?> *: </span>
                 <input type="text" name="playerwidth" class="span5" style="width: 60px" onblur="suggestedHeight()"/> px
                 <span class="help-inline"><?php _e('Set the width of the inline player', 'mbYTPlayer'); ?></span><br><br>
                 <span class="label"><?php _e('Aspect ratio', 'mbYTPlayer'); ?>:</span>
@@ -191,9 +191,11 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
                 </select>
                 <span class="help-inline"><?php _e('To get the suggested height for the player', 'mbYTPlayer'); ?></span><br><br>
 
-                <span class="label"><?php _e('Player height', 'mbYTPlayer'); ?>: </span>
+                <span class="label"><?php _e('Player height', 'mbYTPlayer'); ?> *: </span>
                 <input type="text" name="playerheight" class="span5" style="width: 60px" /> px
-                <span class="help-inline"><?php _e('Set the height of the inline player', 'mbYTPlayer'); ?></span><br>
+                <span class="help-inline"><?php _e('Set the height of the inline player', 'mbYTPlayer'); ?></span>
+                <br>
+                <span class="help-inline">* Add % to the unit if the width is set as percentage.</span>
             </div>
 
             <label>
