@@ -27,6 +27,7 @@ function register_YTPlayerSettings() {
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_track_ga' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_realfullscreen' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_onclick' );
+    register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_on_blur' );
 }
 
 
@@ -284,6 +285,14 @@ function mbYTPlayer_options_page() { 	// Output the options page
                 <td>
                     <input type="checkbox" name="mbYTPlayer_track_ga" value="true" <?php if (get_option('mbYTPlayer_track_ga') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to track this video on Google Analytics if played', 'mbYTPlayer'); ?>.</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row"><?php _e('Pause the player if the windows blur', 'mbYTPlayer'); ?></th>
+                <td>
+                    <input type="checkbox" name="mbYTPlayer_stop_on_blur" value="true" <?php if (get_option('mbYTPlayer_stop_on_blur') =="true") {echo' checked="checked"'; }?>/>
+                    <p><?php _e('Check to pause the player once the window blur', 'mbYTPlayer'); ?>.</p>
                 </td>
             </tr>
 

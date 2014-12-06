@@ -4,7 +4,7 @@ Contributors: pupunzi
 Tags: video player, youtube, full background, video, HTML5, flash, mov, jquery, pupunzi, mb.components, cover video, embed, embed videos, embed youtube, embedding, plugin, shortcode, video cover, video HTML5, youtube, youtube embed, youtube player, youtube videos
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag:  1.9.4
+Stable tag:  1.9.5
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DSHAHSJJCQ53Y
 License: GPLv2 or later
 
@@ -86,13 +86,16 @@ Use the editor button or write the below shortcode into the content of your post
   * highres: Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
   * default: YouTube selects the appropriate playback quality.
 
-
 == What about mobile ==
 
 The mb.YTPlayer doesn't work on any mobile devices (iOs, Android, Windows, etc.) due to restrictions applied by the vendors on media controls via javascript.
 Adding a background image to the body as mobile devices fallback is a good practice and it will also prevent unwanted white flickering on desktop browsers when the video is buffering.
 
 == Changelog ==
+
+= 1.9.5 =
+* Fix: Something changed in the YT API that was preventing Firefox to get .getVideoLoadedFraction() at video load.
+* Added: uninstall.php to clean the settings when the plugin is deleted.
 
 = 1.9.4 =
 * Feature: You can now specify the width and height of an in-line player as percentage of its container.

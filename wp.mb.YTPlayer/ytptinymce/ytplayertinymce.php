@@ -254,6 +254,12 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
             </label>
 
             <label>
+                <span class="label"><?php _e('pause on window blur', 'mbYTPlayer'); ?>:</span>
+                <input type="checkbox" name="stopmovieonblur" value="true"/>
+                <span class="help-inline"><?php _e('pause the player on window blur', 'mbYTPlayer'); ?></span>
+            </label>
+
+            <label>
                 <span class="label"><?php _e('Add Google Analytics', 'mbYTPlayer'); ?>:</span>
                 <input type="checkbox" name="gaTrack" value="true"/>
                 <span class="help-inline"><?php _e('add the event "play" on Google Analytics track', 'mbYTPlayer'); ?></span>
