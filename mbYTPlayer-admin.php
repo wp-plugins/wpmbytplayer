@@ -161,7 +161,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
                 <th scope="row"><?php _e('activate the background video', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_Home_is_active" value="true" <?php if (get_option('mbYTPlayer_Home_is_active') =="true") {echo' checked="checked"'; } ?>/>
-                    <p><?php _e('Check to activate the background video for the Homepage or the blog index page', 'mbYTPlayer'); ?>. <?php echo get_option('mbYTPlayer_Home_is_active') ?></p>
+                    <p><?php _e('Check to activate the background video for the Homepage or the blog index page', 'mbYTPlayer'); ?>.</p>
                 </td>
             </tr>
 
