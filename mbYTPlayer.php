@@ -81,7 +81,7 @@ if ($mbYTPlayer_version != MBYTPLAYER_VERSION) {
     $mbYTPlayer_version = MBYTPLAYER_VERSION;
 }
 if (empty($mbYTPlayer_Home_is_active)) {
-    $mbYTPlayer_Home_is_active = "true";
+    $mbYTPlayer_Home_is_active = false;
 }
 if (empty($mbYTPlayer_donate)) {
     $mbYTPlayer_donate = "false";
@@ -132,6 +132,7 @@ if (empty($mbYTPlayer_realfullscreen)) {
 if (empty($mbYTPlayer_home_video_page)) {
     $mbYTPlayer_home_video_page = "static";
 }
+
 
 //action link http://www.wpmods.com/adding-plugin-action-links
 

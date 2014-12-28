@@ -168,7 +168,8 @@ function mbYTPlayer_options_page() { 	// Output the options page
             <tr valign="top">
                 <th scope="row"> <?php _e('The Youtube vudeo url is:', 'mbYTPlayer'); ?></th>
                 <td>
-                    <input type="text" name="mbYTPlayer_home_video_url" style="width:70%" value="<?php echo esc_attr( get_option('mbYTPlayer_home_video_url') ); ?>"/>
+                    <textarea  name="mbYTPlayer_home_video_url" style="width:70%" value="<?php echo esc_attr( get_option('mbYTPlayer_home_video_url') ); ?>"/>
+<!--                    <input type="text" name="mbYTPlayer_home_video_url" style="width:70%" value="--><?php //echo esc_attr( get_option('mbYTPlayer_home_video_url') ); ?><!--"/>-->
                     <p><?php _e('Copy and paste here the URL of the Youtube video you want as your homepage background', 'mbYTPlayer'); ?>.</p>
                 </td>
             </tr>
