@@ -5,7 +5,7 @@ if( ! defined( 'WP_UNINSTALL_PLUGIN' ) )
 
 // Uninstall all the mbYTPlayer settings
 delete_option('mbYTPlayer_version');
-delete_option('mbYTPlayer_donate');
+//delete_option('mbYTPlayer_donate');
 
 delete_option('mbYTPlayer_home_video_url');
 delete_option('mbYTPlayer_show_controls');

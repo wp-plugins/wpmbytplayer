@@ -11,6 +11,7 @@ add_action('admin_menu', 'add_mbYTPlayer_option_page');
 
 function register_YTPlayerSettings() {
     //register YTPlayer settings
+    register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_Home_is_active' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_donate' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_version' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_home_video_url' );
@@ -28,12 +29,11 @@ function register_YTPlayerSettings() {
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_realfullscreen' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_onclick' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_on_blur' );
+    register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_home_video_page' );
 }
-
 
 function mbYTPlayer_options_page() { 	// Output the options page
     ?>
-
 
     <!-- DONATE POPUP-->
     <style>
@@ -156,8 +156,17 @@ function mbYTPlayer_options_page() { 	// Output the options page
         <br>
         <input type="hidden" name="mbYTPlayer_donate" value="<?php echo esc_attr( get_option('mbYTPlayer_donate') ); ?>" />
         <table class="form-table">
+
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('url', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('activate the background video', 'mbYTPlayer'); ?></th>
+                <td>
+                    <input type="checkbox" name="mbYTPlayer_Home_is_active" value="true" <?php if (get_option('mbYTPlayer_Home_is_active') =="true") {echo' checked="checked"'; } ?>/>
+                    <p><?php _e('Check to activate the background video for the Homepage or the blog index page', 'mbYTPlayer'); ?>. <?php echo get_option('mbYTPlayer_Home_is_active') ?></p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row"> <?php _e('The Youtube vudeo url is:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="text" name="mbYTPlayer_home_video_url" style="width:70%" value="<?php echo esc_attr( get_option('mbYTPlayer_home_video_url') ); ?>"/>
                     <p><?php _e('Copy and paste here the URL of the Youtube video you want as your homepage background', 'mbYTPlayer'); ?>.</p>
@@ -165,7 +174,17 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('opacity', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('The page where to show the background video is:', 'mbYTPlayer'); ?></th>
+                <td>
+                    <input type="radio" name="mbYTPlayer_home_video_page" value="static" <?php if (get_option('mbYTPlayer_home_video_page') =="static") {echo' checked'; }?> /> static Homepage <br>
+                    <input type="radio" name="mbYTPlayer_home_video_page" value="blogindex" <?php if (get_option('mbYTPlayer_home_video_page') =="blogindex") {echo' checked'; }?>/> blog index Homepage <br>
+                    <input type="radio" name="mbYTPlayer_home_video_page" value="both" <?php if (get_option('mbYTPlayer_home_video_page') =="both") {echo' checked'; }?>/> both <br>
+                    <p><?php _e('Choose on which page you want the background video to be shown', 'mbYTPlayer'); ?>.</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row"><?php _e('Set the opacity:', 'mbYTPlayer'); ?></th>
                 <td>
                     <select name="mbYTPlayer_opacity">
                         <option value=".3" <?php if (get_option('mbYTPlayer_opacity')==".3") {echo' selected'; }?> >0.3</option>
@@ -178,7 +197,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('quality', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('Set the quality:', 'mbYTPlayer'); ?></th>
                 <td>
                     <select name="mbYTPlayer_quality">
                         <option value="default" <?php if (get_option('mbYTPlayer_quality') =="default") {echo' selected'; }?> ><?php _e('default', 'mbYTPlayer'); ?></option>
@@ -194,7 +213,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('aspect ratio', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('Set the aspect ratio:', 'mbYTPlayer'); ?></th>
                 <td>
                     <select name="mbYTPlayer_ratio">
                         <option value="auto" <?php if (get_option('mbYTPlayer_ratio')=="auto") {echo' selected'; }?> ><?php _e('auto', 'mbYTPlayer'); ?></option>
@@ -207,7 +226,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('start at', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('The video should start at:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="text" name="mbYTPlayer_start_at" style="width:10%" value="<?php echo esc_attr( get_option('mbYTPlayer_start_at') ); ?>"/>
                     <p><?php _e('Set the seconds the video should start at', 'mbYTPlayer'); ?>.</p>
@@ -215,7 +234,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('stop at', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('The video should stop at:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="text" name="mbYTPlayer_stop_at" style="width:10%" value="<?php echo esc_attr( get_option('mbYTPlayer_stop_at') ); ?>"/>
                     <p><?php _e('Set the seconds the video should stop at', 'mbYTPlayer'); ?>.</p>
@@ -223,7 +242,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('show controls', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('Show the control bar:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input id="mbYTPlayer_show_controls" onclick="videoUrlControl()" type="checkbox" name="mbYTPlayer_show_controls" value="true" <?php if (get_option('mbYTPlayer_show_controls') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to show controls at the bottom of the page', 'mbYTPlayer'); ?>.</p>
@@ -246,7 +265,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('Full screen behavior', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('The full screen behavior is:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="radio" name="mbYTPlayer_realfullscreen" value="true" <?php if (get_option('mbYTPlayer_realfullscreen') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Full screen containment is the screen', 'mbYTPlayer'); ?></p>
@@ -256,7 +275,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video mute', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('Mute the video:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_mute" value="true" <?php if (get_option('mbYTPlayer_mute') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to mute the audio of the video', 'mbYTPlayer'); ?>.</p>
@@ -264,7 +283,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('loop', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('The video should loop:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_loop" value="true" <?php if (get_option('mbYTPlayer_loop') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to loop the video once ended', 'mbYTPlayer'); ?>.</p>
@@ -273,7 +292,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('raster image', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('Add the raster image:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_add_raster" value="true" <?php if (get_option('mbYTPlayer_add_raster') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to add a raster effect to the video', 'mbYTPlayer'); ?>.</p>
@@ -281,7 +300,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('home video', 'mbYTPlayer'); ?>: <?php _e('track on Google Analytics', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('Track the video views on Google Analytics', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_track_ga" value="true" <?php if (get_option('mbYTPlayer_track_ga') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to track this video on Google Analytics if played', 'mbYTPlayer'); ?>.</p>
@@ -289,7 +308,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('Pause the player if the windows blur', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('Pause the player if the windows blur:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_stop_on_blur" value="true" <?php if (get_option('mbYTPlayer_stop_on_blur') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to pause the player once the window blur', 'mbYTPlayer'); ?>.</p>
@@ -297,7 +316,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
-                <th scope="row"><?php _e('Stop the player if a link is clicked', 'mbYTPlayer'); ?></th>
+                <th scope="row"><?php _e('Stop the player if a link is clicked:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_stop_onclick" value="true" <?php if (get_option('mbYTPlayer_stop_onclick') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to stop the player once clicked on a link<br>(firefox has problems catching the event and this speedup the action)', 'mbYTPlayer'); ?>.</p>

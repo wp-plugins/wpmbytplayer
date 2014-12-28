@@ -4,11 +4,11 @@ Plugin Name: mb.YTPlayer background video
 Plugin URI: http://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html
 Description: Play a Youtube video as background of your page. <strong>Go to settings > mbYTPlayer</strong> to activate the background video option for your homepage. Or use the short code following the reference in the settings panel.
 Author: Pupunzi (Matteo Bicocchi)
-Version: 1.9.5
+Version: 1.9.6
 Author URI: http://pupunzi.com
 */
 
-define("MBYTPLAYER_VERSION", "1.9.5");
+define("MBYTPLAYER_VERSION", "1.9.6");
 
 function isMobile()
 {
@@ -32,13 +32,14 @@ function mbYTPlayer_install()
 // add and update our default options upon activation
     update_option('mbYTPlayer_version', MBYTPLAYER_VERSION);
 
+    add_option('mbYTPlayer_Home_is_active', 'true');
     add_option('mbYTPlayer_donate', 'false');
     add_option('mbYTPlayer_home_video_url', '');
     add_option('mbYTPlayer_show_controls', 'false');
     add_option('mbYTPlayer_show_videourl', 'false');
     add_option('mbYTPlayer_mute', 'false');
-    add_option('mbYTPlayer_start_at', 'false');
-    add_option('mbYTPlayer_stop_at', 'false');
+    add_option('mbYTPlayer_start_at', '0');
+    add_option('mbYTPlayer_stop_at', '0');
     add_option('mbYTPlayer_ratio', '16/9');
     add_option('mbYTPlayer_loop', 'false');
     add_option('mbYTPlayer_opacity', '1');
@@ -49,10 +50,13 @@ function mbYTPlayer_install()
     add_option('mbYTPlayer_stop_on_blur', 'false');
     add_option('mbYTPlayer_track_ga', 'false');
     add_option('mbYTPlayer_realfullscreen', 'true');
+    add_option('mbYTPlayer_home_video_page', 'static');
 }
+
 register_activation_hook(__FILE__, 'mbYTPlayer_install');
 
 $mbYTPlayer_donate = get_option('mbYTPlayer_donate');
+$mbYTPlayer_Home_is_active = get_option('mbYTPlayer_Home_is_active');
 $mbYTPlayer_home_video_url = get_option('mbYTPlayer_home_video_url');
 $mbYTPlayer_version = get_option('mbYTPlayer_version');
 $mbYTPlayer_show_controls = get_option('mbYTPlayer_show_controls');
@@ -67,6 +71,7 @@ $mbYTPlayer_quality = get_option('mbYTPlayer_quality');
 $mbYTPlayer_add_raster = get_option('mbYTPlayer_add_raster');
 $mbYTPlayer_track_ga = get_option('mbYTPlayer_track_ga');
 $mbYTPlayer_realfullscreen = get_option('mbYTPlayer_realfullscreen');
+$mbYTPlayer_home_video_page = get_option('mbYTPlayer_home_video_page');
 
 $mbYTPlayer_stop_onclick = get_option('mbYTPlayer_stop_onclick');
 $mbYTPlayer_stop_on_blur = get_option('mbYTPlayer_stop_on_blur');
@@ -74,6 +79,9 @@ $mbYTPlayer_stop_on_blur = get_option('mbYTPlayer_stop_on_blur');
 //set up defaults if these fields are empty
 if ($mbYTPlayer_version != MBYTPLAYER_VERSION) {
     $mbYTPlayer_version = MBYTPLAYER_VERSION;
+}
+if (empty($mbYTPlayer_Home_is_active)) {
+    $mbYTPlayer_Home_is_active = "true";
 }
 if (empty($mbYTPlayer_donate)) {
     $mbYTPlayer_donate = "false";
@@ -116,10 +124,13 @@ if (empty($mbYTPlayer_stop_onclick)) {
     $mbYTPlayer_stop_onclick = "false";
 }
 if (empty($mbYTPlayer_stop_on_blur)) {
-    $mbYTPlayer_stop_on_blur = "true";
+    $mbYTPlayer_stop_on_blur = "false";
 }
 if (empty($mbYTPlayer_realfullscreen)) {
-    $mbYTPlayer_realfullscreen = "true";
+    $mbYTPlayer_realfullscreen = "false";
+}
+if (empty($mbYTPlayer_home_video_page)) {
+    $mbYTPlayer_home_video_page = "static";
 }
 
 //action link http://www.wpmods.com/adding-plugin-action-links
@@ -290,7 +301,7 @@ add_action('wp_enqueue_scripts', 'mbYTPlayer_init');
 
 function mbYTPlayer_player_head()
 {
-    global $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_ratio, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_stop_at, $mbYTPlayer_mute, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_track_ga,$mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick, $mbYTPlayer_stop_on_blur;
+    global $mbYTPlayer_home_video_url, $mbYTPlayer_show_controls, $mbYTPlayer_ratio, $mbYTPlayer_show_videourl, $mbYTPlayer_start_at, $mbYTPlayer_stop_at, $mbYTPlayer_mute, $mbYTPlayer_loop, $mbYTPlayer_opacity, $mbYTPlayer_quality, $mbYTPlayer_add_raster, $mbYTPlayer_track_ga,$mbYTPlayer_realfullscreen, $mbYTPlayer_stop_onclick, $mbYTPlayer_stop_on_blur, $mbYTPlayer_home_video_page, $mbYTPlayer_Home_is_active;
 
     if (isMobile())
         return false;
@@ -322,7 +333,15 @@ function mbYTPlayer_player_head()
 	<!-- end mbYTPlayer -->
 	';
 
-    if ((is_home() || is_front_page()) && !isMobile()) {
+    $canShowMovie = is_front_page() && !is_home(); // A static page set as home;
+
+    if ($mbYTPlayer_home_video_page == "blogindex")
+        $canShowMovie = is_home(); // the blog index page;
+
+    else if ($mbYTPlayer_home_video_page == "both")
+        $canShowMovie = is_front_page() || is_home(); // A static page set as home;
+
+    if ($canShowMovie && !isMobile() && $mbYTPlayer_Home_is_active) {
 
         if (empty($mbYTPlayer_home_video_url))
             return false;
@@ -336,6 +355,7 @@ function mbYTPlayer_player_head()
         echo '
 	<!-- mbYTPlayer Home -->
 	<script type="text/javascript">
+
 	jQuery(function(){
 	    var homevideo = "' . $mbYTPlayer_player_homevideo . '";
 	    jQuery("body").prepend(homevideo);
