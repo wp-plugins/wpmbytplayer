@@ -93,6 +93,9 @@ Adding a background image to the body as mobile devices fallback is a good pract
 
 == Changelog ==
 
+= 1.9.7 =
+* Added: An option to set the volume of the video.
+
 = 1.9.6 =
 * Added: An option to choose on which page the background video should be shown (static Home or blog index or both).
 * Added: An option to deactivate the video without removing the video URL from the settings.

@@ -1,5 +1,4 @@
 <?php
-
 require('../../../../wp-blog-header.php');
 
 $plugin_version =get_option('mbYTPlayer_version');
@@ -14,13 +13,13 @@ if (!headers_sent()) {
 
 if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
     ?>
-    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <!DOCTYPE HTML>
     <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />
         <title><?php _e('Add a shortcode for mb.YTPlayer', 'mbYTPlayer'); ?></title>
         <link rel="stylesheet" type="text/css" href="<?php echo $plugins_url.'/wpmbytplayer/ytptinymce/bootstrap-1.4.0.min.css?v='.$plugin_version; ?>"/>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
         <script type="text/javascript" src="<?php echo $includes_url.'js/tinymce/tiny_mce_popup.js?v='.$plugin_version; ?>"></script>
         <style>
             fieldset span.label{
@@ -236,6 +235,12 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
             </label>
 
             <label>
+                <span class="label"><?php _e('Audio volume', 'mbYTPlayer'); ?>:</span>
+                <input type="text" name="volume" value="50" style="width: 60px"/>
+                <span class="help-inline"><?php _e('Set the audio volume (from 0 to 100)', 'mbYTPlayer'); ?></span>
+            </label>
+
+            <label>
                 <span class="label"><?php _e('Mute video', 'mbYTPlayer'); ?>:</span>
                 <input type="checkbox" name="mute" value="true"/>
                 <span class="help-inline"><?php _e('mute the audio of the video', 'mbYTPlayer'); ?></span>
@@ -349,7 +354,12 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
                         return false;
                     }
                     // inputs of type "checkbox", "radio" and "text"
-                    if (((input.type == "text" || input.type == "textarea") && !isEmpty(inputValue) && inputValue != input.defaultValue) || input.type == "select-one" || input.type =="checkbox" || input.type =="radio") {
+                    if (
+                        ((input.type == "text" || input.type == "textarea") && !isEmpty(inputValue) && inputValue != input.defaultValue)
+                        || input.type == "select-one"
+                        || input.type =="checkbox"
+                        || input.type =="radio"
+                        ) {
 
                         if (input.type =="checkbox") {
                             if(!input.checked)
@@ -379,5 +389,4 @@ if ( current_user_can( 'edit_posts' ) && current_user_can( 'edit_pages' ) ) {
     </script>
     </body>
     </html>
-<?php
-}
+<?php }

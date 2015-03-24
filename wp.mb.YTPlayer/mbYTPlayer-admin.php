@@ -19,6 +19,7 @@ function register_YTPlayerSettings() {
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_show_videourl' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_start_at' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_at' );
+    register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_audio_volume' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_mute' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_ratio' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_loop' );
@@ -170,7 +171,7 @@ function mbYTPlayer_options_page() { 	// Output the options page
                 <td>
                     <textarea  name="mbYTPlayer_home_video_url" style="width:70%" value="<?php echo esc_attr( get_option('mbYTPlayer_home_video_url') ); ?>"><?php echo esc_attr( get_option('mbYTPlayer_home_video_url') ); ?></textarea>
                     <!--                    <input type="text" name="mbYTPlayer_home_video_url" style="width:70%" value="--><?php //echo esc_attr( get_option('mbYTPlayer_home_video_url') ); ?><!--"/>-->
-                    <p><?php _e('Copy and paste here the URL of the Youtube video you want as your homepage background', 'mbYTPlayer'); ?>.</p>
+                    <p><?php _e('Copy and paste here the URL of the Youtube video you want as your homepage background. Adding more then one URL comma separated it will be chosen one randomly each time you reach the page.', 'mbYTPlayer'); ?>.</p>
                 </td>
             </tr>
 
@@ -276,6 +277,14 @@ function mbYTPlayer_options_page() { 	// Output the options page
             </tr>
 
             <tr valign="top">
+                <th scope="row"><?php _e('Set the audio volume:', 'mbYTPlayer'); ?></th>
+                <td>
+                    <input type="text" name="mbYTPlayer_audio_volume" value="50" style="width:10%" />
+                    <p><?php _e('Set the volume for the video (from 0 to 100)', 'mbYTPlayer'); ?>.</p>
+                </td>
+            </tr>
+
+            <tr valign="top">
                 <th scope="row"><?php _e('Mute the video:', 'mbYTPlayer'); ?></th>
                 <td>
                     <input type="checkbox" name="mbYTPlayer_mute" value="true" <?php if (get_option('mbYTPlayer_mute') =="true") {echo' checked="checked"'; }?>/>
@@ -288,7 +297,6 @@ function mbYTPlayer_options_page() { 	// Output the options page
                 <td>
                     <input type="checkbox" name="mbYTPlayer_loop" value="true" <?php if (get_option('mbYTPlayer_loop') =="true") {echo' checked="checked"'; }?>/>
                     <p><?php _e('Check to loop the video once ended', 'mbYTPlayer'); ?>.</p>
-
                 </td>
             </tr>
 
