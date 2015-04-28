@@ -1371,16 +1371,16 @@ function onYouTubeIframeAPIReady() {
 	jQuery.fn.getPlayer = jQuery.mbYTPlayer.getPlayer;
 	jQuery.fn.playerDestroy = jQuery.mbYTPlayer.playerDestroy;
 	jQuery.fn.fullscreen = jQuery.mbYTPlayer.fullscreen;
-	jQuery.fn.buildYTPControls = jQuery.mbYTPlayer.buildYTPControls;
-	jQuery.fn.playYTP = jQuery.mbYTPlayer.playYTP;
+	jQuery.fn.buildYTPControls = jQuery.mbYTPlayer.buildControls;
+	jQuery.fn.playYTP = jQuery.mbYTPlayer.play;
 	jQuery.fn.toggleLoops = jQuery.mbYTPlayer.toggleLoops;
-	jQuery.fn.stopYTP = jQuery.mbYTPlayer.stopYTP;
-	jQuery.fn.pauseYTP = jQuery.mbYTPlayer.pauseYTP;
-	jQuery.fn.seekToYTP = jQuery.mbYTPlayer.seekToYTP;
-	jQuery.fn.muteYTPVolume = jQuery.mbYTPlayer.muteYTPVolume;
-	jQuery.fn.unmuteYTPVolume = jQuery.mbYTPlayer.unmuteYTPVolume;
-	jQuery.fn.setYTPVolume = jQuery.mbYTPlayer.setYTPVolume;
+	jQuery.fn.stopYTP = jQuery.mbYTPlayer.stop;
+	jQuery.fn.pauseYTP = jQuery.mbYTPlayer.pause;
+	jQuery.fn.seekToYTP = jQuery.mbYTPlayer.seekTo;
+	jQuery.fn.muteYTPVolume = jQuery.mbYTPlayer.mute;
+	jQuery.fn.unmuteYTPVolume = jQuery.mbYTPlayer.unmute;
+	jQuery.fn.setYTPVolume = jQuery.mbYTPlayer.setVolume;
 	jQuery.fn.setVideoQuality = jQuery.mbYTPlayer.setVideoQuality;
-	jQuery.fn.manageYTPProgress = jQuery.mbYTPlayer.manageYTPProgress;
+	jQuery.fn.manageYTPProgress = jQuery.mbYTPlayer.manageProgress;
 
 })(jQuery, ytp);
