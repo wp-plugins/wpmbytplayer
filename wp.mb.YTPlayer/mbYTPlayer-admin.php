@@ -28,7 +28,6 @@ function register_YTPlayerSettings() {
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_add_raster' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_track_ga' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_realfullscreen' );
-    register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_onclick' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_stop_on_blur' );
     register_setting( 'YTPlayer-settings-group', 'mbYTPlayer_home_video_page' );
 }
@@ -147,8 +146,6 @@ function mbYTPlayer_options_page() { 	// Output the options page
 
         <h2><?php _e('Reference', 'mbYTPlayer'); ?></h2>
 
-        <p><?php _e('Leave the <b>home video url</b> blank if you don’t want to display a background video on your homepage.', 'mbYTPlayer'); ?>
-        </p>
         <p><?php _e('You can add a mb.YTPlayer to any of your posts via the shortcode editor available by clicking the button placed on the button-bar of the post content editor', 'mbYTPlayer'); ?></p>
         <br>
         <h2><?php _e('Home page background video properties', 'mbYTPlayer'); ?>:</h2>
@@ -324,13 +321,6 @@ function mbYTPlayer_options_page() { 	// Output the options page
                 </td>
             </tr>
 
-            <tr valign="top">
-                <th scope="row"><?php _e('Stop the player if a link is clicked:', 'mbYTPlayer'); ?></th>
-                <td>
-                    <input type="checkbox" name="mbYTPlayer_stop_onclick" value="true" <?php if (get_option('mbYTPlayer_stop_onclick') =="true") {echo' checked="checked"'; }?>/>
-                    <p><?php _e('Check to stop the player once clicked on a link<br>(firefox has problems catching the event and this speedup the action)', 'mbYTPlayer'); ?>.</p>
-                </td>
-            </tr>
         </table>
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
