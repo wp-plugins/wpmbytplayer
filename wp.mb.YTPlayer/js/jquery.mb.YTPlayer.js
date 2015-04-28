@@ -1363,33 +1363,24 @@ function onYouTubeIframeAPIReady() {
 
 
 	/** @deprecated */
-	jQuery.fn.YTPlayer = jQuery.mbYTPlayer.buildPlayer;
-	jQuery.fn.YTPlaylist = jQuery.mbYTPlayer.playlist;
-	jQuery.fn.YTPPlayNext = jQuery.mbYTPlayer.playNext;
-	jQuery.fn.YTPPlayPrev = jQuery.mbYTPlayer.playPrev;
-	jQuery.fn.YTPChangeMovie = jQuery.mbYTPlayer.changeMovie;
-	jQuery.fn.getVideoID = jQuery.mbYTPlayer.getVideoID;
-	jQuery.fn.getPlayer = jQuery.mbYTPlayer.getPlayer;
-	jQuery.fn.playerDestroy = jQuery.mbYTPlayer.playerDestroy;
-	jQuery.fn.YTPFullscreen = jQuery.mbYTPlayer.YTPFullscreen;
-	jQuery.fn.playYTP = jQuery.mbYTPlayer.play;
-	jQuery.fn.togglePlayYTP = jQuery.mbYTPlayer.togglePlay;
-	jQuery.fn.toggleLoops = jQuery.mbYTPlayer.toggleLoops;
-	jQuery.fn.stopYTP = jQuery.mbYTPlayer.stop;
-	jQuery.fn.pauseYTP = jQuery.mbYTPlayer.pause;
-	jQuery.fn.seekToYTP = jQuery.mbYTPlayer.seekTo;
-	jQuery.fn.muteYTP = jQuery.mbYTPlayer.mute;
-	jQuery.fn.unmuteYTP = jQuery.mbYTPlayer.unmute;
-	jQuery.fn.setYTPVolume = jQuery.mbYTPlayer.setVolume;
-	jQuery.fn.setVideoQuality = jQuery.mbYTPlayer.setVideoQuality;
-	jQuery.fn.manageYTPProgress = jQuery.mbYTPlayer.manageYTPProgress;
-	jQuery.fn.getDataFromFeed = jQuery.mbYTPlayer.getVideoData;
-	jQuery.fn.mb_YTPlayer = jQuery.fn.YTPlayer;
-	jQuery.fn.muteYTPVolume = jQuery.mbYTPlayer.mute;
-	jQuery.fn.unmuteYTPVolume = jQuery.mbYTPlayer.unmute;
+	jQuery.fn.mb_YTPlayer = jQuery.mbYTPlayer.buildPlayer;
 	jQuery.fn.playNext = jQuery.mbYTPlayer.playNext;
 	jQuery.fn.playPrev = jQuery.mbYTPlayer.playPrev;
 	jQuery.fn.changeMovie = jQuery.mbYTPlayer.changeMovie;
-
+	jQuery.fn.getVideoID = jQuery.mbYTPlayer.getVideoID;
+	jQuery.fn.getPlayer = jQuery.mbYTPlayer.getPlayer;
+	jQuery.fn.playerDestroy = jQuery.mbYTPlayer.playerDestroy;
+	jQuery.fn.fullscreen = jQuery.mbYTPlayer.fullscreen;
+	jQuery.fn.buildYTPControls = jQuery.mbYTPlayer.buildYTPControls;
+	jQuery.fn.playYTP = jQuery.mbYTPlayer.playYTP;
+	jQuery.fn.toggleLoops = jQuery.mbYTPlayer.toggleLoops;
+	jQuery.fn.stopYTP = jQuery.mbYTPlayer.stopYTP;
+	jQuery.fn.pauseYTP = jQuery.mbYTPlayer.pauseYTP;
+	jQuery.fn.seekToYTP = jQuery.mbYTPlayer.seekToYTP;
+	jQuery.fn.muteYTPVolume = jQuery.mbYTPlayer.muteYTPVolume;
+	jQuery.fn.unmuteYTPVolume = jQuery.mbYTPlayer.unmuteYTPVolume;
+	jQuery.fn.setYTPVolume = jQuery.mbYTPlayer.setYTPVolume;
+	jQuery.fn.setVideoQuality = jQuery.mbYTPlayer.setVideoQuality;
+	jQuery.fn.manageYTPProgress = jQuery.mbYTPlayer.manageYTPProgress;
 
 })(jQuery, ytp);
