@@ -94,7 +94,7 @@ Adding a background image to the body as mobile devices fallback is a good pract
 == Changelog ==
 
 = 2.0.1 =
-* Bugfix: If the control-bar was not displayer there were several javascript errors due to a missed code condition.
+* Bugfix: If the control-bar was not displayed there were several javascript errors due to a missed code condition.
 
 = 2.0.0 =
 * Bugfix: updated to the new Google API 3 fixing the display of the poster-frame if used as in-line player.
