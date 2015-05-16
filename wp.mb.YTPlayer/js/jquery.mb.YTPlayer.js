@@ -2,7 +2,7 @@
  _ jquery.mb.components                                                                                                                             _
  _                                                                                                                                                  _
  _ file: jquery.mb.YTPlayer.js                                                                                                                      _
- _ last modified: 10/05/15 23.22                                                                                                                    _
+ _ last modified: 16/05/15 21.29                                                                                                                    _
  _                                                                                                                                                  _
  _ Open Lab s.r.l., Florence - Italy                                                                                                                _
  _                                                                                                                                                  _
@@ -76,7 +76,7 @@ function onYouTubeIframeAPIReady() {
 	/*******************************************************************************
 	 * jQuery.mb.components: jquery.mb.simpleSlider
 	 ******************************************************************************/
-	!function(a){a.simpleSlider={defaults:{initialval:0,scale:100,orientation:"h",readonly:!1,callback:!1},init:function(b){return this.each(function(){var c=this,d=a(c);d.addClass("simpleSlider"),c.opt={},a.extend(c.opt,a.simpleSlider.defaults,b),a.extend(c.opt,d.data());var e="h"==c.opt.orientation?"horizontal":"vertical",f=a("<div/>").addClass("level").addClass(e);d.prepend(f),c.level=f,d.css({cursor:"default"}),"auto"==c.opt.scale&&(c.opt.scale=a(c).outerWidth()),d.updateSliderVal(),c.opt.readonly||(d.on("mousedown",function(a){c.canSlide=!0,d.updateSliderVal(a)}),a(document).on("mousemove",function(b){c.canSlide&&(a(document).css({cursor:"default"}),d.updateSliderVal(b),b.preventDefault(),b.stopPropagation())}).on("mouseup",function(){a(document).css({cursor:"auto"}),c.canSlide=!1}))})},updateSliderVal:function(b){function g(a,b){return Math.floor(100*a/b)}var c=this,d=c.get(0);d.opt.initialval="number"==typeof d.opt.initialval?d.opt.initialval:d.opt.initialval(d);var e=a(d).outerWidth(),f=a(d).outerHeight();d.x="object"==typeof b?b.clientX+document.body.scrollLeft-c.offset().left:"number"==typeof b?b*e/d.opt.scale:d.opt.initialval*e/d.opt.scale,d.y="object"==typeof b?b.clientY+document.body.scrollTop-c.offset().top:"number"==typeof b?(d.opt.scale-d.opt.initialval-b)*f/d.opt.scale:d.opt.initialval*f/d.opt.scale,d.y=c.outerHeight()-d.y,d.scaleX=d.x*d.opt.scale/e,d.scaleY=d.y*d.opt.scale/f,d.outOfRangeX=d.scaleX>d.opt.scale?d.scaleX-d.opt.scale:d.scaleX<0?d.scaleX:0,d.outOfRangeY=d.scaleY>d.opt.scale?d.scaleY-d.opt.scale:d.scaleY<0?d.scaleY:0,d.outOfRange="h"==d.opt.orientation?d.outOfRangeX:d.outOfRangeY,d.value="undefined"!=typeof b?"h"==d.opt.orientation?d.x>=c.outerWidth()?d.opt.scale:d.x<=0?0:d.scaleX:d.y>=c.outerHeight()?d.opt.scale:d.y<=0?0:d.scaleY:"h"==d.opt.orientation?d.scaleX:d.scaleY,"h"==d.opt.orientation?d.level.width(g(d.x,e)+"%"):d.level.height(g(d.y,f)),"function"==typeof d.opt.callback&&d.opt.callback(d)}},a.fn.simpleSlider=a.simpleSlider.init,a.fn.updateSliderVal=a.simpleSlider.updateSliderVal}(jQuery);
+	!function(a){/iphone|ipod|ipad|android|ie|blackberry|fennec/.test(navigator.userAgent.toLowerCase());var c="ontouchstart"in window||window.navigator&&window.navigator.msPointerEnabled&&window.MSGesture||window.DocumentTouch&&document instanceof DocumentTouch||!1;a.simpleSlider={defaults:{initialval:0,scale:100,orientation:"h",readonly:!1,callback:!1},events:{start:c?"touchstart":"mousedown",end:c?"touchend":"mouseup",move:c?"touchmove":"mousemove"},init:function(b){return this.each(function(){var d=this,e=a(d);e.addClass("simpleSlider"),d.opt={},a.extend(d.opt,a.simpleSlider.defaults,b),a.extend(d.opt,e.data());var f="h"==d.opt.orientation?"horizontal":"vertical",g=a("<div/>").addClass("level").addClass(f);e.prepend(g),d.level=g,e.css({cursor:"default"}),"auto"==d.opt.scale&&(d.opt.scale=a(d).outerWidth()),e.updateSliderVal(),d.opt.readonly||(e.on(a.simpleSlider.events.start,function(a){c&&(a=a.changedTouches[0]),d.canSlide=!0,e.updateSliderVal(a),e.css({cursor:"col-resize"}),a.preventDefault(),a.stopPropagation()}),a(document).on(a.simpleSlider.events.move,function(b){c&&(b=b.changedTouches[0]),d.canSlide&&(a(document).css({cursor:"default"}),e.updateSliderVal(b),b.preventDefault(),b.stopPropagation())}).on(a.simpleSlider.events.end,function(){a(document).css({cursor:"auto"}),d.canSlide=!1,e.css({cursor:"auto"})}))})},updateSliderVal:function(b){function g(a,b){return Math.floor(100*a/b)}var c=this,d=c.get(0);d.opt.initialval="number"==typeof d.opt.initialval?d.opt.initialval:d.opt.initialval(d);var e=a(d).outerWidth(),f=a(d).outerHeight();d.x="object"==typeof b?b.clientX+document.body.scrollLeft-c.offset().left:"number"==typeof b?b*e/d.opt.scale:d.opt.initialval*e/d.opt.scale,d.y="object"==typeof b?b.clientY+document.body.scrollTop-c.offset().top:"number"==typeof b?(d.opt.scale-d.opt.initialval-b)*f/d.opt.scale:d.opt.initialval*f/d.opt.scale,d.y=c.outerHeight()-d.y,d.scaleX=d.x*d.opt.scale/e,d.scaleY=d.y*d.opt.scale/f,d.outOfRangeX=d.scaleX>d.opt.scale?d.scaleX-d.opt.scale:d.scaleX<0?d.scaleX:0,d.outOfRangeY=d.scaleY>d.opt.scale?d.scaleY-d.opt.scale:d.scaleY<0?d.scaleY:0,d.outOfRange="h"==d.opt.orientation?d.outOfRangeX:d.outOfRangeY,d.value="undefined"!=typeof b?"h"==d.opt.orientation?d.x>=c.outerWidth()?d.opt.scale:d.x<=0?0:d.scaleX:d.y>=c.outerHeight()?d.opt.scale:d.y<=0?0:d.scaleY:"h"==d.opt.orientation?d.scaleX:d.scaleY,"h"==d.opt.orientation?d.level.width(g(d.x,e)+"%"):d.level.height(g(d.y,f)),"function"==typeof d.opt.callback&&d.opt.callback(d)}},a.fn.simpleSlider=a.simpleSlider.init,a.fn.updateSliderVal=a.simpleSlider.updateSliderVal}(jQuery);	/******************************************************************************/
 	/******************************************************************************/
 
 	/*******************************************************************************
@@ -84,7 +84,6 @@ function onYouTubeIframeAPIReady() {
 	 ******************************************************************************/
 	jQuery.mbStorage={set:function(a,b){b=JSON.stringify(b),localStorage.setItem(a,b)},get:function(a){return localStorage[a]?JSON.parse(localStorage[a]):null},remove:function(a){a?localStorage.removeItem(a):localStorage.clear()}};
 	/******************************************************************************/
-
 
 	var getYTPVideoID = function (url) {
 
@@ -113,11 +112,11 @@ function onYouTubeIframeAPIReady() {
 
 	jQuery.mbYTPlayer = {
 		name   : "jquery.mb.YTPlayer",
-		version: "2.9.1",
+		version: "2.9.2",
 		author : "Matteo Bicocchi",
+		apiKey         : "",
 
 		defaults: {
-			apiKey         : "",
 			containment    : "body",
 			ratio          : "auto", // "auto", "16/9", "4/3"
 			videoURL       : null,
@@ -484,7 +483,7 @@ function onYouTubeIframeAPIReady() {
 
 				setTimeout(function () {
 
-					YTPlayer.opt.ratio == "auto" ? YTPlayer.opt.ratio = "16/9" : YTPlayer.opt.ratio;
+					YTPlayer.opt.ratio = YTPlayer.opt.ratio == "auto" ? "16/9" : YTPlayer.opt.ratio;
 					YTPlayer.dataReceived = true;
 					jQuery(YTPlayer).trigger("YTPChanged");
 
@@ -496,10 +495,10 @@ function onYouTubeIframeAPIReady() {
 
 				},500);
 
-			} else if(YTPlayer.opt.apiKey) {
+			} else if(jQuery.mbYTPlayer.apiKey) {
 				// Get video info from API3 (needs api key)
 				// snippet,player,contentDetails,statistics,status
-				jQuery.getJSON("https://www.googleapis.com/youtube/v3/videos?id="+YTPlayer.videoID+"&key="+YTPlayer.opt.apiKey+"&part=snippet", function(data){
+				jQuery.getJSON("https://www.googleapis.com/youtube/v3/videos?id="+YTPlayer.videoID+"&key="+jQuery.mbYTPlayer.apiKey+"&part=snippet", function(data){
 
 					YTPlayer.dataReceived = true;
 					jQuery(YTPlayer).trigger("YTPChanged");
@@ -511,7 +510,7 @@ function onYouTubeIframeAPIReady() {
 						YTPlayer.videoData.channelTitle = data.channelTitle;
 						YTPlayer.videoData.title = data.title;
 						YTPlayer.videoData.description = data.description.length < 400 ? data.description : data.description.substring(0,400) + " ...";
-						YTPlayer.videoData.aspectratio = YTPlayer.opt.ratio == "auto" ? "16/9" : "4/3" ;
+						YTPlayer.videoData.aspectratio = YTPlayer.opt.ratio == "auto" ? "16/9" : YTPlayer.opt.ratio;
 
 						YTPlayer.opt.ratio = YTPlayer.videoData.aspectratio;
 
@@ -545,7 +544,7 @@ function onYouTubeIframeAPIReady() {
 				}
 
 				YTPlayer.videoData = null;
-				YTPlayer.opt.ratio == "auto" ? "16/9" : "4/3";
+				YTPlayer.opt.ratio = YTPlayer.opt.ratio == "auto" ? "16/9" : YTPlayer.opt.ratio;
 
 			}
 
@@ -1334,7 +1333,6 @@ function onYouTubeIframeAPIReady() {
 					YTPlayer.canTrigger = true;
 
 					if (YTPlayer.opt.autoPlay) {
-
 						$YTPlayer.YTPPlay();
 						$YTPlayer.css("background-image", "none");
 						jQuery(YTPlayer.playerEl).CSSAnimate({opacity: 1}, 1000);
@@ -1342,6 +1340,11 @@ function onYouTubeIframeAPIReady() {
 
 					} else {
 						YTPlayer.player.pauseVideo();
+
+						if(!YTPlayer.isPlayer){
+							jQuery(YTPlayer.playerEl).CSSAnimate({opacity: 1}, 1000);
+							YTPlayer.wrapper.CSSAnimate({opacity: YTPlayer.isAlone ? 1 : YTPlayer.opt.opacity}, 1000);
+						}
 					}
 
 					if(YTPlayer.isPlayer && !YTPlayer.opt.autoPlay){
@@ -1396,7 +1399,9 @@ function onYouTubeIframeAPIReady() {
 		var margin = 24;
 		var overprint = 100;
 		var vid = {};
+
 		if (data.optimizeDisplay) {
+
 			vid.width = win.width + ((win.width * margin) / 100);
 			vid.height = data.ratio == "16/9" ? Math.ceil((9 * win.width) / 16) : Math.ceil((3 * win.width) / 4);
 			vid.marginTop = -((vid.height - win.height) / 2);
@@ -1411,11 +1416,14 @@ function onYouTubeIframeAPIReady() {
 			vid.height += overprint;
 			vid.marginTop -= overprint / 2;
 			vid.marginLeft -= overprint / 2;
+
 		} else {
+
 			vid.width = "100%";
 			vid.height = "100%";
 			vid.marginTop = 0;
-			vid.marginLeft -= 0;
+			vid.marginLeft = 0;
+
 		}
 		playerBox.css({width: vid.width, height: vid.height, marginTop: vid.marginTop, marginLeft: vid.marginLeft});
 	};
